@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Youtube, Mail } from "lucide-react";
+import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   const footerLinks = {
@@ -12,22 +12,17 @@ const Footer = () => {
     ],
     help: [
       { name: "Contact Us", href: "/contact" },
-      { name: "FAQs", href: "/faqs" },
-      { name: "Shipping Info", href: "/shipping" },
-      { name: "Returns & Exchange", href: "/returns" },
-      { name: "Track Order", href: "/track-order" },
+      { name: "FAQs", href: "/contact" },
+      { name: "Shipping Info", href: "/contact" },
+      { name: "Returns & Exchange", href: "/contact" },
+      { name: "Track Order", href: "/account" },
     ],
     about: [
       { name: "Our Story", href: "/about" },
-      { name: "Ayurveda", href: "/ayurveda" },
-      { name: "Ingredients", href: "/ingredients" },
-      { name: "Sustainability", href: "/sustainability" },
-      { name: "Careers", href: "/careers" },
-    ],
-    policies: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
+      { name: "Store Locator", href: "/stores" },
+      { name: "Ingredients", href: "/about" },
+      { name: "Sustainability", href: "/about" },
+      { name: "Careers", href: "/about" },
     ],
   };
 
@@ -42,12 +37,12 @@ const Footer = () => {
     <footer className="bg-accent text-accent-foreground">
       {/* Newsletter Section */}
       <div className="border-b border-accent-foreground/10">
-        <div className="container mx-auto px-4 py-12">
+        <div className="container mx-auto px-4 py-10 md:py-12">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="font-serif text-2xl md:text-3xl mb-3">
+            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl mb-3">
               Join Our Royal Circle
             </h3>
-            <p className="text-sm text-accent-foreground/70 mb-6">
+            <p className="text-xs sm:text-sm text-accent-foreground/70 mb-6">
               Subscribe for exclusive offers, Ayurvedic wisdom, and first access to new collections.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -68,10 +63,10 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-          {/* Brand Column */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-6 lg:mb-0">
+      <div className="container mx-auto px-4 py-10 md:py-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {/* Brand Column - Full width on mobile */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1 mb-4 lg:mb-0">
             <Link to="/" className="inline-block mb-4">
               <h2 className="font-serif text-xl font-medium">
                 <span className="text-primary">Forest</span> Essentials
@@ -80,13 +75,27 @@ const Footer = () => {
             <p className="text-sm text-accent-foreground/70 mb-6 max-w-xs">
               Luxurious Ayurveda. Experience the ancient wisdom of Indian beauty rituals crafted for modern royalty.
             </p>
-            <div className="flex gap-4">
+            
+            {/* Contact Info */}
+            <div className="space-y-2 mb-6">
+              <a href="tel:+911800102666" className="flex items-center gap-2 text-sm text-accent-foreground/70 hover:text-primary transition-colors">
+                <Phone className="w-4 h-4" />
+                <span>1800-102-6666</span>
+              </a>
+              <Link to="/stores" className="flex items-center gap-2 text-sm text-accent-foreground/70 hover:text-primary transition-colors">
+                <MapPin className="w-4 h-4" />
+                <span>Find a Store</span>
+              </Link>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 border border-accent-foreground/20 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 border border-accent-foreground/20 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
                 >
                   <social.icon className="w-4 h-4" />
                 </a>
@@ -96,13 +105,13 @@ const Footer = () => {
 
           {/* Shop Links */}
           <div>
-            <h4 className="font-serif text-lg mb-4">Shop</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4">Shop</h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-accent-foreground/70 hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-accent-foreground/70 hover:text-primary transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -113,13 +122,13 @@ const Footer = () => {
 
           {/* Help Links */}
           <div>
-            <h4 className="font-serif text-lg mb-4">Help</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4">Help</h4>
             <ul className="space-y-2">
               {footerLinks.help.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-accent-foreground/70 hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-accent-foreground/70 hover:text-primary transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -130,30 +139,13 @@ const Footer = () => {
 
           {/* About Links */}
           <div>
-            <h4 className="font-serif text-lg mb-4">About Us</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4">About Us</h4>
             <ul className="space-y-2">
               {footerLinks.about.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-accent-foreground/70 hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Policies Links */}
-          <div>
-            <h4 className="font-serif text-lg mb-4">Policies</h4>
-            <ul className="space-y-2">
-              {footerLinks.policies.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-accent-foreground/70 hover:text-primary transition-colors"
+                    className="text-xs sm:text-sm text-accent-foreground/70 hover:text-primary transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -166,15 +158,12 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-accent-foreground/10">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-accent-foreground/60">
+        <div className="container mx-auto px-4 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-accent-foreground/60">
             <p>© 2024 Forest Essentials. All rights reserved.</p>
-            <div className="flex items-center gap-4">
-              <img
-                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=40&fit=crop"
-                alt="Payment methods"
-                className="h-6 opacity-60"
-              />
+            <div className="flex items-center gap-4 text-xs">
+              <Link to="/contact" className="hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

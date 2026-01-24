@@ -5,7 +5,7 @@ import { useCart } from "@/context/CartContext";
 import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
-
+import logoImage from "@/assets/logo.png";
 // Extended navigation with more categories like Forest Essentials
 const mainNavigation = [
   { id: "offers", name: "Offers", href: "/category/face?tag=sale", highlight: true },
@@ -99,14 +99,11 @@ const Header = () => {
 
             {/* Centered Logo */}
             <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:flex-1 lg:flex lg:justify-center">
-              <div className="text-center">
-                <h1 className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground tracking-wide">
-                  <span className="text-primary">Forest</span> Essentials
-                </h1>
-                <p className="hidden md:block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-0.5">
-                  Luxurious Ayurveda
-                </p>
-              </div>
+              <img 
+                src={logoImage} 
+                alt="Elara Cosmetics" 
+                className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+              />
             </Link>
 
             {/* Right Side - Icons */}
@@ -268,9 +265,11 @@ const Header = () => {
         >
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between p-4 border-b border-border">
-            <div className="font-serif text-lg">
-              <span className="text-primary">Forest</span> Essentials
-            </div>
+            <img 
+              src={logoImage} 
+              alt="Elara Cosmetics" 
+              className="h-10 w-auto object-contain"
+            />
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 -mr-2 hover:text-primary transition-colors"

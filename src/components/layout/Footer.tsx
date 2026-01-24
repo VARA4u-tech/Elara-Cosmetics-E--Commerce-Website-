@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import logoImage from "@/assets/logo.png";
 
 const Footer = () => {
   const footerLinks = {
@@ -68,12 +69,14 @@ const Footer = () => {
           {/* Brand Column - Full width on mobile */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1 mb-4 lg:mb-0">
             <Link to="/" className="inline-block mb-4">
-              <h2 className="font-serif text-xl font-medium text-background">
-                <span className="text-primary">Forest</span> Essentials
-              </h2>
+              <img 
+                src={logoImage} 
+                alt="Elara Cosmetics" 
+                className="h-14 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-sm text-background/80 mb-6 max-w-xs">
-              Luxurious Ayurveda. Experience the ancient wisdom of Indian beauty rituals crafted for modern royalty.
+              Luxurious Cosmetics. Experience the ancient wisdom of Indian beauty rituals crafted for modern royalty.
             </p>
             
             {/* Contact Info */}
@@ -160,7 +163,7 @@ const Footer = () => {
       <div className="border-t border-background/20">
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70">
-            <p>© 2024 Forest Essentials. All rights reserved.</p>
+            <p>© 2024 Elara Cosmetics. All rights reserved.</p>
             <div className="flex items-center gap-4 text-xs">
               <Link to="/contact" className="text-background/70 hover:text-primary transition-colors">Privacy Policy</Link>
               <Link to="/contact" className="text-background/70 hover:text-primary transition-colors">Terms of Service</Link>

@@ -81,7 +81,7 @@ const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
-    { text: "Hello! Welcome to Forest Essentials. How can I help you today?", isUser: false }
+    { text: "Hello! Welcome to Elara Cosmetics. How can I help you today?", isUser: false }
   ]);
 
   const handleSend = () => {
@@ -166,8 +166,8 @@ const ChatbotWidget = () => {
               <MiniLotus className="w-7 h-7" />
             </div>
             <div>
-              <h4 className="font-serif text-lg">Forest Essentials</h4>
-              <p className="text-xs opacity-80">Ayurvedic Beauty Advisor</p>
+              <h4 className="font-serif text-lg">Elara Cosmetics</h4>
+              <p className="text-xs opacity-80">Beauty Advisor</p>
             </div>
           </div>
         </div>
@@ -211,7 +211,7 @@ const ChatbotWidget = () => {
                 setMessages(prev => [...prev, { text: "Find a store", isUser: true }]);
                 setTimeout(() => {
                   setMessages(prev => [...prev, { 
-                    text: "We have stores across India! Visit our Store Locator page to find the nearest Forest Essentials boutique near you.", 
+                    text: "We have stores across India! Visit our Store Locator page to find the nearest Elara Cosmetics boutique near you.", 
                     isUser: false 
                   }]);
                 }, 1000);

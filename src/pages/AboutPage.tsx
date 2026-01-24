@@ -41,7 +41,7 @@ const AboutPage = () => {
       <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&h=800&fit=crop"
-          alt="Forest Essentials Heritage"
+          alt="Elara Cosmetics Heritage"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent" />
@@ -67,7 +67,7 @@ const AboutPage = () => {
               <div className="space-y-4 text-muted-foreground">
                 <p>
                   For centuries, Indian royalty have guarded the secrets of their legendary beauty rituals. 
-                  Forest Essentials was born from a deep reverence for this ancient wisdom and a desire 
+                  Elara Cosmetics was born from a deep reverence for this ancient wisdom and a desire 
                   to share these treasures with the world.
                 </p>
                 <p>
@@ -154,7 +154,7 @@ const AboutPage = () => {
       <section className="py-16 md:py-24 bg-accent text-accent-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-serif text-3xl md:text-4xl mb-6">
-            Experience the Forest Essentials Difference
+            Experience the Elara Cosmetics Difference
           </h2>
           <p className="text-accent-foreground/80 max-w-xl mx-auto mb-8">
             Discover our collections and begin your journey into the world of luxurious Ayurveda.

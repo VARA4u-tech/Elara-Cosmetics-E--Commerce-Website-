@@ -26,7 +26,7 @@ const testimonials = [
     name: "Meera Kapoor",
     location: "Delhi",
     rating: 5,
-    text: "The Kumkumadi Face Serum is pure magic in a bottle! My dark spots have faded significantly, and my skin has a luminous quality that I always dreamed of. Forest Essentials has earned a customer for life.",
+    text: "The Kumkumadi Face Serum is pure magic in a bottle! My dark spots have faded significantly, and my skin has a luminous quality that I always dreamed of. Elara Cosmetics has earned a customer for life.",
     product: "Tejasvi Kumkumadi Face Serum",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
   },

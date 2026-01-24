@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const stores = [
   {
     id: 1,
-    name: "Forest Essentials - Khan Market",
+    name: "Elara Cosmetics - Khan Market",
     address: "13-A, Khan Market, New Delhi - 110003",
     phone: "+91 11 2461 7788",
     hours: "10:00 AM - 9:00 PM",
@@ -16,7 +16,7 @@ const stores = [
   },
   {
     id: 2,
-    name: "Forest Essentials - Select Citywalk",
+    name: "Elara Cosmetics - Select Citywalk",
     address: "A-3, Select Citywalk, Saket, New Delhi - 110017",
     phone: "+91 11 4150 8877",
     hours: "11:00 AM - 10:00 PM",
@@ -25,7 +25,7 @@ const stores = [
   },
   {
     id: 3,
-    name: "Forest Essentials - Palladium Mumbai",
+    name: "Elara Cosmetics - Palladium Mumbai",
     address: "G-42, Palladium Mall, Lower Parel, Mumbai - 400013",
     phone: "+91 22 4340 5566",
     hours: "11:00 AM - 9:30 PM",
@@ -34,7 +34,7 @@ const stores = [
   },
   {
     id: 4,
-    name: "Forest Essentials - Phoenix Marketcity",
+    name: "Elara Cosmetics - Phoenix Marketcity",
     address: "LG-201, Phoenix Marketcity, Kurla, Mumbai - 400070",
     phone: "+91 22 4950 7788",
     hours: "11:00 AM - 10:00 PM",
@@ -43,7 +43,7 @@ const stores = [
   },
   {
     id: 5,
-    name: "Forest Essentials - UB City",
+    name: "Elara Cosmetics - UB City",
     address: "UB City Mall, Vittal Mallya Road, Bangalore - 560001",
     phone: "+91 80 4152 3344",
     hours: "10:30 AM - 9:00 PM",
@@ -52,7 +52,7 @@ const stores = [
   },
   {
     id: 6,
-    name: "Forest Essentials - Phoenix Palassio",
+    name: "Elara Cosmetics - Phoenix Palassio",
     address: "S-106, Phoenix Palassio, Gomti Nagar, Lucknow - 226010",
     phone: "+91 522 4152 6677",
     hours: "11:00 AM - 9:30 PM",
@@ -83,7 +83,7 @@ const StoreLocatorPage = () => {
           <Breadcrumbs items={[{ label: "Store Locator" }]} />
           <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl mt-4 mb-4">Find a Store</h1>
           <p className="text-muted-foreground max-w-xl">
-            Visit our luxurious boutiques to experience the world of Forest Essentials. 
+            Visit our luxurious boutiques to experience the world of Elara Cosmetics. 
             Our beauty experts are ready to guide you on your Ayurvedic journey.
           </p>
         </div>

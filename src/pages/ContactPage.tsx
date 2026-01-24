@@ -13,8 +13,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    details: ["customercare@forestessentials.com", "Response within 24 hours"],
-    action: "mailto:customercare@forestessentials.com"
+    details: ["customercare@elaracosmetics.com", "Response within 24 hours"],
+    action: "mailto:customercare@elaracosmetics.com"
   },
   {
     icon: MapPin,
@@ -45,7 +45,7 @@ const faqs = [
   },
   {
     question: "Are your products cruelty-free?",
-    answer: "Absolutely. All Forest Essentials products are 100% cruelty-free and never tested on animals. We are proud to be PETA certified."
+    answer: "Absolutely. All Elara Cosmetics products are 100% cruelty-free and never tested on animals. We are proud to be PETA certified."
   }
 ];
 

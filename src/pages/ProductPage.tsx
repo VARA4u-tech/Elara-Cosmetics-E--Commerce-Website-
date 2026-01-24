@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Star, Minus, Plus, Heart, Truck, RefreshCw, Shield } from "lucide-react";
+import { Star, Minus, Plus, Heart, Truck, RefreshCw, Shield, Scale } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import PageTransition from "@/components/ui/PageTransition";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import RelatedProducts from "@/components/product/RelatedProducts";
 import { getProductById, getProductsByCategory, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useCompare } from "@/context/CompareContext";
 import { cn } from "@/lib/utils";
 
 const ProductPage = () => {
@@ -14,6 +16,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const { addItem } = useCart();
+  const { addToCompare, isInCompare, removeFromCompare } = useCompare();
   
   const product = getProductById(productId || "");
   const relatedProducts = product 
@@ -21,8 +24,16 @@ const ProductPage = () => {
     : [];
 
   if (!product) {
-    return <Layout><div className="container mx-auto px-4 py-20 text-center">Product not found</div></Layout>;
+    return <Layout><PageTransition><div className="container mx-auto px-4 py-20 text-center">Product not found</div></PageTransition></Layout>;
   }
+
+  const handleCompareClick = () => {
+    if (isInCompare(product.id)) {
+      removeFromCompare(product.id);
+    } else {
+      addToCompare(product);
+    }
+  };
 
   const breadcrumbItems = [
     { label: product.category.charAt(0).toUpperCase() + product.category.slice(1), href: `/category/${product.category}` },
@@ -31,9 +42,10 @@ const ProductPage = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4">
-        <Breadcrumbs items={breadcrumbItems} />
-      </div>
+      <PageTransition>
+        <div className="container mx-auto px-4">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-12">
@@ -75,6 +87,16 @@ const ProductPage = () => {
               </div>
               <button onClick={() => addItem(product, quantity)} className="btn-luxury flex-1">Add to Bag</button>
               <button className="icon-btn"><Heart className="w-5 h-5" /></button>
+              <button 
+                onClick={handleCompareClick}
+                className={cn(
+                  "icon-btn",
+                  isInCompare(product.id) && "bg-primary text-primary-foreground border-primary"
+                )}
+                title={isInCompare(product.id) ? "Remove from compare" : "Add to compare"}
+              >
+                <Scale className="w-5 h-5" />
+              </button>
             </div>
 
             {/* Benefits */}
@@ -113,6 +135,7 @@ const ProductPage = () => {
       </div>
 
       <RelatedProducts products={relatedProducts} />
+      </PageTransition>
     </Layout>
   );
 };

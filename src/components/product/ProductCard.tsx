@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, Scale } from "lucide-react";
 import { Product, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useCompare } from "@/context/CompareContext";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -11,6 +12,15 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const { addItem } = useCart();
+  const { addToCompare, isInCompare, removeFromCompare } = useCompare();
+
+  const handleCompareClick = () => {
+    if (isInCompare(product.id)) {
+      removeFromCompare(product.id);
+    } else {
+      addToCompare(product);
+    }
+  };
 
   return (
     <div className={cn("group card-luxury", className)}>
@@ -45,10 +55,27 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
           )}
         </div>
 
-        {/* Wishlist Button */}
-        <button className="absolute top-3 right-3 w-9 h-9 bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-primary hover:text-primary-foreground">
-          <Heart className="w-4 h-4" />
-        </button>
+        {/* Action Buttons */}
+        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button 
+            className="w-9 h-9 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+            aria-label="Add to wishlist"
+          >
+            <Heart className="w-4 h-4" />
+          </button>
+          <button 
+            onClick={handleCompareClick}
+            className={cn(
+              "w-9 h-9 backdrop-blur-sm flex items-center justify-center transition-colors",
+              isInCompare(product.id)
+                ? "bg-primary text-primary-foreground"
+                : "bg-background/80 hover:bg-primary hover:text-primary-foreground"
+            )}
+            aria-label={isInCompare(product.id) ? "Remove from compare" : "Add to compare"}
+          >
+            <Scale className="w-4 h-4" />
+          </button>
+        </div>
 
         {/* Quick Add Button */}
         <button

@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone } from "lucide-react";
+import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone, Gift, Sparkles } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { categories } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
+
+// Extended navigation with more categories like Forest Essentials
+const mainNavigation = [
+  { id: "offers", name: "Offers", href: "/category/face?tag=sale", highlight: true },
+  { id: "bestsellers", name: "Best Sellers", href: "/category/face?sort=bestselling" },
+  ...categories,
+  { id: "travel", name: "Travel Minis", href: "/category/gifting" },
+  { id: "men", name: "Men", href: "/category/body" },
+];
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,13 +29,18 @@ const Header = () => {
     setActiveDropdown(null);
   };
 
+  // Check if item has subcategories (is a category object)
+  const hasSubcategories = (item: any) => {
+    return item.subcategories && item.subcategories.length > 0;
+  };
+
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        {/* Top Bar - Desktop Only */}
-        <div className="hidden lg:block border-b border-border/50">
+      <header className="sticky top-0 z-50 bg-background border-b border-border">
+        {/* Top Utility Bar */}
+        <div className="hidden lg:block bg-secondary/50 border-b border-border/50">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between h-10 text-xs">
+            <div className="flex items-center justify-between h-9 text-xs">
               <div className="flex items-center gap-6 text-muted-foreground">
                 <a href="tel:+911800102666" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                   <Phone className="w-3 h-3" />
@@ -34,91 +48,30 @@ const Header = () => {
                 </a>
                 <Link to="/stores" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                   <MapPin className="w-3 h-3" />
-                  <span>Find a Store</span>
+                  <span>Store Locator</span>
                 </Link>
               </div>
               <div className="flex items-center gap-6 text-muted-foreground">
                 <Link to="/about" className="hover:text-primary transition-colors">About Us</Link>
                 <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
+                <Link to="/account" className="hover:text-primary transition-colors">My Account</Link>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Main Header */}
+        {/* Main Header with Centered Logo */}
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden p-2 -ml-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <h1 className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground tracking-wide">
-                <span className="text-primary">Forest</span> Essentials
-              </h1>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-              {categories.map((category) => (
-                <div
-                  key={category.id}
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter(category.id)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Link
-                    to={`/category/${category.id}`}
-                    className="flex items-center gap-1 py-6 text-sm uppercase tracking-luxury font-medium text-foreground hover:text-primary transition-colors underline-animation"
-                  >
-                    {category.name}
-                    <ChevronDown
-                      className={cn(
-                        "w-3.5 h-3.5 transition-transform duration-200",
-                        activeDropdown === category.id && "rotate-180"
-                      )}
-                    />
-                  </Link>
-
-                  {/* Dropdown Menu */}
-                  <div
-                    className={cn(
-                      "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-luxury-lg min-w-[220px] py-4 transition-all duration-200",
-                      activeDropdown === category.id
-                        ? "opacity-100 visible translate-y-0"
-                        : "opacity-0 invisible -translate-y-2"
-                    )}
-                  >
-                    {category.subcategories.map((sub) => (
-                      <Link
-                        key={sub}
-                        to={`/category/${category.id}?subcategory=${sub.toLowerCase()}`}
-                        className="block px-6 py-2 text-sm text-foreground hover:text-primary hover:bg-secondary/50 transition-colors"
-                      >
-                        {sub}
-                      </Link>
-                    ))}
-                    <div className="border-t border-border mt-2 pt-2 px-6">
-                      <Link
-                        to={`/category/${category.id}`}
-                        className="text-sm font-medium text-primary hover:underline"
-                      >
-                        View All {category.name}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </nav>
-
-            {/* Icons */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            {/* Left Side - Mobile Menu & Search */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <button
+                className="p-2 -ml-2"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
               <button 
                 onClick={() => setIsSearchOpen(true)}
                 className="p-2 hover:text-primary transition-colors"
@@ -126,10 +79,37 @@ const Header = () => {
               >
                 <Search className="w-5 h-5" />
               </button>
-              <Link to="/account" className="hidden sm:block p-2 hover:text-primary transition-colors" aria-label="Account">
+            </div>
+
+            {/* Left Side - Desktop Search & Store */}
+            <div className="hidden lg:flex items-center gap-4 w-48">
+              <button 
+                onClick={() => setIsSearchOpen(true)}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Search className="w-4 h-4" />
+                <span>Search</span>
+              </button>
+            </div>
+
+            {/* Centered Logo */}
+            <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:flex-1 lg:flex lg:justify-center">
+              <div className="text-center">
+                <h1 className="font-serif text-xl sm:text-2xl md:text-3xl font-medium text-foreground tracking-wide">
+                  <span className="text-primary">Forest</span> Essentials
+                </h1>
+                <p className="hidden md:block text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-0.5">
+                  Luxurious Ayurveda
+                </p>
+              </div>
+            </Link>
+
+            {/* Right Side - Icons */}
+            <div className="flex items-center justify-end gap-1 sm:gap-3 w-48">
+              <Link to="/account" className="hidden sm:flex p-2 hover:text-primary transition-colors" aria-label="Account">
                 <User className="w-5 h-5" />
               </Link>
-              <Link to="/wishlist" className="hidden sm:block p-2 hover:text-primary transition-colors" aria-label="Wishlist">
+              <Link to="/wishlist" className="hidden sm:flex p-2 hover:text-primary transition-colors" aria-label="Wishlist">
                 <Heart className="w-5 h-5" />
               </Link>
               <button
@@ -139,7 +119,7 @@ const Header = () => {
               >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">
+                  <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
                     {totalItems}
                   </span>
                 )}
@@ -147,6 +127,78 @@ const Header = () => {
             </div>
           </div>
         </div>
+
+        {/* Desktop Navigation Bar */}
+        <nav className="hidden lg:block border-t border-border/50 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-center gap-1 xl:gap-2">
+              {mainNavigation.map((item) => (
+                <div
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => hasSubcategories(item) ? handleMouseEnter(item.id) : null}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link
+                    to={'href' in item ? item.href : `/category/${item.id}`}
+                    className={cn(
+                      "flex items-center gap-1 px-3 xl:px-4 py-4 text-xs xl:text-sm uppercase tracking-luxury font-medium transition-colors underline-animation",
+                      'highlight' in item && item.highlight 
+                        ? "text-primary" 
+                        : "text-foreground hover:text-primary"
+                    )}
+                  >
+                    {item.name}
+                    {hasSubcategories(item) && (
+                      <ChevronDown
+                        className={cn(
+                          "w-3 h-3 transition-transform duration-200",
+                          activeDropdown === item.id && "rotate-180"
+                        )}
+                      />
+                    )}
+                  </Link>
+
+                  {/* Dropdown Menu for categories */}
+                  {hasSubcategories(item) && 'subcategories' in item && (
+                    <div
+                      className={cn(
+                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-luxury-lg min-w-[260px] py-4 transition-all duration-200 z-50",
+                        activeDropdown === item.id
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2"
+                      )}
+                    >
+                      <div className="px-5 pb-3 mb-3 border-b border-border">
+                        <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium">
+                          Shop by Category
+                        </p>
+                      </div>
+                      {(item as any).subcategories.map((sub: string) => (
+                        <Link
+                          key={sub}
+                          to={`/category/${item.id}?subcategory=${sub.toLowerCase()}`}
+                          className="block px-5 py-2 text-sm text-foreground hover:text-primary hover:bg-secondary/50 transition-colors"
+                        >
+                          {sub}
+                        </Link>
+                      ))}
+                      <div className="border-t border-border mt-3 pt-3 px-5">
+                        <Link
+                          to={`/category/${item.id}`}
+                          className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                        >
+                          View All {item.name}
+                          <span className="text-lg">→</span>
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </nav>
 
         {/* Mobile Menu */}
         <div
@@ -156,6 +208,14 @@ const Header = () => {
           )}
         >
           <div className="p-4 overflow-y-auto h-full pb-24">
+            {/* Promo Banner */}
+            <div className="bg-primary/10 p-4 mb-6 text-center">
+              <p className="text-sm font-medium text-primary flex items-center justify-center gap-2">
+                <Gift className="w-4 h-4" />
+                Special Offers Available
+              </p>
+            </div>
+
             {/* Mobile Search */}
             <div 
               className="relative mb-6"
@@ -167,10 +227,28 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search products..."
-                className="w-full px-4 py-3 border border-border rounded-sm text-sm focus:outline-none focus:border-primary cursor-pointer"
+                className="w-full px-4 py-3 border border-border rounded-sm text-sm focus:outline-none focus:border-primary cursor-pointer bg-secondary/30"
                 readOnly
               />
               <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            </div>
+
+            {/* Featured Links */}
+            <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+              <Link
+                to="/category/face?tag=sale"
+                className="flex-shrink-0 px-4 py-2 bg-primary text-primary-foreground text-xs uppercase tracking-luxury"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Offers
+              </Link>
+              <Link
+                to="/category/face?sort=bestselling"
+                className="flex-shrink-0 px-4 py-2 border border-primary text-primary text-xs uppercase tracking-luxury"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Best Sellers
+              </Link>
             </div>
 
             {/* Mobile Categories */}
@@ -178,51 +256,79 @@ const Header = () => {
               <div key={category.id} className="border-b border-border">
                 <Link
                   to={`/category/${category.id}`}
-                  className="block py-4 text-lg font-serif text-foreground"
+                  className="flex items-center justify-between py-4 text-lg font-serif text-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {category.name}
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 </Link>
               </div>
             ))}
 
+            {/* Additional Categories */}
+            <div className="border-b border-border">
+              <Link
+                to="/category/gifting"
+                className="block py-4 text-lg font-serif text-foreground"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Travel Minis
+              </Link>
+            </div>
+            <div className="border-b border-border">
+              <Link
+                to="/category/body"
+                className="block py-4 text-lg font-serif text-foreground"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Men
+              </Link>
+            </div>
+
             {/* Mobile Quick Links */}
             <div className="mt-6 pt-6 border-t border-border">
               <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-4">Quick Links</p>
-              <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-3">
                 <Link
                   to="/about"
-                  className="block text-foreground hover:text-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About Us
                 </Link>
                 <Link
                   to="/stores"
-                  className="block text-foreground hover:text-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Find a Store
                 </Link>
                 <Link
                   to="/contact"
-                  className="block text-foreground hover:text-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact Us
+                </Link>
+                <Link
+                  to="/account"
+                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  My Account
                 </Link>
               </div>
             </div>
 
             {/* Mobile Account Links */}
-            <div className="mt-6 pt-6 border-t border-border space-y-3">
+            <div className="mt-6 pt-6 border-t border-border space-y-4">
               <Link
                 to="/account"
                 className="flex items-center gap-3 text-foreground"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <User className="w-5 h-5" />
-                <span>My Account</span>
+                <span>Login / Register</span>
               </Link>
               <Link
                 to="/wishlist"
@@ -235,11 +341,13 @@ const Header = () => {
             </div>
 
             {/* Mobile Contact */}
-            <div className="mt-6 pt-6 border-t border-border">
-              <a href="tel:+911800102666" className="flex items-center gap-3 text-muted-foreground">
-                <Phone className="w-5 h-5" />
-                <span>1800-102-6666</span>
+            <div className="mt-6 pt-6 border-t border-border bg-secondary/30 -mx-4 px-4 py-4">
+              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Need Help?</p>
+              <a href="tel:+911800102666" className="flex items-center gap-3 text-foreground mb-2">
+                <Phone className="w-5 h-5 text-primary" />
+                <span className="font-medium">1800-102-6666</span>
               </a>
+              <p className="text-xs text-muted-foreground">Mon-Sat: 9AM - 9PM IST</p>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone, Gift, Sparkles } from "lucide-react";
+import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone, Gift, Sparkles, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { categories } from "@/data/products";
+import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
 
@@ -14,6 +14,11 @@ const mainNavigation = [
   { id: "travel", name: "Travel Minis", href: "/category/gifting" },
   { id: "men", name: "Men", href: "/category/body" },
 ];
+
+// Featured products for mega menu
+const getFeaturedProducts = (categoryId: string) => {
+  return products.filter((p) => p.category === categoryId).slice(0, 2);
+};
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -159,38 +164,84 @@ const Header = () => {
                     )}
                   </Link>
 
-                  {/* Dropdown Menu for categories */}
-                  {hasSubcategories(item) && 'subcategories' in item && (
+                  {/* Enhanced Mega Menu for categories */}
+                  {hasSubcategories(item) && 'subcategories' in item && 'image' in item && (
                     <div
                       className={cn(
-                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-luxury-lg min-w-[260px] py-4 transition-all duration-200 z-50",
+                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-luxury-lg w-[600px] transition-all duration-200 z-50",
                         activeDropdown === item.id
                           ? "opacity-100 visible translate-y-0"
                           : "opacity-0 invisible -translate-y-2"
                       )}
                     >
-                      <div className="px-5 pb-3 mb-3 border-b border-border">
-                        <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium">
-                          Shop by Category
-                        </p>
-                      </div>
-                      {(item as any).subcategories.map((sub: string) => (
-                        <Link
-                          key={sub}
-                          to={`/category/${item.id}?subcategory=${sub.toLowerCase()}`}
-                          className="block px-5 py-2 text-sm text-foreground hover:text-primary hover:bg-secondary/50 transition-colors"
-                        >
-                          {sub}
-                        </Link>
-                      ))}
-                      <div className="border-t border-border mt-3 pt-3 px-5">
-                        <Link
-                          to={`/category/${item.id}`}
-                          className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                        >
-                          View All {item.name}
-                          <span className="text-lg">→</span>
-                        </Link>
+                      <div className="grid grid-cols-3 gap-0">
+                        {/* Category Image */}
+                        <div className="col-span-1 relative overflow-hidden">
+                          <img
+                            src={(item as any).image}
+                            alt={item.name}
+                            className="w-full h-full object-cover min-h-[280px]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
+                          <div className="absolute bottom-4 left-4 right-4 text-background">
+                            <p className="font-serif text-lg mb-1">{item.name}</p>
+                            <Link
+                              to={`/category/${item.id}`}
+                              className="text-xs uppercase tracking-luxury flex items-center gap-1 hover:underline"
+                            >
+                              View All
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Subcategories */}
+                        <div className="col-span-1 p-5 border-l border-border">
+                          <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium mb-4">
+                            Shop by Category
+                          </p>
+                          <div className="space-y-2">
+                            {(item as any).subcategories.slice(0, 7).map((sub: string) => (
+                              <Link
+                                key={sub}
+                                to={`/category/${item.id}?subcategory=${sub.toLowerCase()}`}
+                                className="block text-sm text-foreground hover:text-primary transition-colors py-1"
+                              >
+                                {sub}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Featured Products */}
+                        <div className="col-span-1 p-5 border-l border-border bg-secondary/30">
+                          <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium mb-4">
+                            Featured
+                          </p>
+                          <div className="space-y-4">
+                            {getFeaturedProducts(item.id).map((product) => (
+                              <Link
+                                key={product.id}
+                                to={`/product/${product.id}`}
+                                className="flex gap-3 group"
+                              >
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-16 h-16 object-cover"
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-serif line-clamp-2 group-hover:text-primary transition-colors">
+                                    {product.name}
+                                  </p>
+                                  <p className="text-xs text-primary mt-1">
+                                    ₹{product.price.toLocaleString()}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}

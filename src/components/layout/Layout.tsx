@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 import BackToTop from "@/components/ui/BackToTop";
 import ChatbotWidget from "@/components/ui/ChatbotWidget";
+import CompareDrawer from "@/components/ui/CompareDrawer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -20,6 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
       <CartDrawer />
       <BackToTop />
       <ChatbotWidget />
+      <CompareDrawer />
     </div>
   );
 };

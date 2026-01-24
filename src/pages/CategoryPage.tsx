@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { Filter, X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import PageTransition from "@/components/ui/PageTransition";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import FilterSidebar from "@/components/product/FilterSidebar";
@@ -61,11 +62,12 @@ const CategoryPage = () => {
   };
 
   if (!category) {
-    return <Layout><div className="container mx-auto px-4 py-20 text-center">Category not found</div></Layout>;
+    return <Layout><PageTransition><div className="container mx-auto px-4 py-20 text-center">Category not found</div></PageTransition></Layout>;
   }
 
   return (
     <Layout>
+      <PageTransition>
       {/* Category Hero */}
       <div className="relative bg-secondary/30 py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -159,6 +161,7 @@ const CategoryPage = () => {
           />
         </div>
       </div>
+      </PageTransition>
     </Layout>
   );
 };

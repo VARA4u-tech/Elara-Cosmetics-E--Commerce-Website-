@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 import BackToTop from "@/components/ui/BackToTop";
+import ChatbotWidget from "@/components/ui/ChatbotWidget";
 
 interface LayoutProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Footer />
       <CartDrawer />
       <BackToTop />
+      <ChatbotWidget />
     </div>
   );
 };

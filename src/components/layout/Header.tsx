@@ -200,16 +200,38 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div 
+            className="lg:hidden fixed inset-0 bg-foreground/50 z-40"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile Menu Drawer */}
         <div
           className={cn(
-            "lg:hidden fixed inset-0 top-[65px] md:top-[81px] bg-background z-50 transition-transform duration-300 overflow-hidden",
+            "lg:hidden fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-background z-50 transition-transform duration-300 ease-out shadow-luxury-lg",
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >
-          <div className="p-4 overflow-y-auto h-full pb-24">
+          {/* Mobile Menu Header */}
+          <div className="flex items-center justify-between p-4 border-b border-border">
+            <div className="font-serif text-lg">
+              <span className="text-primary">Forest</span> Essentials
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 -mr-2 hover:text-primary transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="overflow-y-auto h-[calc(100%-65px)] pb-20">
             {/* Promo Banner */}
-            <div className="bg-primary/10 p-4 mb-6 text-center">
+            <div className="bg-primary/10 p-4 text-center">
               <p className="text-sm font-medium text-primary flex items-center justify-center gap-2">
                 <Gift className="w-4 h-4" />
                 Special Offers Available
@@ -217,34 +239,37 @@ const Header = () => {
             </div>
 
             {/* Mobile Search */}
-            <div 
-              className="relative mb-6"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                setIsSearchOpen(true);
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="w-full px-4 py-3 border border-border rounded-sm text-sm focus:outline-none focus:border-primary cursor-pointer bg-secondary/30"
-                readOnly
-              />
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <div className="p-4">
+              <div 
+                className="relative"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsSearchOpen(true);
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  className="w-full px-4 py-3 border border-border text-sm focus:outline-none focus:border-primary cursor-pointer bg-secondary/30"
+                  readOnly
+                />
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              </div>
             </div>
 
             {/* Featured Links */}
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+            <div className="flex gap-2 px-4 pb-4">
               <Link
                 to="/category/face?tag=sale"
-                className="flex-shrink-0 px-4 py-2 bg-primary text-primary-foreground text-xs uppercase tracking-luxury"
+                className="flex-1 px-4 py-2.5 bg-primary text-primary-foreground text-xs uppercase tracking-luxury text-center font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
+                <Sparkles className="w-3.5 h-3.5 inline-block mr-1.5" />
                 Offers
               </Link>
               <Link
                 to="/category/face?sort=bestselling"
-                className="flex-shrink-0 px-4 py-2 border border-primary text-primary text-xs uppercase tracking-luxury"
+                className="flex-1 px-4 py-2.5 border border-primary text-primary text-xs uppercase tracking-luxury text-center font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Best Sellers
@@ -252,67 +277,72 @@ const Header = () => {
             </div>
 
             {/* Mobile Categories */}
-            {categories.map((category) => (
-              <div key={category.id} className="border-b border-border">
+            <div className="px-4">
+              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Shop by Category</p>
+              {categories.map((category) => (
+                <div key={category.id} className="border-b border-border">
+                  <Link
+                    to={`/category/${category.id}`}
+                    className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {category.name}
+                    <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
+                  </Link>
+                </div>
+              ))}
+
+              {/* Additional Categories */}
+              <div className="border-b border-border">
                 <Link
-                  to={`/category/${category.id}`}
-                  className="flex items-center justify-between py-4 text-lg font-serif text-foreground"
+                  to="/category/gifting"
+                  className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {category.name}
-                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  Travel Minis
+                  <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
                 </Link>
               </div>
-            ))}
-
-            {/* Additional Categories */}
-            <div className="border-b border-border">
-              <Link
-                to="/category/gifting"
-                className="block py-4 text-lg font-serif text-foreground"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Travel Minis
-              </Link>
-            </div>
-            <div className="border-b border-border">
-              <Link
-                to="/category/body"
-                className="block py-4 text-lg font-serif text-foreground"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Men
-              </Link>
+              <div className="border-b border-border">
+                <Link
+                  to="/category/body"
+                  className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Men
+                  <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
+                </Link>
+              </div>
             </div>
 
             {/* Mobile Quick Links */}
-            <div className="mt-6 pt-6 border-t border-border">
-              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-4">Quick Links</p>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="mt-6 px-4">
+              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Quick Links</p>
+              <div className="grid grid-cols-2 gap-2">
                 <Link
                   to="/about"
-                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About Us
                 </Link>
                 <Link
                   to="/stores"
-                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Find a Store
                 </Link>
                 <Link
                   to="/contact"
-                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact Us
                 </Link>
                 <Link
                   to="/account"
-                  className="p-3 border border-border text-center text-sm hover:border-primary transition-colors"
+                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   My Account
@@ -321,10 +351,10 @@ const Header = () => {
             </div>
 
             {/* Mobile Account Links */}
-            <div className="mt-6 pt-6 border-t border-border space-y-4">
+            <div className="mt-6 pt-6 px-4 border-t border-border space-y-3">
               <Link
                 to="/account"
-                className="flex items-center gap-3 text-foreground"
+                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <User className="w-5 h-5" />
@@ -332,7 +362,7 @@ const Header = () => {
               </Link>
               <Link
                 to="/wishlist"
-                className="flex items-center gap-3 text-foreground"
+                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Heart className="w-5 h-5" />
@@ -341,9 +371,9 @@ const Header = () => {
             </div>
 
             {/* Mobile Contact */}
-            <div className="mt-6 pt-6 border-t border-border bg-secondary/30 -mx-4 px-4 py-4">
+            <div className="mt-6 mx-4 p-4 bg-secondary/50 border border-border">
               <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Need Help?</p>
-              <a href="tel:+911800102666" className="flex items-center gap-3 text-foreground mb-2">
+              <a href="tel:+911800102666" className="flex items-center gap-3 text-foreground mb-2 hover:text-primary transition-colors">
                 <Phone className="w-5 h-5 text-primary" />
                 <span className="font-medium">1800-102-6666</span>
               </a>

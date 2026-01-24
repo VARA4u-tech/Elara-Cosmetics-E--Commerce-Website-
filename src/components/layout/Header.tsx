@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone, Gift, Sparkles, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -6,7 +6,8 @@ import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
 import logoImage from "@/assets/logo.png";
-// Extended navigation with more categories like Forest Essentials
+
+// Extended navigation with more categories
 const mainNavigation = [
   { id: "offers", name: "Offers", href: "/category/face?tag=sale", highlight: true },
   { id: "bestsellers", name: "Best Sellers", href: "/category/face?sort=bestselling" },
@@ -24,7 +25,18 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { setIsCartOpen, totalItems } = useCart();
+
+  // Scroll detection for shrinking header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMouseEnter = (categoryId: string) => {
     setActiveDropdown(categoryId);
@@ -41,9 +53,15 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background border-b border-border">
-        {/* Top Utility Bar */}
-        <div className="hidden lg:block bg-secondary/50 border-b border-border/50">
+      <header className={cn(
+        "sticky top-0 z-50 bg-background border-b border-border transition-all duration-300",
+        isScrolled && "shadow-md"
+      )}>
+        {/* Top Utility Bar - Hidden when scrolled */}
+        <div className={cn(
+          "hidden lg:block bg-secondary/50 border-b border-border/50 transition-all duration-300 overflow-hidden",
+          isScrolled ? "h-0 opacity-0" : "h-9 opacity-100"
+        )}>
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between h-9 text-xs">
               <div className="flex items-center gap-6 text-muted-foreground">
@@ -67,7 +85,10 @@ const Header = () => {
 
         {/* Main Header with Centered Logo */}
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className={cn(
+            "flex items-center justify-between transition-all duration-300",
+            isScrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+          )}>
             {/* Left Side - Mobile Menu & Search */}
             <div className="flex items-center gap-2 lg:hidden">
               <button
@@ -105,7 +126,12 @@ const Header = () => {
                 <img 
                   src={logoImage} 
                   alt="Elara Cosmetics" 
-                  className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-[1.02]"
+                  className={cn(
+                    "w-auto object-contain drop-shadow-sm transition-all duration-300 group-hover:scale-[1.02]",
+                    isScrolled 
+                      ? "h-10 sm:h-11 md:h-12" 
+                      : "h-14 sm:h-16 md:h-20"
+                  )}
                   style={{ 
                     mixBlendMode: 'multiply',
                     filter: 'contrast(1.05)'
@@ -139,7 +165,10 @@ const Header = () => {
         </div>
 
         {/* Desktop Navigation Bar */}
-        <nav className="hidden lg:block border-t border-border/50 bg-background">
+        <nav className={cn(
+          "hidden lg:block border-t border-border/50 bg-background transition-all duration-300",
+          isScrolled && "border-t-0"
+        )}>
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center gap-1 xl:gap-2">
               {mainNavigation.map((item) => (
@@ -152,7 +181,8 @@ const Header = () => {
                   <Link
                     to={'href' in item ? item.href : `/category/${item.id}`}
                     className={cn(
-                      "flex items-center gap-1 px-3 xl:px-4 py-4 text-xs xl:text-sm uppercase tracking-luxury font-medium transition-colors underline-animation",
+                      "flex items-center gap-1 px-3 xl:px-4 text-xs xl:text-sm uppercase tracking-luxury font-medium transition-all underline-animation",
+                      isScrolled ? "py-2.5" : "py-4",
                       'highlight' in item && item.highlight 
                         ? "text-primary" 
                         : "text-foreground hover:text-primary"

@@ -17,6 +17,7 @@ import StoreLocatorPage from "./pages/StoreLocatorPage";
 import AccountPage from "./pages/AccountPage";
 import ContactPage from "./pages/ContactPage";
 import ComparePage from "./pages/ComparePage";
+import ScalpCareRoutinePage from "./pages/ScalpCareRoutinePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const AnimatedRoutes = () => {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/compare" element={<ComparePage />} />
+        <Route path="/scalp-care-routine" element={<ScalpCareRoutinePage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

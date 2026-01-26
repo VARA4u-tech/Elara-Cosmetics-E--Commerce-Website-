@@ -6,6 +6,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import RelatedProducts from "@/components/product/RelatedProducts";
+import CustomerReviewsWithPhotos from "@/components/product/CustomerReviewsWithPhotos";
 import { getProductById, getProductsByCategory, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useCompare } from "@/context/CompareContext";
@@ -133,6 +134,9 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Show customer reviews with before/after photos for face products */}
+      {product.category === "face" && <CustomerReviewsWithPhotos />}
 
       <RelatedProducts products={relatedProducts} />
       </PageTransition>

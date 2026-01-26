@@ -29,7 +29,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/elaracosmetic?igsh=Y3ptcTN5OTNmdDUz", label: "Instagram" },
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Youtube, href: "#", label: "YouTube" },
   ];
@@ -81,9 +81,13 @@ const Footer = () => {
             
             {/* Contact Info */}
             <div className="space-y-2 mb-6">
-              <a href="tel:+911800102666" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
+              <a href="tel:+918019156646" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>1800-102-6666</span>
+                <span>+91 8019156646</span>
+              </a>
+              <a href="mailto:elaracosmetics2023@gmail.com" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
+                <Mail className="w-4 h-4" />
+                <span>elaracosmetics2023@gmail.com</span>
               </a>
               <Link to="/stores" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
                 <MapPin className="w-4 h-4" />

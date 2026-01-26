@@ -7,12 +7,21 @@ import { cn } from "@/lib/utils";
 const stores = [
   {
     id: 1,
+    name: "Elara Cosmetics - Vijayawada",
+    address: "MG Road, Governorpet, Vijayawada - 520002, Andhra Pradesh",
+    phone: "+91 8019156646",
+    hours: "10:00 AM - 9:00 PM",
+    city: "Vijayawada",
+    type: "Flagship Store"
+  },
+  {
+    id: 2,
     name: "Elara Cosmetics - Khan Market",
     address: "13-A, Khan Market, New Delhi - 110003",
     phone: "+91 11 2461 7788",
     hours: "10:00 AM - 9:00 PM",
     city: "Delhi",
-    type: "Flagship Store"
+    type: "Boutique"
   },
   {
     id: 2,
@@ -61,7 +70,7 @@ const stores = [
   },
 ];
 
-const cities = ["All Cities", "Delhi", "Mumbai", "Bangalore", "Lucknow"];
+const cities = ["All Cities", "Vijayawada", "Delhi", "Mumbai", "Bangalore", "Lucknow"];
 
 const StoreLocatorPage = () => {
   const [selectedCity, setSelectedCity] = useState("All Cities");

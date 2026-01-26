@@ -6,6 +6,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import ProductCard from "@/components/product/ProductCard";
 import FilterSidebar from "@/components/product/FilterSidebar";
+import SideAdBanner from "@/components/home/SideAdBanner";
 import { categories, getProductsByCategory } from "@/data/products";
 import { cn } from "@/lib/utils";
 
@@ -124,9 +125,20 @@ const CategoryPage = () => {
               </div>
             </div>
 
-            {/* Products Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {filteredProducts.map((product) => (
+            {/* Products Grid with Side Ad */}
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              {filteredProducts.slice(0, 6).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+              
+              {/* Inline Side Ad after first 6 products */}
+              {filteredProducts.length > 6 && (
+                <div className="col-span-2 md:col-span-1">
+                  <SideAdBanner variant="vertical" />
+                </div>
+              )}
+              
+              {filteredProducts.slice(6).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

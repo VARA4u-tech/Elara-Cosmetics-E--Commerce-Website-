@@ -79,7 +79,8 @@ const MiniLotus = ({ className }: { className?: string }) => (
 
 // Floating Video Ad Component
 const FloatingVideoAd = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const collapsedVideoRef = useRef<HTMLVideoElement>(null);
+  const expandedVideoRef = useRef<HTMLVideoElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -87,35 +88,52 @@ const FloatingVideoAd = () => {
   const handleExpand = () => {
     setIsExpanded(true);
     setIsMuted(false);
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.play();
+    // Pause collapsed video and play expanded with sound
+    if (collapsedVideoRef.current) {
+      collapsedVideoRef.current.pause();
     }
+    setTimeout(() => {
+      if (expandedVideoRef.current) {
+        expandedVideoRef.current.muted = false;
+        expandedVideoRef.current.currentTime = 0;
+        expandedVideoRef.current.play();
+        setIsPlaying(true);
+      }
+    }, 100);
   };
 
   const handleCollapse = () => {
     setIsExpanded(false);
     setIsMuted(true);
-    if (videoRef.current) {
-      videoRef.current.muted = true;
+    // Stop expanded video and resume collapsed
+    if (expandedVideoRef.current) {
+      expandedVideoRef.current.pause();
+      expandedVideoRef.current.muted = true;
     }
+    setTimeout(() => {
+      if (collapsedVideoRef.current) {
+        collapsedVideoRef.current.muted = true;
+        collapsedVideoRef.current.play();
+      }
+    }, 100);
   };
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
+    const newMutedState = !isMuted;
+    setIsMuted(newMutedState);
+    if (expandedVideoRef.current) {
+      expandedVideoRef.current.muted = newMutedState;
     }
   };
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (videoRef.current) {
+    if (expandedVideoRef.current) {
       if (isPlaying) {
-        videoRef.current.pause();
+        expandedVideoRef.current.pause();
       } else {
-        videoRef.current.play();
+        expandedVideoRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
@@ -141,9 +159,8 @@ const FloatingVideoAd = () => {
         )}
       >
         <div className="relative w-full h-full">
-          {/* Circular video container */}
           <video
-            ref={!isExpanded ? videoRef : undefined}
+            ref={collapsedVideoRef}
             autoPlay
             muted
             loop
@@ -168,17 +185,16 @@ const FloatingVideoAd = () => {
       {/* Expanded Card View */}
       <div
         className={cn(
-          "bg-background border border-border rounded-lg shadow-luxury-lg overflow-hidden transition-all duration-500 ease-out origin-bottom-right",
+          "bg-foreground rounded-xl shadow-2xl overflow-hidden transition-all duration-500 ease-out origin-bottom-right",
           isExpanded
-            ? "w-[280px] sm:w-[320px] md:w-[360px] opacity-100 scale-100"
+            ? "w-[300px] sm:w-[340px] md:w-[380px] opacity-100 scale-100"
             : "w-0 opacity-0 scale-0"
         )}
       >
         {/* Video Container */}
-        <div className="relative aspect-[9/16] max-h-[400px] sm:max-h-[450px] md:max-h-[500px] bg-muted">
+        <div className="relative aspect-[3/4] bg-foreground">
           <video
-            ref={isExpanded ? videoRef : undefined}
-            autoPlay
+            ref={expandedVideoRef}
             loop
             playsInline
             muted={isMuted}
@@ -187,51 +203,47 @@ const FloatingVideoAd = () => {
             <source src="/videos/elara-luxury-ad.mp4" type="video/mp4" />
           </video>
           
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-foreground/20 pointer-events-none" />
-          
-          {/* Close button */}
+          {/* Close button - top right */}
           <button
             onClick={handleCollapse}
-            className="absolute top-3 right-3 w-8 h-8 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-background transition-colors shadow-md"
+            className="absolute top-4 right-4 w-10 h-10 bg-background rounded-full flex items-center justify-center hover:bg-secondary transition-colors shadow-lg"
             aria-label="Close video"
           >
-            <X className="w-4 h-4 text-foreground" />
+            <X className="w-5 h-5 text-foreground" />
           </button>
           
-          {/* Controls */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              {/* Play/Pause button */}
+          {/* Bottom Controls */}
+          <div className="absolute bottom-6 left-4 right-4 flex items-center justify-between">
+            {/* Play/Pause and Mute buttons */}
+            <div className="flex items-center gap-3">
               <button
                 onClick={togglePlay}
-                className="w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-background transition-colors shadow-md"
+                className="w-12 h-12 bg-background rounded-full flex items-center justify-center hover:bg-secondary transition-colors shadow-lg"
                 aria-label={isPlaying ? "Pause video" : "Play video"}
               >
                 {isPlaying ? (
-                  <Pause className="w-4 h-4 text-foreground" />
+                  <Pause className="w-5 h-5 text-foreground" />
                 ) : (
-                  <Play className="w-4 h-4 text-foreground ml-0.5" />
+                  <Play className="w-5 h-5 text-foreground ml-0.5" />
                 )}
               </button>
               
-              {/* Mute/Unmute button */}
               <button
                 onClick={toggleMute}
-                className="w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-background transition-colors shadow-md"
+                className="w-12 h-12 bg-background rounded-full flex items-center justify-center hover:bg-secondary transition-colors shadow-lg"
                 aria-label={isMuted ? "Unmute video" : "Mute video"}
               >
                 {isMuted ? (
-                  <VolumeX className="w-4 h-4 text-foreground" />
+                  <VolumeX className="w-5 h-5 text-foreground" />
                 ) : (
-                  <Volume2 className="w-4 h-4 text-foreground" />
+                  <Volume2 className="w-5 h-5 text-foreground" />
                 )}
               </button>
             </div>
             
             {/* Brand tag */}
-            <div className="bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <span className="text-xs font-medium text-primary-foreground uppercase tracking-wider">
+            <div className="bg-primary px-5 py-2 rounded-full shadow-lg">
+              <span className="text-sm font-medium text-primary-foreground uppercase tracking-wider">
                 Elara
               </span>
             </div>
@@ -239,10 +251,10 @@ const FloatingVideoAd = () => {
         </div>
         
         {/* CTA Footer */}
-        <div className="p-4 bg-background border-t border-border">
+        <div className="p-4 bg-primary">
           <a
             href="/category/face"
-            className="block w-full text-center py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-sm hover:bg-accent transition-colors"
+            className="block w-full text-center py-3 bg-primary text-primary-foreground text-sm font-medium uppercase tracking-wider hover:opacity-90 transition-opacity"
           >
             Shop Now
           </a>

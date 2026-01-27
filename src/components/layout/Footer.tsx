@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
-import logoImage from "@/assets/logo.png";
+import logoImage from "@/assets/logo-transparent.png";
 
 const Footer = () => {
   const footerLinks = {

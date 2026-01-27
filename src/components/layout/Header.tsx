@@ -5,7 +5,7 @@ import { useCart } from "@/context/CartContext";
 import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
-import logoImage from "@/assets/logo.png";
+import logoImage from "@/assets/logo-transparent.png";
 
 // Extended navigation with more categories
 const mainNavigation = [

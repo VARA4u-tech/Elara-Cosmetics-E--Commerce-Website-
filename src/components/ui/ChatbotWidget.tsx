@@ -77,14 +77,30 @@ const MiniLotus = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const HIDE_VIDEO_AD_KEY = "elara_hide_video_ad";
+
 // Floating Video Ad Component
 const FloatingVideoAd = () => {
   const collapsedVideoRef = useRef<HTMLVideoElement>(null);
   const expandedVideoRef = useRef<HTMLVideoElement>(null);
   const autoCloseTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isHidden, setIsHidden] = useState(() => {
+    return localStorage.getItem(HIDE_VIDEO_AD_KEY) === "true";
+  });
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
+
+  const handleDontShowAgain = () => {
+    localStorage.setItem(HIDE_VIDEO_AD_KEY, "true");
+    setIsHidden(true);
+    clearAutoCloseTimer();
+  };
+
+  // Don't render if user opted out
+  if (isHidden) {
+    return null;
+  }
 
   // Auto-close timer: minimize after 30 seconds
   const startAutoCloseTimer = () => {
@@ -270,13 +286,21 @@ const FloatingVideoAd = () => {
         </div>
         
         {/* CTA Footer */}
-        <div className="p-4 bg-primary">
+        <div className="p-4 bg-primary space-y-3">
           <a
             href="/category/face"
-            className="block w-full text-center py-3 bg-primary text-primary-foreground text-sm font-medium uppercase tracking-wider hover:opacity-90 transition-opacity"
+            className="block w-full text-center py-3 bg-primary-foreground/10 text-primary-foreground text-sm font-medium uppercase tracking-wider hover:bg-primary-foreground/20 transition-colors rounded-lg"
           >
             Shop Now
           </a>
+          
+          {/* Don't show again option */}
+          <button
+            onClick={handleDontShowAgain}
+            className="w-full text-center text-xs text-primary-foreground/70 hover:text-primary-foreground transition-colors underline"
+          >
+            Don't show this again
+          </button>
         </div>
       </div>
     </div>

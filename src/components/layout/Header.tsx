@@ -54,7 +54,9 @@ const Header = () => {
   return (
     <>
       <header className={cn(
-        "sticky top-0 z-50 bg-cream transition-all duration-300",
+        "sticky top-0 z-50 transition-all duration-300",
+        // Glassmorphism on mobile, solid cream on desktop
+        "bg-background/70 backdrop-blur-md lg:bg-cream lg:backdrop-blur-none",
         isScrolled ? "shadow-sm border-b border-border/30" : "border-b border-transparent"
       )}>
         {/* Top Utility Bar - Hidden when scrolled */}
@@ -84,7 +86,7 @@ const Header = () => {
         </div>
 
         {/* Main Header with Centered Logo */}
-        <div className="container mx-auto px-4 bg-cream">
+        <div className="container mx-auto px-4 bg-transparent lg:bg-cream">
           <div className={cn(
             "flex items-center justify-between transition-all duration-300",
             isScrolled ? "h-16 md:h-18" : "h-20 md:h-24"

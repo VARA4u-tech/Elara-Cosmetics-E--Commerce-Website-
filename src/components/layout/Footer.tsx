@@ -72,7 +72,7 @@ const Footer = () => {
               <img 
                 src={logoImage} 
                 alt="Elara Cosmetics" 
-                className="h-20 w-auto object-contain brightness-0 invert"
+                className="h-28 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-sm text-background/80 mb-6 max-w-xs">

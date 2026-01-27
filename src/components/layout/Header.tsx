@@ -126,8 +126,8 @@ const Header = () => {
                 className={cn(
                   "w-auto object-contain transition-all duration-500 ease-out group-hover:scale-[1.02]",
                   isScrolled 
-                    ? "h-14 sm:h-16 md:h-18" 
-                    : "h-18 sm:h-22 md:h-28"
+                    ? "h-16 sm:h-20 md:h-24" 
+                    : "h-24 sm:h-28 md:h-36"
                 )}
                 style={{
                   filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02))'

@@ -52,7 +52,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative h-[50vh] md:h-[65vh] overflow-hidden">
+    <section className="relative w-full h-[85vh] md:h-[65vh] overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -62,60 +62,63 @@ const HeroCarousel = () => {
             index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
           )}
         >
-          {/* Background Image */}
-          <div className="absolute inset-0">
+          {/* Background Image - Full width edge-to-edge */}
+          <div className="absolute inset-0 w-full h-full">
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 via-foreground/30 to-transparent" />
+            {/* Gradient overlay - lighter on mobile for better image visibility */}
+            <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent md:from-foreground/60 md:via-foreground/30" />
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
-            <div className="max-w-xl text-primary-foreground">
-              <p
-                className={cn(
-                  "text-sm uppercase tracking-wide-luxury mb-4 text-gold-light transition-all duration-700 delay-100",
-                  index === currentSlide
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                )}
-              >
-                {slide.subtitle}
-              </p>
-              <h2
-                className={cn(
-                  "font-serif text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight transition-all duration-700 delay-200",
-                  index === currentSlide
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                )}
-              >
-                {slide.title}
-              </h2>
-              <p
-                className={cn(
-                  "text-base md:text-lg text-primary-foreground/80 mb-8 max-w-md transition-all duration-700 delay-300",
-                  index === currentSlide
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                )}
-              >
-                {slide.description}
-              </p>
-              <Link
-                to={slide.link}
-                className={cn(
-                  "inline-block bg-primary text-primary-foreground px-10 py-4 uppercase tracking-luxury text-sm font-medium hover:bg-gold-light transition-all duration-700 delay-400",
-                  index === currentSlide
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                )}
-              >
-                {slide.cta}
-              </Link>
+          {/* Content - positioned at bottom on mobile, left-center on desktop */}
+          <div className="relative z-10 w-full h-full flex items-end md:items-center pb-16 md:pb-0">
+            <div className="w-full px-4 md:container md:mx-auto">
+              <div className="max-w-xl text-primary-foreground">
+                <p
+                  className={cn(
+                    "text-xs md:text-sm uppercase tracking-wide-luxury mb-2 md:mb-4 text-gold-light transition-all duration-700 delay-100",
+                    index === currentSlide
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  )}
+                >
+                  {slide.subtitle}
+                </p>
+                <h2
+                  className={cn(
+                    "font-serif text-3xl md:text-6xl lg:text-7xl mb-3 md:mb-6 leading-tight transition-all duration-700 delay-200",
+                    index === currentSlide
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  )}
+                >
+                  {slide.title}
+                </h2>
+                <p
+                  className={cn(
+                    "text-sm md:text-lg text-primary-foreground/80 mb-5 md:mb-8 max-w-sm md:max-w-md transition-all duration-700 delay-300 line-clamp-2 md:line-clamp-none",
+                    index === currentSlide
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  )}
+                >
+                  {slide.description}
+                </p>
+                <Link
+                  to={slide.link}
+                  className={cn(
+                    "inline-block bg-primary text-primary-foreground px-8 md:px-10 py-3 md:py-4 uppercase tracking-luxury text-xs md:text-sm font-medium hover:bg-gold-light transition-all duration-700 delay-400",
+                    index === currentSlide
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  )}
+                >
+                  {slide.cta}
+                </Link>
+              </div>
             </div>
           </div>
         </div>

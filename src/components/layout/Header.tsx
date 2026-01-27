@@ -120,24 +120,16 @@ const Header = () => {
 
             {/* Centered Logo */}
             <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:flex-1 lg:flex lg:justify-center group">
-              <div className="relative py-1">
-                {/* Subtle background glow for blending */}
-                <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-transparent opacity-90 blur-sm -z-10" />
-                <img 
-                  src={logoImage} 
-                  alt="Elara Cosmetics" 
-                  className={cn(
-                    "w-auto object-contain drop-shadow-sm transition-all duration-300 group-hover:scale-[1.02]",
-                    isScrolled 
-                      ? "h-10 sm:h-11 md:h-12" 
-                      : "h-14 sm:h-16 md:h-20"
-                  )}
-                  style={{ 
-                    mixBlendMode: 'multiply',
-                    filter: 'contrast(1.05)'
-                  }}
-                />
-              </div>
+              <img 
+                src={logoImage} 
+                alt="Elara Cosmetics" 
+                className={cn(
+                  "w-auto object-contain transition-all duration-300 group-hover:scale-[1.02]",
+                  isScrolled 
+                    ? "h-12 sm:h-14 md:h-16" 
+                    : "h-16 sm:h-20 md:h-24"
+                )}
+              />
             </Link>
 
             {/* Right Side - Icons */}
@@ -303,17 +295,11 @@ const Header = () => {
         >
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between p-4 border-b border-border">
-            <div className="relative">
-              <img 
-                src={logoImage} 
-                alt="Elara Cosmetics" 
-                className="h-12 w-auto object-contain"
-                style={{ 
-                  mixBlendMode: 'multiply',
-                  filter: 'contrast(1.05)'
-                }}
-              />
-            </div>
+            <img 
+              src={logoImage} 
+              alt="Elara Cosmetics" 
+              className="h-14 w-auto object-contain"
+            />
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 -mr-2 hover:text-primary transition-colors"

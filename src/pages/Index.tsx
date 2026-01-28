@@ -1,6 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import PageTransition from "@/components/ui/PageTransition";
 import HeroCarousel from "@/components/home/HeroCarousel";
+import VideoShowcase from "@/components/home/VideoShowcase";
 import CategoryIcons from "@/components/home/CategoryIcons";
 import Bestsellers from "@/components/home/Bestsellers";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
@@ -21,6 +22,7 @@ const Index = () => {
     <Layout>
       <PageTransition>
         <HeroCarousel />
+        <VideoShowcase />
         <CategoryIcons />
         <Bestsellers />
         <SideAdBanner variant="horizontal" className="container mx-auto px-4 py-8" />

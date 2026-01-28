@@ -147,11 +147,15 @@ const HeroCarousel = () => {
             }}
           >
             {/* Background - Image or Video */}
-            <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
               {'video' in slide && slide.video ? (
                 <video
+                  key={`video-${slide.id}-${isActive}`}
                   src={slide.video}
-                  className="w-full h-full object-cover"
+                  className={cn(
+                    "w-full h-full object-cover",
+                    isActive && animate && "ken-burns"
+                  )}
                   style={{ objectPosition: slide.objectPosition || 'center' }}
                   autoPlay
                   muted
@@ -160,9 +164,13 @@ const HeroCarousel = () => {
                 />
               ) : (
                 <img
+                  key={`img-${slide.id}-${isActive}`}
                   src={'image' in slide ? slide.image : ''}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className={cn(
+                    "w-full h-full object-cover",
+                    isActive && animate && "ken-burns"
+                  )}
                   style={{ objectPosition: slide.objectPosition || 'center' }}
                   loading={isActive ? "eager" : "lazy"}
                   decoding="async"

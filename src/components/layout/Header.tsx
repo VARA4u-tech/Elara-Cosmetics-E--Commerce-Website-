@@ -81,57 +81,48 @@ const Header = () => {
         "bg-background/95 backdrop-blur-md",
         isScrolled ? "shadow-sm" : ""
       )}>
-        {/* Top Utility Bar - Desktop Only */}
+        {/* Top Utility Bar - Desktop Only (thin secondary info) */}
         <div className={cn(
-          "hidden lg:block bg-muted/50 border-b border-border/30 transition-all duration-300 overflow-hidden",
-          isScrolled ? "h-0 opacity-0" : "h-9 opacity-100"
+          "hidden lg:block bg-muted/40 transition-all duration-300 overflow-hidden",
+          isScrolled ? "h-0 opacity-0" : "h-8 opacity-100"
         )}>
           <div className="container mx-auto px-6">
-            <div className="flex items-center justify-between h-9 text-xs">
-              <div className="flex items-center gap-6 text-muted-foreground">
+            <div className="flex items-center justify-between h-8 text-xs text-muted-foreground">
+              <div className="flex items-center gap-5">
                 <a href="tel:+918019156646" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                   <Phone className="w-3 h-3" />
                   <span>+91 8019156646</span>
                 </a>
+                <span className="w-px h-3 bg-border" />
                 <Link to="/stores" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                   <MapPin className="w-3 h-3" />
                   <span>Store Locator</span>
                 </Link>
               </div>
-              <div className="flex items-center gap-6 text-muted-foreground">
+              <div className="flex items-center gap-5">
                 <Link to="/about" className="hover:text-primary transition-colors">About Us</Link>
+                <span className="w-px h-3 bg-border" />
                 <Link to="/contact" className="hover:text-primary transition-colors">Contact</Link>
-                <Link to="/account" className="hover:text-primary transition-colors">My Account</Link>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Main Header */}
-        <div className="border-b border-border/30">
-          <div className="container mx-auto px-4 lg:px-6">
+        {/* Primary Desktop Header - Logo, Search, Icons, and Navigation in one bar */}
+        <div className="hidden lg:block border-b border-border/30">
+          <div className="container mx-auto px-6">
             <div className={cn(
-              "flex items-center justify-between transition-all duration-300",
-              isScrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+              "grid grid-cols-[1fr_auto_1fr] items-center gap-8 transition-all duration-300",
+              isScrolled ? "py-2" : "py-3"
             )}>
-              {/* Left Section - Mobile: Menu, Tablet+: Search */}
-              <div className="flex items-center gap-2 min-w-[120px]">
-                {/* Mobile Hamburger Menu */}
-                <button
-                  className="lg:hidden p-2 -ml-2 hover:bg-muted/50 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(true)}
-                  aria-label="Open menu"
-                >
-                  <Menu className="w-6 h-6" />
-                </button>
-                
-                {/* Desktop Search */}
+              {/* Left - Search Bar */}
+              <div className="flex items-center">
                 <button 
                   onClick={() => setIsSearchOpen(true)}
-                  className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="flex items-center gap-2.5 px-4 py-2 border border-border rounded-sm text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors w-full max-w-[260px]"
                 >
                   <Search className="w-4 h-4" />
-                  <span>Search</span>
+                  <span>Search products...</span>
                 </button>
               </div>
 
@@ -142,43 +133,210 @@ const Header = () => {
                   alt="Elara Cosmetics" 
                   className={cn(
                     "w-auto object-contain transition-all duration-300",
-                    isScrolled 
-                      ? "h-10 md:h-12 lg:h-14" 
-                      : "h-12 md:h-16 lg:h-20"
+                    isScrolled ? "h-12" : "h-16"
                   )}
                 />
               </Link>
 
-              {/* Right Section - Icons */}
-              <div className="flex items-center justify-end gap-1 md:gap-2 min-w-[120px]">
-                {/* Search - Mobile & Tablet only */}
+              {/* Right - Account Icons */}
+              <div className="flex items-center justify-end gap-1">
+                <Link 
+                  to="/account" 
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:text-primary transition-colors" 
+                >
+                  <User className="w-4 h-4" />
+                  <span className="hidden xl:inline">Account</span>
+                </Link>
+                <Link 
+                  to="/wishlist" 
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:text-primary transition-colors" 
+                >
+                  <Heart className="w-4 h-4" />
+                  <span className="hidden xl:inline">Wishlist</span>
+                </Link>
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:text-primary transition-colors relative"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span className="hidden xl:inline">Cart</span>
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 left-5 xl:static xl:ml-0 bg-primary text-primary-foreground text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center font-medium px-1">
+                      {totalItems > 99 ? "99+" : totalItems}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Desktop Navigation - Single horizontal menu */}
+            <nav className="flex items-center justify-center border-t border-border/20 -mx-6 px-6">
+              {mainNavigation.map((item) => (
+                <div
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => hasSubcategories(item) ? handleMouseEnter(item.id) : null}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link
+                    to={'href' in item ? item.href : `/category/${item.id}`}
+                    className={cn(
+                      "flex items-center gap-1 px-4 py-3 text-[13px] uppercase tracking-wide font-medium transition-colors",
+                      "hover:text-primary border-b-2 border-transparent hover:border-primary",
+                      'highlight' in item && item.highlight 
+                        ? "text-primary" 
+                        : "text-foreground"
+                    )}
+                  >
+                    {item.name}
+                    {hasSubcategories(item) && (
+                      <ChevronDown
+                        className={cn(
+                          "w-3 h-3 transition-transform duration-200",
+                          activeDropdown === item.id && "rotate-180"
+                        )}
+                      />
+                    )}
+                  </Link>
+
+                  {/* Mega Menu for categories with subcategories */}
+                  {hasSubcategories(item) && 'subcategories' in item && 'image' in item && (
+                    <div
+                      className={cn(
+                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-xl rounded-sm w-[540px] transition-all duration-200 z-50",
+                        activeDropdown === item.id
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                      )}
+                    >
+                      <div className="grid grid-cols-3 gap-0">
+                        {/* Category Image */}
+                        <div className="col-span-1 relative overflow-hidden">
+                          <img
+                            src={(item as any).image}
+                            alt={item.name}
+                            className="w-full h-full object-cover min-h-[240px]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
+                          <div className="absolute bottom-4 left-4 right-4 text-background">
+                            <p className="font-serif text-lg mb-1">{item.name}</p>
+                            <Link
+                              to={`/category/${item.id}`}
+                              className="text-xs uppercase tracking-wider flex items-center gap-1 hover:underline"
+                            >
+                              View All
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Subcategories */}
+                        <div className="col-span-1 p-4 border-l border-border">
+                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-3">
+                            Shop by Category
+                          </p>
+                          <div className="space-y-1.5">
+                            {(item as any).subcategories.slice(0, 7).map((sub: string) => (
+                              <Link
+                                key={sub}
+                                to={`/category/${item.id}?subcategory=${sub.toLowerCase()}`}
+                                className="block text-sm text-foreground hover:text-primary transition-colors py-0.5"
+                              >
+                                {sub}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Featured Products */}
+                        <div className="col-span-1 p-4 border-l border-border bg-muted/30">
+                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-3">
+                            Featured
+                          </p>
+                          <div className="space-y-3">
+                            {getFeaturedProducts(item.id).map((product) => (
+                              <Link
+                                key={product.id}
+                                to={`/product/${product.id}`}
+                                className="flex gap-2.5 group"
+                              >
+                                <img
+                                  src={product.image}
+                                  alt={product.name}
+                                  className="w-12 h-12 object-cover rounded-sm"
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors leading-tight">
+                                    {product.name}
+                                  </p>
+                                  <p className="text-xs text-primary mt-0.5">
+                                    ₹{product.price.toLocaleString()}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Mobile & Tablet Header */}
+        <div className="lg:hidden border-b border-border/30">
+          <div className="container mx-auto px-4">
+            <div className={cn(
+              "flex items-center justify-between transition-all duration-300",
+              isScrolled ? "h-14" : "h-16"
+            )}>
+              {/* Left - Menu Button */}
+              <button
+                className="p-2 -ml-2 hover:bg-muted/50 rounded-md transition-colors"
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+
+              {/* Center - Logo */}
+              <Link to="/" className="flex items-center justify-center">
+                <img 
+                  src={logoImage} 
+                  alt="Elara Cosmetics" 
+                  className={cn(
+                    "w-auto object-contain transition-all duration-300",
+                    isScrolled ? "h-10" : "h-12"
+                  )}
+                />
+              </Link>
+
+              {/* Right - Icons */}
+              <div className="flex items-center gap-1">
                 <button 
                   onClick={() => setIsSearchOpen(true)}
-                  className="lg:hidden p-2 hover:bg-muted/50 rounded-md transition-colors"
+                  className="p-2 hover:bg-muted/50 rounded-md transition-colors"
                   aria-label="Search"
                 >
                   <Search className="w-5 h-5" />
                 </button>
-                
-                {/* Account - Hidden on mobile */}
                 <Link 
                   to="/account" 
-                  className="hidden md:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
+                  className="hidden sm:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
                   aria-label="Account"
                 >
                   <User className="w-5 h-5" />
                 </Link>
-                
-                {/* Wishlist - Hidden on mobile */}
                 <Link 
                   to="/wishlist" 
-                  className="hidden md:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
+                  className="hidden sm:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
                   aria-label="Wishlist"
                 >
                   <Heart className="w-5 h-5" />
                 </Link>
-                
-                {/* Cart - Always visible */}
                 <button
                   onClick={() => setIsCartOpen(true)}
                   className="p-2 hover:bg-muted/50 rounded-md transition-colors relative"
@@ -195,125 +353,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-
-        {/* Desktop Navigation Bar */}
-        <nav className="hidden lg:block bg-background border-b border-border/20">
-          <div className="container mx-auto px-6">
-            <div className="flex items-center justify-center">
-              {mainNavigation.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative"
-                  onMouseEnter={() => hasSubcategories(item) ? handleMouseEnter(item.id) : null}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Link
-                    to={'href' in item ? item.href : `/category/${item.id}`}
-                    className={cn(
-                      "flex items-center gap-1 px-4 py-3 text-sm uppercase tracking-wider font-medium transition-all",
-                      "hover:text-primary",
-                      'highlight' in item && item.highlight 
-                        ? "text-primary" 
-                        : "text-foreground"
-                    )}
-                  >
-                    {item.name}
-                    {hasSubcategories(item) && (
-                      <ChevronDown
-                        className={cn(
-                          "w-3.5 h-3.5 transition-transform duration-200",
-                          activeDropdown === item.id && "rotate-180"
-                        )}
-                      />
-                    )}
-                  </Link>
-
-                  {/* Mega Menu for categories */}
-                  {hasSubcategories(item) && 'subcategories' in item && 'image' in item && (
-                    <div
-                      className={cn(
-                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-xl rounded-sm w-[560px] transition-all duration-200 z-50",
-                        activeDropdown === item.id
-                          ? "opacity-100 visible translate-y-0"
-                          : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                      )}
-                    >
-                      <div className="grid grid-cols-3 gap-0">
-                        {/* Category Image */}
-                        <div className="col-span-1 relative overflow-hidden">
-                          <img
-                            src={(item as any).image}
-                            alt={item.name}
-                            className="w-full h-full object-cover min-h-[260px]"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
-                          <div className="absolute bottom-4 left-4 right-4 text-background">
-                            <p className="font-serif text-lg mb-1">{item.name}</p>
-                            <Link
-                              to={`/category/${item.id}`}
-                              className="text-xs uppercase tracking-wider flex items-center gap-1 hover:underline"
-                            >
-                              View All
-                              <ArrowRight className="w-3 h-3" />
-                            </Link>
-                          </div>
-                        </div>
-
-                        {/* Subcategories */}
-                        <div className="col-span-1 p-5 border-l border-border">
-                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-4">
-                            Shop by Category
-                          </p>
-                          <div className="space-y-2">
-                            {(item as any).subcategories.slice(0, 7).map((sub: string) => (
-                              <Link
-                                key={sub}
-                                to={`/category/${item.id}?subcategory=${sub.toLowerCase()}`}
-                                className="block text-sm text-foreground hover:text-primary transition-colors py-1"
-                              >
-                                {sub}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Featured Products */}
-                        <div className="col-span-1 p-5 border-l border-border bg-muted/30">
-                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-4">
-                            Featured
-                          </p>
-                          <div className="space-y-4">
-                            {getFeaturedProducts(item.id).map((product) => (
-                              <Link
-                                key={product.id}
-                                to={`/product/${product.id}`}
-                                className="flex gap-3 group"
-                              >
-                                <img
-                                  src={product.image}
-                                  alt={product.name}
-                                  className="w-14 h-14 object-cover rounded-sm"
-                                />
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
-                                    {product.name}
-                                  </p>
-                                  <p className="text-xs text-primary mt-1">
-                                    ₹{product.price.toLocaleString()}
-                                  </p>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </nav>
       </header>
 
       {/* Mobile Menu Overlay */}

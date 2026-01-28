@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import productShowcase from "@/assets/hero/product-showcase.png";
-import collectionShowcase from "@/assets/hero/collection-showcase.png";
+import productCollection1 from "@/assets/hero/product-collection-1.png";
+import productCollection2 from "@/assets/hero/product-collection-2.png";
+import productCollection3 from "@/assets/hero/product-collection-3.png";
 
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
@@ -22,24 +23,39 @@ const slides = [
     title: "Discover Our Collection",
     subtitle: "Premium Skincare & Haircare",
     description: "Experience the power of science-backed formulations with our luxurious range of serums, shampoos, and treatments",
-    image: productShowcase,
+    image: productCollection1,
     cta: "Shop Now",
     link: "/category/face",
     objectPosition: "center",
     titleFont: fontStyles.playfair,
     subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
+    overlayPosition: "left" as const,
   },
   {
     id: 2,
     title: "Luxurious Ayurveda",
     subtitle: "Ancient Wisdom · Modern Elegance",
     description: "Discover the timeless beauty secrets of Indian royalty crafted into our signature collection",
-    image: collectionShowcase,
+    image: productCollection2,
     cta: "Explore Collection",
     link: "/category/face",
     objectPosition: "center",
     titleFont: fontStyles.cinzel,
     subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
+    overlayPosition: "left" as const,
+  },
+  {
+    id: 3,
+    title: "Natural Beauty Essentials",
+    subtitle: "Transform Your Routine",
+    description: "Premium formulations crafted with the finest natural ingredients for radiant, healthy skin and hair",
+    image: productCollection3,
+    cta: "View Products",
+    link: "/category/hair",
+    objectPosition: "center",
+    titleFont: fontStyles.marcellus,
+    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 300, letterSpacing: "0.15em" },
+    overlayPosition: "left" as const,
   },
 ];
 
@@ -111,7 +127,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative w-full h-[85vh] md:h-[65vh] overflow-hidden">
+    <section className="relative w-full h-[85vh] md:h-[75vh] lg:h-[80vh] overflow-hidden bg-background">
       {/* Slides */}
       {(
         exitingSlide !== null && exitingSlide !== currentSlide
@@ -134,7 +150,7 @@ const HeroCarousel = () => {
               transform: "translateZ(0)",
             }}
           >
-            {/* Background - Image */}
+            {/* Background - Image with Ken Burns effect */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
               <img
                 key={`img-${slide.id}-${isActive}`}
@@ -149,16 +165,18 @@ const HeroCarousel = () => {
                 decoding="async"
                 fetchPriority={isActive ? "high" : "auto"}
               />
-              {/* Gradient overlay - lighter on mobile for better image visibility */}
-              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent md:from-foreground/60 md:via-foreground/30" />
+              {/* Gradient overlay for text legibility */}
+              <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent md:from-foreground/70 md:via-foreground/40" />
+              {/* Additional bottom gradient for mobile */}
+              <div className="absolute inset-0 md:hidden bg-gradient-to-t from-foreground/70 via-transparent to-transparent" />
             </div>
 
             {/* Content - positioned at bottom on mobile, left-center on desktop */}
-            <div className="relative z-10 w-full h-full flex items-end md:items-center pb-16 md:pb-0">
-              <div className="w-full px-4 md:container md:mx-auto">
+            <div className="relative z-10 w-full h-full flex items-end md:items-center pb-20 md:pb-0">
+              <div className="w-full px-6 md:container md:mx-auto">
                 <div className="max-w-xl text-primary-foreground">
                   <p
-                    className="text-xs md:text-sm uppercase mb-2 md:mb-4 text-gold-light"
+                    className="text-xs md:text-sm uppercase mb-3 md:mb-4 text-gold-light"
                     style={{
                       ...slide.subtitleFont,
                       opacity: isActive && animate ? 1 : 0,
@@ -170,7 +188,7 @@ const HeroCarousel = () => {
                     {slide.subtitle}
                   </p>
                   <h2
-                    className="text-3xl md:text-6xl lg:text-7xl mb-3 md:mb-6 leading-tight"
+                    className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight"
                     style={{
                       ...slide.titleFont,
                       opacity: isActive && animate ? 1 : 0,
@@ -182,7 +200,7 @@ const HeroCarousel = () => {
                     {slide.title}
                   </h2>
                   <p
-                    className="text-sm md:text-lg text-primary-foreground/80 mb-5 md:mb-8 max-w-sm md:max-w-md line-clamp-2 md:line-clamp-none"
+                    className="text-sm md:text-base lg:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-sm md:max-w-md line-clamp-2 md:line-clamp-none"
                     style={{
                       opacity: isActive && animate ? 1 : 0,
                       transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
@@ -194,11 +212,11 @@ const HeroCarousel = () => {
                   </p>
                   <Link
                     to={slide.link}
-                    className="inline-block bg-primary text-primary-foreground px-8 md:px-10 py-3 md:py-4 uppercase tracking-luxury text-xs md:text-sm font-medium hover:bg-gold-light"
+                    className="inline-block bg-primary text-primary-foreground px-8 md:px-10 py-3 md:py-4 uppercase tracking-luxury text-xs md:text-sm font-medium hover:bg-gold-light transition-colors duration-300"
                     style={{
                       opacity: isActive && animate ? 1 : 0,
                       transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
-                      transition: "opacity 600ms ease-out 400ms, transform 600ms ease-out 400ms",
+                      transition: "opacity 600ms ease-out 400ms, transform 600ms ease-out 400ms, background-color 300ms ease",
                       willChange: "opacity, transform",
                     }}
                   >
@@ -214,25 +232,28 @@ const HeroCarousel = () => {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors backdrop-blur-sm"
+        aria-label="Previous slide"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors backdrop-blur-sm"
+        aria-label="Next slide"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
       </button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goTo(index)}
+            aria-label={`Go to slide ${index + 1}`}
             className={cn(
-              "w-12 h-1 transition-all duration-300",
+              "w-10 md:w-12 h-1 transition-all duration-300",
               index === currentSlide
                 ? "bg-primary"
                 : "bg-primary-foreground/30 hover:bg-primary-foreground/50"

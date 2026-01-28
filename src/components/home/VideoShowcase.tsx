@@ -2,6 +2,9 @@ import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAudioManager } from "@/context/AudioContext";
+
+const AUDIO_ID = "video-showcase";
 
 const videoAds = [
   { id: 1, src: "/videos/elara-luxury-ad.mp4", title: "Luxury Collection" },
@@ -14,8 +17,23 @@ const VideoShowcase = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  
+  const { registerAudio, unregisterAudio, requestAudioPlay, muteAll } = useAudioManager();
 
   const currentVideo = videoAds[currentVideoIndex];
+
+  // Register video with audio manager
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      registerAudio(AUDIO_ID, video);
+      // Ensure video starts muted
+      video.muted = true;
+    }
+    return () => {
+      unregisterAudio(AUDIO_ID);
+    };
+  }, [registerAudio, unregisterAudio]);
 
   // Handle video end - play next video
   useEffect(() => {
@@ -25,17 +43,22 @@ const VideoShowcase = () => {
     const handleEnded = () => {
       const nextIndex = (currentVideoIndex + 1) % videoAds.length;
       setCurrentVideoIndex(nextIndex);
+      // Keep muted state when transitioning
+      setIsMuted(true);
+      muteAll();
     };
 
     video.addEventListener("ended", handleEnded);
     return () => video.removeEventListener("ended", handleEnded);
-  }, [currentVideoIndex]);
+  }, [currentVideoIndex, muteAll]);
 
   // Play video when index changes
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
       video.load();
+      video.muted = true; // Always start muted on video change
+      setIsMuted(true);
       video.play().catch(() => {});
       setIsPlaying(true);
     }
@@ -54,23 +77,36 @@ const VideoShowcase = () => {
 
   const toggleMute = () => {
     if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
+      if (isMuted) {
+        // Request exclusive audio playback
+        requestAudioPlay(AUDIO_ID);
+        setIsMuted(false);
+      } else {
+        // Mute this video
+        videoRef.current.muted = true;
+        setIsMuted(true);
+      }
     }
   };
 
   const goToVideo = (index: number) => {
     if (index !== currentVideoIndex) {
+      muteAll();
+      setIsMuted(true);
       setCurrentVideoIndex(index);
     }
   };
 
   const prevVideo = () => {
+    muteAll();
+    setIsMuted(true);
     const prevIndex = (currentVideoIndex - 1 + videoAds.length) % videoAds.length;
     setCurrentVideoIndex(prevIndex);
   };
 
   const nextVideo = () => {
+    muteAll();
+    setIsMuted(true);
     const nextIndex = (currentVideoIndex + 1) % videoAds.length;
     setCurrentVideoIndex(nextIndex);
   };
@@ -112,7 +148,7 @@ const VideoShowcase = () => {
               src={currentVideo.src}
               className="w-full h-full object-cover"
               autoPlay
-              muted={isMuted}
+              muted
               playsInline
             />
             

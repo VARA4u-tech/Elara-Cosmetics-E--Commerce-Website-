@@ -74,6 +74,8 @@ import antiDandruffShampooImg from "@/assets/products/anti-dandruff-shampoo.jpg"
 import hairGrowthSerumImg from "@/assets/products/hair-growth-serum.jpg";
 import antiHairfallShampooImg from "@/assets/products/anti-hairfall-shampoo.jpg";
 import goldenGlowEyeSerumImg from "@/assets/products/golden-glow-eye-serum.jpg";
+import glowcellNmnSerumImg from "@/assets/products/glowcell-nmn-serum.jpg";
+import snailMucinSerumImg from "@/assets/products/snail-mucin-serum.jpg";
 
 export const products: Product[] = [
   // ==================== ELARA COSMETICS PRODUCTS ====================
@@ -203,6 +205,49 @@ export const products: Product[] = [
     isNew: true,
     isBestseller: true,
     concern: ["Dark Circles", "Puffiness", "Fine Lines", "Anti-Aging"],
+  },
+  
+  // Face - Serums (GlowCell NMN)
+  {
+    id: "elara-glowcell-nmn-serum",
+    name: "GlowCell™ NMN Serum",
+    category: "face",
+    subcategory: "Serums",
+    price: 2499,
+    originalPrice: 2999,
+    image: glowcellNmnSerumImg,
+    images: [glowcellNmnSerumImg],
+    rating: 4.9,
+    reviews: 189,
+    description: "A next-generation skincare formula powered by Nicotinamide Mononucleotide (NMN) and Copper Peptides. Supports skin renewal, improves elasticity, and enhances natural radiance. Designed to work at the cellular level for smoother, healthier-looking skin.",
+    ingredients: "Water, Glycerin, Betaine, Nicotinamide Mononucleotide (NMN), Copper Tripeptide-1, Copper Glycerophosphate, Hydrolyzed Soy Protein, Allantoin, Sodium Hyaluronate, Melaleuca Alternifolia Tea Tree Leaf Oil, Pentylene Glycol, Lecithin, Hydroxyethyl Cellulose, Phenoxyethanol",
+    howToUse: "Apply 2-3 drops to clean face and neck. Gently massage until absorbed. Use once or twice daily. Follow with moisturizer. Use sunscreen during daytime.",
+    size: "30ml",
+    tags: ["anti-aging", "cellular renewal", "firming"],
+    isNew: true,
+    isBestseller: true,
+    concern: ["Anti-Aging", "Firming", "Radiance", "Elasticity"],
+  },
+  
+  // Face - Serums (Snail Mucin)
+  {
+    id: "elara-snail-mucin-serum",
+    name: "97% Snail Mucin Advanced Serum",
+    category: "face",
+    subcategory: "Serums",
+    price: 1899,
+    originalPrice: 2299,
+    image: snailMucinSerumImg,
+    images: [snailMucinSerumImg],
+    rating: 4.8,
+    reviews: 276,
+    description: "Experience hydration bliss with our advanced serum that quenches skin, leaving it silky-smooth, plump, and irresistibly glowing. Infused with 97% Snail Mucin Filtrate and Bifida Ferment Lysate for instant results.",
+    ingredients: "Snail Secretion Filtrate, Bifida Ferment Lysate, Sodium Hyaluronate, Glycerin, Betaine, Stearyl Alcohol, Isostearyl Neopentanoate, Arginine, Sodium PCA, Panthenol, Allantoin, Hydroxyethylcellulose, Xanthan Gum, 1,2-Hexanediol, Carbomer, BCC (Benzyl Alcohol), Salicylic Acid, Glycine, Sorbic Acid",
+    howToUse: "Apply 2-3 drops of serum to clean, dry skin. Pat in gently for better absorption. Use daily AM & PM followed by moisturizer.",
+    size: "30ml",
+    tags: ["hydrating", "snail mucin", "plumping"],
+    isNew: true,
+    concern: ["Hydration", "Plumping", "Skin Barrier", "Texture"],
   },
 
   // ==================== EXISTING PRODUCTS ====================

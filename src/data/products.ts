@@ -76,6 +76,8 @@ import antiHairfallShampooImg from "@/assets/products/anti-hairfall-shampoo.jpg"
 import goldenGlowEyeSerumImg from "@/assets/products/golden-glow-eye-serum.jpg";
 import glowcellNmnSerumImg from "@/assets/products/glowcell-nmn-serum.jpg";
 import snailMucinSerumImg from "@/assets/products/snail-mucin-serum.jpg";
+import niacinGlowSerumImg from "@/assets/products/niacin-glow-serum.jpg";
+import redAloeveraSplashImg from "@/assets/products/red-aloevera-splash.jpg";
 
 export const products: Product[] = [
   // ==================== ELARA COSMETICS PRODUCTS ====================
@@ -248,6 +250,49 @@ export const products: Product[] = [
     tags: ["hydrating", "snail mucin", "plumping"],
     isNew: true,
     concern: ["Hydration", "Plumping", "Skin Barrier", "Texture"],
+  },
+  
+  // Face - Serums (Niacin Glow)
+  {
+    id: "elara-niacin-glow-serum",
+    name: "Niacin Glow Niacinamide Face Serum",
+    category: "face",
+    subcategory: "Serums",
+    price: 1499,
+    originalPrice: 1799,
+    image: niacinGlowSerumImg,
+    images: [niacinGlowSerumImg],
+    rating: 4.8,
+    reviews: 312,
+    description: "A powerful 15% Niacinamide serum with Zinc and Copper Peptide (GHK-Cu). Effectively reduces acne, fades scarring, and promotes skin regeneration. Suitable for all skin types and ages.",
+    ingredients: "Aqua, Niacinamide PC, Propanediol, Pisum Sativum Seed Extract, GHK-Cu, Dimethyl Isosorbide, Zinc Pyrrolidone Carboxylic Acid, Acetyl Glucosamine, Phenoxyethanol, Sodium Hyaluronate, Trehalose, Sodium Gluconate",
+    howToUse: "Use your palms to spread the serum all over your face. Suitable for all skin types and ages. Infants can also use.",
+    size: "30ml",
+    tags: ["niacinamide", "acne care", "brightening"],
+    isNew: true,
+    isBestseller: true,
+    concern: ["Acne", "Scarring", "Pores", "Skin Regeneration"],
+  },
+  
+  // Body/Hair - Multi-Purpose (Red Aloevera Splash)
+  {
+    id: "elara-red-aloevera-splash",
+    name: "Red Aloevera Splash",
+    category: "body",
+    subcategory: "Body Washes",
+    price: 699,
+    originalPrice: 899,
+    image: redAloeveraSplashImg,
+    images: [redAloeveraSplashImg],
+    rating: 4.7,
+    reviews: 178,
+    description: "A unique multi-purpose splash infused with fermented Red Aloe Vera and Bifida Ferment Lysate. Perfect for both hair and skin, this soothing formula hydrates, nourishes, and refreshes. Suitable for all skin types and ages.",
+    ingredients: "Fermented Aloe Sanguinalis Juice, Bifida Ferment Lysate, Glycerin, Chondrus Crispus Extract, Alkanna Tinctoria Extract, Gluconolactone, Sodium Benzoate, Calcium Gluconate",
+    howToUse: "Apply anytime on hair and skin. Suitable for all skin types and ages. Infants can also use.",
+    size: "100gm",
+    tags: ["aloe vera", "multi-purpose", "hydrating"],
+    isNew: true,
+    concern: ["Hydration", "Soothing", "Skin Health", "Hair Health"],
   },
 
   // ==================== EXISTING PRODUCTS ====================

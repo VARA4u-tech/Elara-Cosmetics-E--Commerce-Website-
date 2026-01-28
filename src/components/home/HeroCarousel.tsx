@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import productShowcase from "@/assets/hero/product-showcase.png";
 
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
@@ -9,21 +10,23 @@ const FADE_MS = 800;
 const slides = [
   {
     id: 1,
+    title: "Discover Our Collection",
+    subtitle: "Premium Skincare & Haircare",
+    description: "Experience the power of science-backed formulations with our luxurious range of serums, shampoos, and treatments",
+    image: productShowcase,
+    cta: "Shop Now",
+    link: "/category/face",
+    objectPosition: "center",
+  },
+  {
+    id: 2,
     title: "The Royal Beauty Ritual",
     subtitle: "Discover Ancient Ayurvedic Secrets",
     description: "Experience the timeless wisdom of Indian royalty with our luxurious skincare collection",
     image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=1920&h=800&fit=crop",
-    cta: "Shop Now",
-    link: "/category/face",
-  },
-  {
-    id: 2,
-    title: "Soundarya Collection",
-    subtitle: "24K Gold Infused Luxury",
-    description: "Our signature anti-aging range crafted with precious gold and rare herbs",
-    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=1920&h=800&fit=crop",
     cta: "Explore",
     link: "/category/face",
+    objectPosition: "center",
   },
   {
     id: 3,
@@ -33,6 +36,7 @@ const slides = [
     image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=1920&h=800&fit=crop",
     cta: "Shop Hair Care",
     link: "/category/hair",
+    objectPosition: "center",
   },
 ];
 
@@ -132,7 +136,8 @@ const HeroCarousel = () => {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover"
+                style={{ objectPosition: slide.objectPosition || 'center' }}
                 loading={isActive ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={isActive ? "high" : "auto"}

@@ -3,9 +3,18 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import productShowcase from "@/assets/hero/product-showcase.png";
+import collectionShowcase from "@/assets/hero/collection-showcase.png";
 
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
+
+// Font styles for premium cosmetics aesthetic
+const fontStyles = {
+  playfair: { fontFamily: "'Playfair Display', serif", fontWeight: 500 },
+  cinzel: { fontFamily: "'Cinzel', serif", fontWeight: 500, letterSpacing: "0.08em" },
+  marcellus: { fontFamily: "'Marcellus', serif", fontWeight: 400 },
+  cormorant: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 },
+};
 
 const slides = [
   {
@@ -17,26 +26,32 @@ const slides = [
     cta: "Shop Now",
     link: "/category/face",
     objectPosition: "center",
+    titleFont: fontStyles.playfair,
+    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
   },
   {
     id: 2,
-    title: "The Royal Beauty Ritual",
-    subtitle: "Discover Ancient Ayurvedic Secrets",
-    description: "Experience the timeless wisdom of Indian royalty with our luxurious skincare collection",
-    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=1920&h=800&fit=crop",
-    cta: "Explore",
+    title: "Luxurious Ayurveda",
+    subtitle: "Ancient Wisdom · Modern Elegance",
+    description: "Discover the timeless beauty secrets of Indian royalty crafted into our signature collection",
+    image: collectionShowcase,
+    cta: "Explore Collection",
     link: "/category/face",
     objectPosition: "center",
+    titleFont: fontStyles.cinzel,
+    subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
   },
   {
     id: 3,
-    title: "Hair Care Rituals",
-    subtitle: "Ancient Wisdom, Modern Results",
-    description: "Transform your hair with time-tested Ayurvedic formulations",
-    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=1920&h=800&fit=crop",
+    title: "The Art of Self-Care",
+    subtitle: "Indulge in Pure Radiance",
+    description: "Transform your daily ritual with our exquisite formulations designed for discerning beauty",
+    image: productShowcase,
     cta: "Shop Hair Care",
     link: "/category/hair",
     objectPosition: "center",
+    titleFont: fontStyles.marcellus,
+    subtitleFont: { fontFamily: "'Playfair Display', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.12em" },
   },
 ];
 
@@ -151,8 +166,9 @@ const HeroCarousel = () => {
               <div className="w-full px-4 md:container md:mx-auto">
                 <div className="max-w-xl text-primary-foreground">
                   <p
-                    className="text-xs md:text-sm uppercase tracking-wide-luxury mb-2 md:mb-4 text-gold-light"
+                    className="text-xs md:text-sm uppercase mb-2 md:mb-4 text-gold-light"
                     style={{
+                      ...slide.subtitleFont,
                       opacity: isActive && animate ? 1 : 0,
                       transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
                       transition: "opacity 600ms ease-out 100ms, transform 600ms ease-out 100ms",
@@ -162,8 +178,9 @@ const HeroCarousel = () => {
                     {slide.subtitle}
                   </p>
                   <h2
-                    className="font-serif text-3xl md:text-6xl lg:text-7xl mb-3 md:mb-6 leading-tight"
+                    className="text-3xl md:text-6xl lg:text-7xl mb-3 md:mb-6 leading-tight"
                     style={{
+                      ...slide.titleFont,
                       opacity: isActive && animate ? 1 : 0,
                       transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
                       transition: "opacity 600ms ease-out 200ms, transform 600ms ease-out 200ms",

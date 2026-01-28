@@ -1,6 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X, Send, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAudioManager } from "@/context/AudioContext";
+
+const AUDIO_ID_COLLAPSED = "chatbot-video-collapsed";
+const AUDIO_ID_EXPANDED = "chatbot-video-expanded";
 
 // Custom Lotus Flower Icon Component
 const LotusFlowerIcon = ({ className }: { className?: string }) => (
@@ -91,10 +95,35 @@ const FloatingVideoAd = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
 
+  const { registerAudio, unregisterAudio, requestAudioPlay, muteAll } = useAudioManager();
+
+  // Register videos with audio manager
+  useEffect(() => {
+    if (isHidden) return;
+
+    const collapsedVideo = collapsedVideoRef.current;
+    const expandedVideo = expandedVideoRef.current;
+
+    if (collapsedVideo) {
+      registerAudio(AUDIO_ID_COLLAPSED, collapsedVideo);
+      collapsedVideo.muted = true;
+    }
+    if (expandedVideo) {
+      registerAudio(AUDIO_ID_EXPANDED, expandedVideo);
+      expandedVideo.muted = true;
+    }
+
+    return () => {
+      unregisterAudio(AUDIO_ID_COLLAPSED);
+      unregisterAudio(AUDIO_ID_EXPANDED);
+    };
+  }, [isHidden, registerAudio, unregisterAudio]);
+
   const handleDontShowAgain = () => {
     localStorage.setItem(HIDE_VIDEO_AD_KEY, "true");
     setIsHidden(true);
     clearAutoCloseTimer();
+    muteAll();
   };
 
   // Don't render if user opted out
@@ -121,18 +150,21 @@ const FloatingVideoAd = () => {
 
   const handleExpand = () => {
     setIsExpanded(true);
-    setIsMuted(false);
-    startAutoCloseTimer(); // Start 30-second auto-close timer
-    // Pause collapsed video and play expanded with sound
+    startAutoCloseTimer();
+    
+    // Pause collapsed video
     if (collapsedVideoRef.current) {
       collapsedVideoRef.current.pause();
     }
+    
+    // Play expanded video (muted by default, user must click to unmute)
     setTimeout(() => {
       if (expandedVideoRef.current) {
-        expandedVideoRef.current.muted = false;
+        expandedVideoRef.current.muted = true;
         expandedVideoRef.current.currentTime = 0;
         expandedVideoRef.current.play();
         setIsPlaying(true);
+        setIsMuted(true);
       }
     }, 100);
   };
@@ -140,12 +172,16 @@ const FloatingVideoAd = () => {
   const handleCollapse = () => {
     setIsExpanded(false);
     setIsMuted(true);
-    clearAutoCloseTimer(); // Clear timer on collapse
-    // Stop expanded video and resume collapsed
+    clearAutoCloseTimer();
+    muteAll();
+    
+    // Stop expanded video
     if (expandedVideoRef.current) {
       expandedVideoRef.current.pause();
       expandedVideoRef.current.muted = true;
     }
+    
+    // Resume collapsed video (always muted)
     setTimeout(() => {
       if (collapsedVideoRef.current) {
         collapsedVideoRef.current.muted = true;
@@ -153,12 +189,20 @@ const FloatingVideoAd = () => {
       }
     }, 100);
   };
+
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const newMutedState = !isMuted;
-    setIsMuted(newMutedState);
-    if (expandedVideoRef.current) {
-      expandedVideoRef.current.muted = newMutedState;
+    
+    if (isMuted) {
+      // Request exclusive audio playback through centralized manager
+      requestAudioPlay(AUDIO_ID_EXPANDED);
+      setIsMuted(false);
+    } else {
+      // Mute this video
+      if (expandedVideoRef.current) {
+        expandedVideoRef.current.muted = true;
+      }
+      setIsMuted(true);
     }
   };
 
@@ -232,7 +276,7 @@ const FloatingVideoAd = () => {
             ref={expandedVideoRef}
             loop
             playsInline
-            muted={isMuted}
+            muted
             className="w-full h-full object-cover"
           >
             <source src="/videos/elara-luxury-ad.mp4" type="video/mp4" />

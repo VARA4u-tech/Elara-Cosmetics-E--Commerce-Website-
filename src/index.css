@@ -257,6 +257,20 @@
     }
   }
 
+  /* Ken Burns Zoom Effect */
+  .ken-burns {
+    animation: kenBurns 8s ease-out forwards;
+  }
+
+  @keyframes kenBurns {
+    0% {
+      transform: scale(1) translateZ(0);
+    }
+    100% {
+      transform: scale(1.08) translateZ(0);
+    }
+  }
+
   /* Pulse Ring Effect */
   .pulse-ring {
     @apply relative;

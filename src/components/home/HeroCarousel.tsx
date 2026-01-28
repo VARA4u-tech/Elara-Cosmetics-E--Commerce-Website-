@@ -46,7 +46,7 @@ const slides = [
     title: "The Art of Self-Care",
     subtitle: "Indulge in Pure Radiance",
     description: "Transform your daily ritual with our exquisite formulations designed for discerning beauty",
-    image: productShowcase,
+    video: "/videos/hero-cosmetics.mp4",
     cta: "Shop Hair Care",
     link: "/category/hair",
     objectPosition: "center",
@@ -146,17 +146,29 @@ const HeroCarousel = () => {
               transform: "translateZ(0)",
             }}
           >
-            {/* Background Image - Full width edge-to-edge */}
+            {/* Background - Image or Video */}
             <div className="absolute inset-0 w-full h-full">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="w-full h-full object-cover"
-                style={{ objectPosition: slide.objectPosition || 'center' }}
-                loading={isActive ? "eager" : "lazy"}
-                decoding="async"
-                fetchPriority={isActive ? "high" : "auto"}
-              />
+              {'video' in slide && slide.video ? (
+                <video
+                  src={slide.video}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: slide.objectPosition || 'center' }}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              ) : (
+                <img
+                  src={'image' in slide ? slide.image : ''}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: slide.objectPosition || 'center' }}
+                  loading={isActive ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={isActive ? "high" : "auto"}
+                />
+              )}
               {/* Gradient overlay - lighter on mobile for better image visibility */}
               <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent md:from-foreground/60 md:via-foreground/30" />
             </div>

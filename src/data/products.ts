@@ -32,37 +32,37 @@ export const categories: Category[] = [
   {
     id: "face",
     name: "Face",
-    image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Cleansers", "Toners", "Serums", "Moisturizers", "Face Oils", "Masks", "Eye Care"],
   },
   {
     id: "body",
     name: "Body",
-    image: "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Body Oils", "Body Lotions", "Body Scrubs", "Body Washes", "Hand Care"],
   },
   {
     id: "hair",
     name: "Hair",
-    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Shampoos", "Conditioners", "Hair Oils", "Hair Masks", "Scalp Care", "Hair Serums"],
   },
   {
     id: "wellness",
     name: "Wellness",
-    image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Aromatherapy", "Diffuser Oils", "Massage Oils", "Bath Rituals"],
   },
   {
     id: "makeup",
     name: "Makeup",
-    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Lips", "Eyes", "Face", "Nails"],
   },
   {
     id: "gifting",
     name: "Gifting",
-    image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&h=400&fit=crop",
+    image: "", // Awaiting user-provided category image
     subcategories: ["Gift Sets", "Luxury Hampers", "Travel Kits"],
   },
 ];

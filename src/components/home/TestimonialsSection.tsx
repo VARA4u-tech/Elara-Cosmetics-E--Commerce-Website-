@@ -8,27 +8,27 @@ const testimonials = [
     name: "Priya Sharma",
     location: "Mumbai",
     rating: 5,
-    text: "The Soundarya Radiance Cream has completely transformed my skin. After just two weeks, I noticed a visible reduction in fine lines and a natural glow that I haven't seen in years. Truly worth every rupee!",
-    product: "Soundarya Radiance Cream",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+    text: "The Anti-Dandruff Serum has completely transformed my scalp health. After just two weeks, I noticed a visible reduction in flakes and itchiness. Truly worth every rupee!",
+    product: "Anti-Dandruff Serum",
+    initials: "PS",
   },
   {
     id: 2,
     name: "Ananya Reddy",
     location: "Bangalore",
     rating: 5,
-    text: "I've been using the Kesharaja Hair Vitalizer for three months now, and my hair fall has reduced dramatically. My hair feels thicker and healthier than ever. This is now a permanent part of my hair care routine.",
-    product: "Kesharaja Hair Vitalizer",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+    text: "I've been using the Advance Hair Growth Serum for three months now, and my hair fall has reduced dramatically. My hair feels thicker and healthier than ever. This is now a permanent part of my hair care routine.",
+    product: "Advance Hair Growth Serum",
+    initials: "AR",
   },
   {
     id: 3,
     name: "Meera Kapoor",
     location: "Delhi",
     rating: 5,
-    text: "The Kumkumadi Face Serum is pure magic in a bottle! My dark spots have faded significantly, and my skin has a luminous quality that I always dreamed of. Elara Cosmetics has earned a customer for life.",
-    product: "Tejasvi Kumkumadi Face Serum",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+    text: "The GlowCell NMN Serum is pure magic in a bottle! My skin has a luminous quality that I always dreamed of. Elara Cosmetics has earned a customer for life.",
+    product: "GlowCell™ NMN Serum",
+    initials: "MK",
   },
 ];
 
@@ -99,13 +99,11 @@ const TestimonialsSection = () => {
                       Purchased: {testimonial.product}
                     </p>
 
-                    {/* Author */}
+                    {/* Author with Initials Avatar */}
                     <div className="flex items-center justify-center gap-4">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
-                      />
+                      <div className="w-14 h-14 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center">
+                        <span className="font-serif text-lg text-primary">{testimonial.initials}</span>
+                      </div>
                       <div className="text-left">
                         <p className="font-medium text-foreground">{testimonial.name}</p>
                         <p className="text-sm text-muted-foreground">{testimonial.location}</p>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, MapPin, Phone, Gift, Sparkles, ArrowRight } from "lucide-react";
+import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown, ChevronRight, MapPin, Phone, Gift, Sparkles, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import SearchModal from "@/components/ui/SearchModal";
 import logoImage from "@/assets/logo-transparent.png";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Extended navigation with more categories
 const mainNavigation = [
@@ -24,6 +25,7 @@ const getFeaturedProducts = (categoryId: string) => {
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { setIsCartOpen, totalItems } = useCart();
@@ -38,6 +40,18 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleMouseEnter = (categoryId: string) => {
     setActiveDropdown(categoryId);
   };
@@ -46,25 +60,33 @@ const Header = () => {
     setActiveDropdown(null);
   };
 
+  const toggleMobileCategory = (categoryId: string) => {
+    setExpandedMobileCategory(expandedMobileCategory === categoryId ? null : categoryId);
+  };
+
   // Check if item has subcategories (is a category object)
   const hasSubcategories = (item: any) => {
     return item.subcategories && item.subcategories.length > 0;
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setExpandedMobileCategory(null);
   };
 
   return (
     <>
       <header className={cn(
         "sticky top-0 z-50 transition-all duration-300",
-        // Glassmorphism on mobile, solid cream on desktop
-        "bg-background/70 backdrop-blur-md lg:bg-cream lg:backdrop-blur-none",
-        isScrolled ? "shadow-sm border-b border-border/30" : "border-b border-transparent"
+        "bg-background/95 backdrop-blur-md",
+        isScrolled ? "shadow-sm" : ""
       )}>
-        {/* Top Utility Bar - Hidden when scrolled */}
+        {/* Top Utility Bar - Desktop Only */}
         <div className={cn(
-          "hidden lg:block bg-cream-dark/40 border-b border-border/20 transition-all duration-300 overflow-hidden",
+          "hidden lg:block bg-muted/50 border-b border-border/30 transition-all duration-300 overflow-hidden",
           isScrolled ? "h-0 opacity-0" : "h-9 opacity-100"
         )}>
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-6">
             <div className="flex items-center justify-between h-9 text-xs">
               <div className="flex items-center gap-6 text-muted-foreground">
                 <a href="tel:+918019156646" className="flex items-center gap-1.5 hover:text-primary transition-colors">
@@ -85,89 +107,99 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Main Header with Centered Logo */}
-        <div className="container mx-auto px-4 bg-transparent lg:bg-cream">
-          <div className={cn(
-            "flex items-center justify-between transition-all duration-300",
-            isScrolled ? "h-16 md:h-18" : "h-20 md:h-24"
-          )}>
-            {/* Left Side - Mobile Menu & Search */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <button
-                className="p-2 -ml-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-              <button 
-                onClick={() => setIsSearchOpen(true)}
-                className="p-2 hover:text-primary transition-colors"
-                aria-label="Search"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-            </div>
+        {/* Main Header */}
+        <div className="border-b border-border/30">
+          <div className="container mx-auto px-4 lg:px-6">
+            <div className={cn(
+              "flex items-center justify-between transition-all duration-300",
+              isScrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+            )}>
+              {/* Left Section - Mobile: Menu, Tablet+: Search */}
+              <div className="flex items-center gap-2 min-w-[120px]">
+                {/* Mobile Hamburger Menu */}
+                <button
+                  className="lg:hidden p-2 -ml-2 hover:bg-muted/50 rounded-md transition-colors"
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  aria-label="Open menu"
+                >
+                  <Menu className="w-6 h-6" />
+                </button>
+                
+                {/* Desktop Search */}
+                <button 
+                  onClick={() => setIsSearchOpen(true)}
+                  className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Search</span>
+                </button>
+              </div>
 
-            {/* Left Side - Desktop Search & Store */}
-            <div className="hidden lg:flex items-center gap-4 w-48">
-              <button 
-                onClick={() => setIsSearchOpen(true)}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Search className="w-4 h-4" />
-                <span>Search</span>
-              </button>
-            </div>
-
-            {/* Centered Logo - Seamless blend */}
-            <Link to="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 lg:flex-1 lg:flex lg:justify-center group">
-              <img 
-                src={logoImage} 
-                alt="Elara Cosmetics" 
-                className={cn(
-                  "w-auto object-contain transition-all duration-500 ease-out group-hover:scale-[1.02]",
-                  isScrolled 
-                    ? "h-12 sm:h-14 md:h-16" 
-                    : "h-16 sm:h-20 md:h-24"
-                )}
-                style={{
-                  filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02))'
-                }}
-              />
-            </Link>
-
-            {/* Right Side - Icons */}
-            <div className="flex items-center justify-end gap-1 sm:gap-3 w-48">
-              <Link to="/account" className="hidden sm:flex p-2 hover:text-primary transition-colors" aria-label="Account">
-                <User className="w-5 h-5" />
+              {/* Center - Logo */}
+              <Link to="/" className="flex items-center justify-center">
+                <img 
+                  src={logoImage} 
+                  alt="Elara Cosmetics" 
+                  className={cn(
+                    "w-auto object-contain transition-all duration-300",
+                    isScrolled 
+                      ? "h-10 md:h-12 lg:h-14" 
+                      : "h-12 md:h-16 lg:h-20"
+                  )}
+                />
               </Link>
-              <Link to="/wishlist" className="hidden sm:flex p-2 hover:text-primary transition-colors" aria-label="Wishlist">
-                <Heart className="w-5 h-5" />
-              </Link>
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="p-2 hover:text-primary transition-colors relative"
-                aria-label="Shopping bag"
-              >
-                <ShoppingBag className="w-5 h-5" />
-                {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+
+              {/* Right Section - Icons */}
+              <div className="flex items-center justify-end gap-1 md:gap-2 min-w-[120px]">
+                {/* Search - Mobile & Tablet only */}
+                <button 
+                  onClick={() => setIsSearchOpen(true)}
+                  className="lg:hidden p-2 hover:bg-muted/50 rounded-md transition-colors"
+                  aria-label="Search"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+                
+                {/* Account - Hidden on mobile */}
+                <Link 
+                  to="/account" 
+                  className="hidden md:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
+                  aria-label="Account"
+                >
+                  <User className="w-5 h-5" />
+                </Link>
+                
+                {/* Wishlist - Hidden on mobile */}
+                <Link 
+                  to="/wishlist" 
+                  className="hidden md:flex p-2 hover:bg-muted/50 rounded-md transition-colors" 
+                  aria-label="Wishlist"
+                >
+                  <Heart className="w-5 h-5" />
+                </Link>
+                
+                {/* Cart - Always visible */}
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="p-2 hover:bg-muted/50 rounded-md transition-colors relative"
+                  aria-label="Shopping cart"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  {totalItems > 0 && (
+                    <span className="absolute top-0.5 right-0.5 bg-primary text-primary-foreground text-[10px] min-w-[16px] h-4 rounded-full flex items-center justify-center font-medium px-1">
+                      {totalItems > 99 ? "99+" : totalItems}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Desktop Navigation Bar */}
-        <nav className={cn(
-          "hidden lg:block border-t border-border/20 bg-cream transition-all duration-300",
-          isScrolled && "border-t-0"
-        )}>
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center gap-1 xl:gap-2">
+        <nav className="hidden lg:block bg-background border-b border-border/20">
+          <div className="container mx-auto px-6">
+            <div className="flex items-center justify-center">
               {mainNavigation.map((item) => (
                 <div
                   key={item.id}
@@ -178,32 +210,32 @@ const Header = () => {
                   <Link
                     to={'href' in item ? item.href : `/category/${item.id}`}
                     className={cn(
-                      "flex items-center gap-1 px-3 xl:px-4 text-xs xl:text-sm uppercase tracking-luxury font-medium transition-all underline-animation",
-                      isScrolled ? "py-2.5" : "py-4",
+                      "flex items-center gap-1 px-4 py-3 text-sm uppercase tracking-wider font-medium transition-all",
+                      "hover:text-primary",
                       'highlight' in item && item.highlight 
                         ? "text-primary" 
-                        : "text-foreground hover:text-primary"
+                        : "text-foreground"
                     )}
                   >
                     {item.name}
                     {hasSubcategories(item) && (
                       <ChevronDown
                         className={cn(
-                          "w-3 h-3 transition-transform duration-200",
+                          "w-3.5 h-3.5 transition-transform duration-200",
                           activeDropdown === item.id && "rotate-180"
                         )}
                       />
                     )}
                   </Link>
 
-                  {/* Enhanced Mega Menu for categories */}
+                  {/* Mega Menu for categories */}
                   {hasSubcategories(item) && 'subcategories' in item && 'image' in item && (
                     <div
                       className={cn(
-                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-luxury-lg w-[600px] transition-all duration-200 z-50",
+                        "absolute top-full left-1/2 -translate-x-1/2 bg-background border border-border shadow-xl rounded-sm w-[560px] transition-all duration-200 z-50",
                         activeDropdown === item.id
                           ? "opacity-100 visible translate-y-0"
-                          : "opacity-0 invisible -translate-y-2"
+                          : "opacity-0 invisible -translate-y-2 pointer-events-none"
                       )}
                     >
                       <div className="grid grid-cols-3 gap-0">
@@ -212,14 +244,14 @@ const Header = () => {
                           <img
                             src={(item as any).image}
                             alt={item.name}
-                            className="w-full h-full object-cover min-h-[280px]"
+                            className="w-full h-full object-cover min-h-[260px]"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
                           <div className="absolute bottom-4 left-4 right-4 text-background">
                             <p className="font-serif text-lg mb-1">{item.name}</p>
                             <Link
                               to={`/category/${item.id}`}
-                              className="text-xs uppercase tracking-luxury flex items-center gap-1 hover:underline"
+                              className="text-xs uppercase tracking-wider flex items-center gap-1 hover:underline"
                             >
                               View All
                               <ArrowRight className="w-3 h-3" />
@@ -229,7 +261,7 @@ const Header = () => {
 
                         {/* Subcategories */}
                         <div className="col-span-1 p-5 border-l border-border">
-                          <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium mb-4">
+                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-4">
                             Shop by Category
                           </p>
                           <div className="space-y-2">
@@ -246,8 +278,8 @@ const Header = () => {
                         </div>
 
                         {/* Featured Products */}
-                        <div className="col-span-1 p-5 border-l border-border bg-secondary/30">
-                          <p className="text-xs uppercase tracking-wide-luxury text-primary font-medium mb-4">
+                        <div className="col-span-1 p-5 border-l border-border bg-muted/30">
+                          <p className="text-xs uppercase tracking-wider text-primary font-medium mb-4">
                             Featured
                           </p>
                           <div className="space-y-4">
@@ -260,10 +292,10 @@ const Header = () => {
                                 <img
                                   src={product.image}
                                   alt={product.name}
-                                  className="w-16 h-16 object-cover"
+                                  className="w-14 h-14 object-cover rounded-sm"
                                 />
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-serif line-clamp-2 group-hover:text-primary transition-colors">
+                                  <p className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
                                     {product.name}
                                   </p>
                                   <p className="text-xs text-primary mt-1">
@@ -282,191 +314,244 @@ const Header = () => {
             </div>
           </div>
         </nav>
+      </header>
 
-        {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
         {isMobileMenuOpen && (
-          <div 
-            className="lg:hidden fixed inset-0 bg-foreground/50 z-40"
-            onClick={() => setIsMobileMenuOpen(false)}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden fixed inset-0 bg-foreground/60 z-50"
+            onClick={closeMobileMenu}
           />
         )}
+      </AnimatePresence>
 
-        {/* Mobile Menu Drawer */}
-        <div
-          className={cn(
-            "lg:hidden fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-background z-50 transition-transform duration-300 ease-out shadow-luxury-lg",
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          )}
-        >
-          {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border">
-            <img 
-              src={logoImage} 
-              alt="Elara Cosmetics" 
-              className="h-14 w-auto object-contain"
-            />
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 -mr-2 hover:text-primary transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-
-          <div className="overflow-y-auto h-[calc(100%-65px)] pb-20">
-            {/* Promo Banner */}
-            <div className="bg-primary/10 p-4 text-center">
-              <p className="text-sm font-medium text-primary flex items-center justify-center gap-2">
-                <Gift className="w-4 h-4" />
-                Special Offers Available
-              </p>
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="lg:hidden fixed top-0 left-0 h-full w-[85%] max-w-[360px] bg-background z-50 flex flex-col shadow-2xl"
+          >
+            {/* Mobile Menu Header */}
+            <div className="flex items-center justify-between p-4 border-b border-border shrink-0">
+              <img 
+                src={logoImage} 
+                alt="Elara Cosmetics" 
+                className="h-10 w-auto object-contain"
+              />
+              <button
+                onClick={closeMobileMenu}
+                className="p-2 -mr-2 hover:bg-muted/50 rounded-md transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Mobile Search */}
-            <div className="p-4">
-              <div 
-                className="relative"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsSearchOpen(true);
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  className="w-full px-4 py-3 border border-border text-sm focus:outline-none focus:border-primary cursor-pointer bg-secondary/30"
-                  readOnly
-                />
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto">
+              {/* Promo Banner */}
+              <div className="bg-primary/10 px-4 py-3">
+                <p className="text-sm font-medium text-primary flex items-center gap-2">
+                  <Gift className="w-4 h-4" />
+                  Special Offers Available
+                </p>
               </div>
-            </div>
 
-            {/* Featured Links */}
-            <div className="flex gap-2 px-4 pb-4">
-              <Link
-                to="/category/face?tag=sale"
-                className="flex-1 px-4 py-2.5 bg-primary text-primary-foreground text-xs uppercase tracking-luxury text-center font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Sparkles className="w-3.5 h-3.5 inline-block mr-1.5" />
-                Offers
-              </Link>
-              <Link
-                to="/category/face?sort=bestselling"
-                className="flex-1 px-4 py-2.5 border border-primary text-primary text-xs uppercase tracking-luxury text-center font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Best Sellers
-              </Link>
-            </div>
+              {/* Mobile Search */}
+              <div className="p-4">
+                <button 
+                  className="w-full flex items-center gap-3 px-4 py-3 border border-border rounded-sm text-sm text-muted-foreground bg-muted/30 hover:border-primary transition-colors"
+                  onClick={() => {
+                    closeMobileMenu();
+                    setIsSearchOpen(true);
+                  }}
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Search products...</span>
+                </button>
+              </div>
 
-            {/* Mobile Categories */}
-            <div className="px-4">
-              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Shop by Category</p>
-              {categories.map((category) => (
-                <div key={category.id} className="border-b border-border">
+              {/* Quick Action Buttons */}
+              <div className="flex gap-2 px-4 pb-4">
+                <Link
+                  to="/category/face?tag=sale"
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary text-primary-foreground text-xs uppercase tracking-wider font-medium rounded-sm"
+                  onClick={closeMobileMenu}
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Offers
+                </Link>
+                <Link
+                  to="/category/face?sort=bestselling"
+                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 border border-primary text-primary text-xs uppercase tracking-wider font-medium rounded-sm"
+                  onClick={closeMobileMenu}
+                >
+                  Best Sellers
+                </Link>
+              </div>
+
+              {/* Categories */}
+              <div className="px-4">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">Shop by Category</p>
+                <div className="border-t border-border">
+                  {categories.map((category) => (
+                    <div key={category.id} className="border-b border-border">
+                      {hasSubcategories(category) ? (
+                        <>
+                          <button
+                            onClick={() => toggleMobileCategory(category.id)}
+                            className="w-full flex items-center justify-between py-3.5 text-base text-foreground hover:text-primary transition-colors"
+                          >
+                            <span className="font-medium">{category.name}</span>
+                            <ChevronDown 
+                              className={cn(
+                                "w-4 h-4 text-muted-foreground transition-transform duration-200",
+                                expandedMobileCategory === category.id && "rotate-180"
+                              )}
+                            />
+                          </button>
+                          <AnimatePresence>
+                            {expandedMobileCategory === category.id && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="pb-3 pl-4 space-y-2">
+                                  <Link
+                                    to={`/category/${category.id}`}
+                                    className="block py-2 text-sm text-primary font-medium hover:underline"
+                                    onClick={closeMobileMenu}
+                                  >
+                                    View All {category.name}
+                                  </Link>
+                                  {category.subcategories?.map((sub) => (
+                                    <Link
+                                      key={sub}
+                                      to={`/category/${category.id}?subcategory=${sub.toLowerCase()}`}
+                                      className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                                      onClick={closeMobileMenu}
+                                    >
+                                      {sub}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      ) : (
+                        <Link
+                          to={`/category/${category.id}`}
+                          className="flex items-center justify-between py-3.5 text-base font-medium text-foreground hover:text-primary transition-colors"
+                          onClick={closeMobileMenu}
+                        >
+                          {category.name}
+                          <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Additional Navigation */}
                   <Link
-                    to={`/category/${category.id}`}
-                    className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    to="/category/gifting"
+                    className="flex items-center justify-between py-3.5 text-base font-medium text-foreground hover:text-primary transition-colors border-b border-border"
+                    onClick={closeMobileMenu}
                   >
-                    {category.name}
-                    <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
+                    Travel Minis
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  </Link>
+                  <Link
+                    to="/category/body"
+                    className="flex items-center justify-between py-3.5 text-base font-medium text-foreground hover:text-primary transition-colors border-b border-border"
+                    onClick={closeMobileMenu}
+                  >
+                    Men
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
                   </Link>
                 </div>
-              ))}
-
-              {/* Additional Categories */}
-              <div className="border-b border-border">
-                <Link
-                  to="/category/gifting"
-                  className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Travel Minis
-                  <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
-                </Link>
               </div>
-              <div className="border-b border-border">
-                <Link
-                  to="/category/body"
-                  className="flex items-center justify-between py-3.5 text-base font-serif text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Men
-                  <ChevronDown className="w-4 h-4 text-muted-foreground -rotate-90" />
-                </Link>
-              </div>
-            </div>
 
-            {/* Mobile Quick Links */}
-            <div className="mt-6 px-4">
-              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Quick Links</p>
-              <div className="grid grid-cols-2 gap-2">
-                <Link
-                  to="/about"
-                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  About Us
-                </Link>
-                <Link
-                  to="/stores"
-                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Find a Store
-                </Link>
-                <Link
-                  to="/contact"
-                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact Us
-                </Link>
+              {/* Quick Links */}
+              <div className="mt-6 px-4">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">Quick Links</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    to="/about"
+                    className="p-3 border border-border text-center text-sm font-medium hover:border-primary hover:text-primary transition-colors rounded-sm"
+                    onClick={closeMobileMenu}
+                  >
+                    About Us
+                  </Link>
+                  <Link
+                    to="/stores"
+                    className="p-3 border border-border text-center text-sm font-medium hover:border-primary hover:text-primary transition-colors rounded-sm"
+                    onClick={closeMobileMenu}
+                  >
+                    Find a Store
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="p-3 border border-border text-center text-sm font-medium hover:border-primary hover:text-primary transition-colors rounded-sm"
+                    onClick={closeMobileMenu}
+                  >
+                    Contact Us
+                  </Link>
+                  <Link
+                    to="/account"
+                    className="p-3 border border-border text-center text-sm font-medium hover:border-primary hover:text-primary transition-colors rounded-sm"
+                    onClick={closeMobileMenu}
+                  >
+                    My Account
+                  </Link>
+                </div>
+              </div>
+
+              {/* Account Links */}
+              <div className="mt-6 pt-4 mx-4 border-t border-border space-y-1">
                 <Link
                   to="/account"
-                  className="p-3 border border-border text-center text-sm hover:border-primary hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2.5"
+                  onClick={closeMobileMenu}
                 >
-                  My Account
+                  <User className="w-5 h-5" />
+                  <span className="font-medium">Login / Register</span>
+                </Link>
+                <Link
+                  to="/wishlist"
+                  className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2.5"
+                  onClick={closeMobileMenu}
+                >
+                  <Heart className="w-5 h-5" />
+                  <span className="font-medium">Wishlist</span>
                 </Link>
               </div>
-            </div>
 
-            {/* Mobile Account Links */}
-            <div className="mt-6 pt-6 px-4 border-t border-border space-y-3">
-              <Link
-                to="/account"
-                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-1"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <User className="w-5 h-5" />
-                <span>Login / Register</span>
-              </Link>
-              <Link
-                to="/wishlist"
-                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-1"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Heart className="w-5 h-5" />
-                <span>Wishlist</span>
-              </Link>
+              {/* Contact Info */}
+              <div className="mt-6 mx-4 mb-6 p-4 bg-muted/50 border border-border rounded-sm">
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-medium">Need Help?</p>
+                <a href="tel:+918019156646" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
+                  <Phone className="w-5 h-5 text-primary" />
+                  <span className="font-medium">+91 8019156646</span>
+                </a>
+                <p className="text-xs text-muted-foreground mt-2">Mon-Sat: 9AM - 9PM IST</p>
+              </div>
             </div>
-
-            {/* Mobile Contact */}
-            <div className="mt-6 mx-4 p-4 bg-secondary/50 border border-border">
-              <p className="text-xs uppercase tracking-luxury text-muted-foreground mb-3">Need Help?</p>
-              <a href="tel:+911800102666" className="flex items-center gap-3 text-foreground mb-2 hover:text-primary transition-colors">
-                <Phone className="w-5 h-5 text-primary" />
-                <span className="font-medium">1800-102-6666</span>
-              </a>
-              <p className="text-xs text-muted-foreground">Mon-Sat: 9AM - 9PM IST</p>
-            </div>
-          </div>
-        </div>
-      </header>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

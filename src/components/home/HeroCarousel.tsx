@@ -41,18 +41,6 @@ const slides = [
     titleFont: fontStyles.cinzel,
     subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
   },
-  {
-    id: 3,
-    title: "The Art of Self-Care",
-    subtitle: "Indulge in Pure Radiance",
-    description: "Transform your daily ritual with our exquisite formulations designed for discerning beauty",
-    video: "/videos/hero-cosmetics.mp4",
-    cta: "Shop Hair Care",
-    link: "/category/hair",
-    objectPosition: "center",
-    titleFont: fontStyles.marcellus,
-    subtitleFont: { fontFamily: "'Playfair Display', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.12em" },
-  },
 ];
 
 const HeroCarousel = () => {
@@ -146,37 +134,21 @@ const HeroCarousel = () => {
               transform: "translateZ(0)",
             }}
           >
-            {/* Background - Image or Video */}
+            {/* Background - Image */}
             <div className="absolute inset-0 w-full h-full overflow-hidden">
-              {'video' in slide && slide.video ? (
-                <video
-                  key={`video-${slide.id}-${isActive}`}
-                  src={slide.video}
-                  className={cn(
-                    "w-full h-full object-cover",
-                    isActive && animate && "ken-burns"
-                  )}
-                  style={{ objectPosition: slide.objectPosition || 'center' }}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              ) : (
-                <img
-                  key={`img-${slide.id}-${isActive}`}
-                  src={'image' in slide ? slide.image : ''}
-                  alt={slide.title}
-                  className={cn(
-                    "w-full h-full object-cover",
-                    isActive && animate && "ken-burns"
-                  )}
-                  style={{ objectPosition: slide.objectPosition || 'center' }}
-                  loading={isActive ? "eager" : "lazy"}
-                  decoding="async"
-                  fetchPriority={isActive ? "high" : "auto"}
-                />
-              )}
+              <img
+                key={`img-${slide.id}-${isActive}`}
+                src={slide.image}
+                alt={slide.title}
+                className={cn(
+                  "w-full h-full object-cover",
+                  isActive && animate && "ken-burns"
+                )}
+                style={{ objectPosition: slide.objectPosition || 'center' }}
+                loading={isActive ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={isActive ? "high" : "auto"}
+              />
               {/* Gradient overlay - lighter on mobile for better image visibility */}
               <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent md:from-foreground/60 md:via-foreground/30" />
             </div>

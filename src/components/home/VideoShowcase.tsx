@@ -1,12 +1,45 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const videoAds = [
+  { id: 1, src: "/videos/elara-luxury-ad.mp4", title: "Luxury Collection" },
+  { id: 2, src: "/videos/elara-cosmetics-ad-2.mp4", title: "New Arrivals" },
+  { id: 3, src: "/videos/hero-cosmetics.mp4", title: "Self-Care Ritual" },
+];
 
 const VideoShowcase = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+
+  const currentVideo = videoAds[currentVideoIndex];
+
+  // Handle video end - play next video
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      const nextIndex = (currentVideoIndex + 1) % videoAds.length;
+      setCurrentVideoIndex(nextIndex);
+    };
+
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
+  }, [currentVideoIndex]);
+
+  // Play video when index changes
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.load();
+      video.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  }, [currentVideoIndex]);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -24,6 +57,22 @@ const VideoShowcase = () => {
       videoRef.current.muted = !isMuted;
       setIsMuted(!isMuted);
     }
+  };
+
+  const goToVideo = (index: number) => {
+    if (index !== currentVideoIndex) {
+      setCurrentVideoIndex(index);
+    }
+  };
+
+  const prevVideo = () => {
+    const prevIndex = (currentVideoIndex - 1 + videoAds.length) % videoAds.length;
+    setCurrentVideoIndex(prevIndex);
+  };
+
+  const nextVideo = () => {
+    const nextIndex = (currentVideoIndex + 1) % videoAds.length;
+    setCurrentVideoIndex(nextIndex);
   };
 
   return (
@@ -59,16 +108,32 @@ const VideoShowcase = () => {
           <div className="relative aspect-video bg-foreground/5 overflow-hidden group">
             <video
               ref={videoRef}
-              src="/videos/elara-luxury-ad.mp4"
+              key={currentVideo.id}
+              src={currentVideo.src}
               className="w-full h-full object-cover"
               autoPlay
-              muted
-              loop
+              muted={isMuted}
               playsInline
             />
             
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevVideo}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary-foreground/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-primary-foreground transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Previous video"
+            >
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+            <button
+              onClick={nextVideo}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary-foreground/80 backdrop-blur-sm flex items-center justify-center text-foreground hover:bg-primary-foreground transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Next video"
+            >
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
             
             {/* Video Controls */}
             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -96,6 +161,23 @@ const VideoShowcase = () => {
                     <Volume2 className="w-4 h-4 md:w-5 md:h-5" />
                   )}
                 </button>
+                
+                {/* Video Indicator */}
+                <div className="hidden sm:flex items-center gap-2 ml-2">
+                  {videoAds.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToVideo(index)}
+                      className={cn(
+                        "w-8 h-1 rounded-full transition-all duration-300",
+                        index === currentVideoIndex
+                          ? "bg-primary w-12"
+                          : "bg-primary-foreground/50 hover:bg-primary-foreground/70"
+                      )}
+                      aria-label={`Go to video ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Right CTA */}

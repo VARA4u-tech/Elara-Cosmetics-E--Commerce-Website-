@@ -22,7 +22,7 @@ const categories = [
 
 const FeaturedCategories = () => {
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-2 sm:py-3 md:py-4 lg:py-4 bg-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -35,7 +35,7 @@ const FeaturedCategories = () => {
           <span className="text-xs tracking-[0.3em] text-primary/70 uppercase mb-3 block">
             Explore Our Collections
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground">
+          <h2 className="text-lg sm:text-lg md:text-xl lg:text-xl font-serif text-foreground">
             Featured Categories
           </h2>
         </motion.div>
@@ -52,27 +52,28 @@ const FeaturedCategories = () => {
             >
               <Link
                 to={category.link}
-                className="group block relative overflow-hidden rounded-lg aspect-[4/3] md:aspect-[16/10]"
+                className="group block relative overflow-hidden rounded-lg aspect-[3/2] sm:aspect-[4/3] md:aspect-[16/10]"
               >
                 {/* Background Image */}
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
                 />
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 
                 {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                  <h3 className="font-serif text-2xl md:text-3xl text-white mb-2 group-hover:text-primary-foreground transition-colors">
+                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8">
+                  <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-white mb-2 group-hover:text-primary-foreground transition-colors">
                     {category.name}
                   </h3>
-                  <p className="text-white/80 text-sm md:text-base mb-4 max-w-xs">
+                  <p className="text-white/80 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 max-w-xs">
                     {category.description}
                   </p>
-                  <span className="inline-flex items-center gap-2 text-white text-sm font-medium group-hover:gap-3 transition-all">
+                  <span className="inline-flex items-center gap-2 text-white text-xs sm:text-sm font-medium group-hover:gap-3 transition-all">
                     Shop Collection
                     <span className="transition-transform group-hover:translate-x-1">→</span>
                   </span>

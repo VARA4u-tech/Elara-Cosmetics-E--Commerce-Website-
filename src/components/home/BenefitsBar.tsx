@@ -27,16 +27,16 @@ const benefits = [
 
 const BenefitsBar = () => {
   return (
-    <section className="py-12 md:py-16 bg-accent">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <section className="py-2 sm:py-3 md:py-4 lg:py-4 bg-accent">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {benefits.map((benefit) => (
             <div key={benefit.id} className="text-center">
-              <span className="text-3xl md:text-4xl mb-3 block">{benefit.icon}</span>
-              <h3 className="font-serif text-lg text-accent-foreground mb-1">
+              <span className="text-2xl md:text-3xl mb-2 block">{benefit.icon}</span>
+              <h3 className="font-serif text-base md:text-lg text-accent-foreground mb-0.5">
                 {benefit.title}
               </h3>
-              <p className="text-xs text-accent-foreground/70 uppercase tracking-luxury">
+              <p className="text-[10px] md:text-xs text-accent-foreground/70 uppercase tracking-luxury">
                 {benefit.description}
               </p>
             </div>

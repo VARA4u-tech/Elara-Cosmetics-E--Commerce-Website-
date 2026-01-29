@@ -3,6 +3,7 @@ import PageTransition from "@/components/ui/PageTransition";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import VideoShowcase from "@/components/home/VideoShowcase";
 import CategoryIcons from "@/components/home/CategoryIcons";
+import PerfectFormula from "@/components/home/PerfectFormula";
 import Bestsellers from "@/components/home/Bestsellers";
 import FeaturedCategories from "@/components/home/FeaturedCategories";
 import NewArrivals from "@/components/home/NewArrivals";
@@ -15,28 +16,30 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 import BenefitsBar from "@/components/home/BenefitsBar";
 import SideAdBanner from "@/components/home/SideAdBanner";
 import InlineProductAd from "@/components/home/InlineProductAd";
-import FloatingPromoCard from "@/components/home/FloatingPromoCard";
+
+import ShopByConcern from "@/components/home/ShopByConcern";
 
 const Index = () => {
   return (
     <Layout>
       <PageTransition>
         <HeroCarousel />
-        <VideoShowcase />
+
         <CategoryIcons />
+        <ShopByConcern />
+        <PerfectFormula />
         <Bestsellers />
         <SideAdBanner variant="horizontal" className="container mx-auto px-4 py-8" />
         <FeaturedCategories />
         <PromoBanner />
         <NewArrivals />
         <InlineProductAd />
-        <IngredientsSpotlight />
+
         <TestimonialsSection />
         <BrandStory />
         <InstagramFeed />
         <NewsletterSection />
         <BenefitsBar />
-        <FloatingPromoCard />
       </PageTransition>
     </Layout>
   );

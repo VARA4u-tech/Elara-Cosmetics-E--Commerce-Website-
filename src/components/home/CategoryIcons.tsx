@@ -1,93 +1,84 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-// Import ingredient images to use for category icons
-import roseImg from "@/assets/ingredients/rose.png";
-import coconutImg from "@/assets/ingredients/coconut.png";
-import jasmine from "@/assets/ingredients/jasmine.png";
-import sandalwoodImg from "@/assets/ingredients/sandalwood.png";
-import saffronImg from "@/assets/ingredients/saffron.png";
-import honeyImg from "@/assets/ingredients/honey.png";
+// Import all product images
+import hairImg from "@/assets/category_updates/hair.png";
+import faceImg from "@/assets/category_updates/face.png";
+import wellnessImg from "@/assets/category_updates/wellness.jpg";
+import bodyImg from "@/assets/category_updates/body.png";
+import menImg from "@/assets/category_updates/men.png";
+import hairGrowthImg from "@/assets/category_updates/hair-growth.png";
+import glowcellImg from "@/assets/category_updates/glowcell.png";
+import niacinImg from "@/assets/category_updates/niacin.png";
+import goldenGlowImg from "@/assets/category_updates/golden-glow.png";
+import aloeImg from "@/assets/products/red-aloevera-splash.jpg";
 
-// Category data with local images
+// Category data with all product images mapped to Product Types
 const categoryData = [
-  {
-    id: "face",
-    name: "Face",
-    image: roseImg,
-  },
-  {
-    id: "body",
-    name: "Body",
-    image: coconutImg,
-  },
-  {
-    id: "hair",
-    name: "Hair",
-    image: jasmine,
-  },
-  {
-    id: "wellness",
-    name: "Wellness",
-    image: sandalwoodImg,
-  },
-  {
-    id: "makeup",
-    name: "Makeup",
-    image: saffronImg,
-  },
-  {
-    id: "gifting",
-    name: "Gifting",
-    image: honeyImg,
-  },
+  { id: "conditioner", name: "CONDITIONER", image: bodyImg },
+  { id: "face-serum", name: "FACE SERUM", image: faceImg },
+  { id: "shampoo", name: "SHAMPOO", image: hairImg },
+  { id: "growth-serum", name: "GROWTH SERUM", image: hairGrowthImg },
+  { id: "mens-care", name: "MEN'S CARE", image: menImg },
+  { id: "scalp-serum", name: "SCALP SERUM", image: wellnessImg },
+  { id: "renewal-serum", name: "RENEWAL SERUM", image: glowcellImg },
+  { id: "glow-serum", name: "GLOW SERUM", image: niacinImg },
+  { id: "eye-serum", name: "EYE SERUM", image: goldenGlowImg },
+  { id: "aloe-splash", name: "ALOE SPLASH", image: aloeImg },
 ];
 
 const CategoryIcons = () => {
   return (
-    <section className="py-16 md:py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">
-            Shop by Category
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Explore our curated collections of Ayurvedic beauty essentials
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
-          {categoryData.map((category, index) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+    <section className="py-6 sm:py-8 md:py-10 bg-background overflow-hidden">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 40s linear infinite;
+          width: max-content;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+      <div className="container mx-auto px-4 overflow-hidden">
+        <div className="flex animate-marquee">
+          {[...categoryData, ...categoryData].map((category, index) => (
+            <div
+              key={`${category.id}-${index}`}
+              className="px-1.5 md:px-2 flex-shrink-0"
             >
               <Link
                 to={`/category/${category.id}`}
-                className="group text-center block"
+                className="group relative block w-[120px] sm:w-[150px] md:w-[170px] aspect-[3/4] rounded-lg overflow-hidden shadow-sm"
               >
-                <div className="relative w-20 h-20 md:w-28 md:h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-border group-hover:border-primary transition-colors duration-300 bg-secondary/30">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                {/* Background Image */}
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300" />
+                
+                {/* Text Content */}
+                <div className="absolute inset-0 flex items-center justify-center z-10 px-2">
+                  <span className="text-white font-bold text-[10px] sm:text-xs uppercase tracking-wider text-center drop-shadow-md">
+                    {category.name}
+                  </span>
                 </div>
-                <h3 className="font-serif text-sm md:text-base text-foreground group-hover:text-primary transition-colors">
-                  {category.name}
-                </h3>
+
+                {/* Arrow Icon */}
+                <div className="absolute bottom-2 right-2 w-5 h-5 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <ArrowRight className="w-2.5 h-2.5" />
+                </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

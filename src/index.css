@@ -1,17 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Forest Essentials Luxury Design System
    Royal Indian Aesthetic - Elegant, Premium, Ayurvedic */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Marcellus&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
     /* Creamy White Base */
     --background: 30 40% 98%;
     --foreground: 340 20% 20%;
+
+    scroll-behavior: smooth;
 
     /* Card & Surface Colors */
     --card: 30 35% 97%;
@@ -375,5 +377,14 @@
   }
   .aspect-landscape {
     aspect-ratio: 4/3;
+  }
+
+  /* Hide Scrollbar */
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

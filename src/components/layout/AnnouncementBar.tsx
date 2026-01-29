@@ -35,23 +35,14 @@ const AnnouncementBar = () => {
 
   return (
     <div 
-      className="bg-accent text-accent-foreground py-2 overflow-hidden"
+      className="bg-accent text-accent-foreground py-1 overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-4">
-          {/* Previous Button - Hidden on mobile */}
-          <button
-            onClick={goToPrevious}
-            className="hidden sm:flex items-center justify-center p-1 hover:bg-accent-foreground/10 rounded-full transition-colors"
-            aria-label="Previous announcement"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
+        <div className="flex items-center justify-center">
           {/* Announcement Content */}
-          <div className="relative flex-1 max-w-md h-5 overflow-hidden">
+          <div className="relative flex-1 max-w-full md:max-w-md h-[10px] md:h-[12px] overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -61,39 +52,13 @@ const AnnouncementBar = () => {
                 transition={{ duration: 0.3 }}
                 className="absolute inset-0 flex items-center justify-center gap-2"
               >
-                <CurrentIcon className="w-3.5 h-3.5 flex-shrink-0" />
-                <span className="text-xs uppercase tracking-wider whitespace-nowrap">
+                <CurrentIcon className="w-2 h-2 md:w-2.5 md:h-2.5 flex-shrink-0" />
+                <span className="text-[9px] md:text-[10px] uppercase tracking-wider whitespace-nowrap overflow-hidden text-ellipsis leading-none">
                   {announcements[currentIndex].text}
                 </span>
               </motion.div>
             </AnimatePresence>
           </div>
-
-          {/* Next Button - Hidden on mobile */}
-          <button
-            onClick={goToNext}
-            className="hidden sm:flex items-center justify-center p-1 hover:bg-accent-foreground/10 rounded-full transition-colors"
-            aria-label="Next announcement"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Dots Indicator */}
-        <div className="flex items-center justify-center gap-1.5 mt-1.5">
-          {announcements.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={cn(
-                "w-1.5 h-1.5 rounded-full transition-all duration-300",
-                index === currentIndex 
-                  ? "bg-accent-foreground w-3" 
-                  : "bg-accent-foreground/40 hover:bg-accent-foreground/60"
-              )}
-              aria-label={`Go to announcement ${index + 1}`}
-            />
-          ))}
         </div>
       </div>
     </div>

@@ -29,12 +29,12 @@ const BackToTop = () => {
     <button
       onClick={scrollToTop}
       className={cn(
-        "fixed bottom-6 left-6 z-40 w-12 h-12 bg-accent text-accent-foreground flex items-center justify-center shadow-luxury transition-all duration-300 hover:bg-primary hover:text-primary-foreground",
+        "fixed bottom-3 left-3 z-40 w-8 h-8 md:w-9 md:h-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-luxury transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-110",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       )}
       aria-label="Back to top"
     >
-      <ChevronUp className="w-5 h-5" />
+      <ChevronUp className="w-4 h-4" />
     </button>
   );
 };

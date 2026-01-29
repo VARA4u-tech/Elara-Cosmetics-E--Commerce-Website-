@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import productCollection1 from "@/assets/hero/product-collection-1.png";
+import elaraBrandBanner from "@/assets/hero/elara-brand-banner.jpg";
 import productCollection2 from "@/assets/hero/product-collection-2.png";
 import productCollection3 from "@/assets/hero/product-collection-3.png";
+
+import heroBannerMain from "@/assets/hero/hero-banner-main-v2.jpg";
 
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
@@ -19,14 +21,30 @@ const fontStyles = {
 
 const slides = [
   {
+    id: 4,
+    title: "The Complete Collection",
+    subtitle: "Pure Luxury",
+    description: "Experience our full range of premium Ayurvedic formulations for hair and skin",
+    image: heroBannerMain,
+    cta: "Shop All Products",
+    link: "/category/all",
+    objectPosition: "center",
+    objectFit: "contain",
+    backgroundColor: "#FDF4F0", // Soft cream background to match image
+    titleFont: fontStyles.playfair,
+    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
+    overlayPosition: "center" as const,
+  },
+  {
     id: 1,
     title: "Discover Our Collection",
     subtitle: "Premium Skincare & Haircare",
     description: "Experience the power of science-backed formulations with our luxurious range of serums, shampoos, and treatments",
-    image: productCollection1,
+    image: elaraBrandBanner,
     cta: "Shop Now",
     link: "/category/face",
     objectPosition: "center",
+    objectFit: "cover",
     titleFont: fontStyles.playfair,
     subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
     overlayPosition: "left" as const,
@@ -127,7 +145,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative w-full h-[85vh] md:h-[75vh] lg:h-[80vh] overflow-hidden bg-background">
+    <section className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/9] bg-background overflow-hidden">
       {/* Slides */}
       {(
         exitingSlide !== null && exitingSlide !== currentSlide
@@ -147,76 +165,82 @@ const HeroCarousel = () => {
               opacity: isActive ? (animate ? 1 : 0) : animate ? 0 : 1,
               transition: `opacity ${FADE_MS}ms ease-in-out`,
               willChange: "opacity",
-              transform: "translateZ(0)",
+              backgroundColor: slide.backgroundColor || "transparent",
             }}
           >
             {/* Background - Image with Ken Burns effect */}
-            <div className="absolute inset-0 w-full h-full overflow-hidden">
+            <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
               <img
                 key={`img-${slide.id}-${isActive}`}
                 src={slide.image}
                 alt={slide.title}
                 className={cn(
-                  "w-full h-full object-cover",
-                  isActive && animate && "ken-burns"
+                  "w-full h-full object-center",
+                  isActive && animate && slide.objectFit !== 'contain' && "ken-burns"
                 )}
-                style={{ objectPosition: slide.objectPosition || 'center' }}
+                style={{ 
+                  objectPosition: slide.objectPosition || 'center',
+                  objectFit: (slide.objectFit as any) || 'cover'
+                }}
                 loading={isActive ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={isActive ? "high" : "auto"}
               />
-              {/* Gradient overlay for text legibility */}
-              <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent md:from-foreground/70 md:via-foreground/40" />
-              {/* Additional bottom gradient for mobile */}
-              <div className="absolute inset-0 md:hidden bg-gradient-to-t from-foreground/70 via-transparent to-transparent" />
+              {/* Subtle overall overlay for text legibility */}
+              <div className="absolute inset-0 bg-black/10" />
+              {/* Bottom gradient for visual weight */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
 
-            {/* Content - positioned at bottom on mobile, left-center on desktop */}
-            <div className="relative z-10 w-full h-full flex items-end md:items-center pb-20 md:pb-0">
-              <div className="w-full px-6 md:container md:mx-auto">
-                <div className="max-w-xl text-primary-foreground">
+            {/* Content - Responsive: Bottom-left on mobile, Centered on desktop */}
+            <div className="relative z-10 w-full h-full flex items-end md:items-center justify-start md:justify-center pb-12 sm:pb-20 md:pb-0">
+              <div className="w-full px-4 sm:px-6 md:container md:mx-auto flex flex-col items-start md:items-center text-left md:text-center">
+                <div className="max-w-md md:max-w-lg lg:max-w-xl text-white">
                   <p
-                    className="text-xs md:text-sm uppercase mb-3 md:mb-4 text-gold-light"
+                    className="text-[10px] sm:text-xs md:text-sm lg:text-base uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-1.5 md:mb-2 text-white/90"
                     style={{
                       ...slide.subtitleFont,
                       opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
-                      transition: "opacity 600ms ease-out 100ms, transform 600ms ease-out 100ms",
+                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
+                      transition: "opacity 800ms ease-out 200ms, transform 800ms ease-out 200ms",
                       willChange: "opacity, transform",
+                      textShadow: "0 2px 4px rgba(0,0,0,0.3)"
                     }}
                   >
                     {slide.subtitle}
                   </p>
                   <h2
-                    className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6 leading-tight"
+                    className="text-xl sm:text-2xl md:text-2xl lg:text-3xl mb-2 sm:mb-2.5 md:mb-3 leading-tight font-medium"
                     style={{
                       ...slide.titleFont,
                       opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
-                      transition: "opacity 600ms ease-out 200ms, transform 600ms ease-out 200ms",
+                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
+                      transition: "opacity 800ms ease-out 400ms, transform 800ms ease-out 400ms",
                       willChange: "opacity, transform",
+                      textShadow: "0 2px 4px rgba(0,0,0,0.3)"
                     }}
                   >
                     {slide.title}
                   </h2>
                   <p
-                    className="text-sm md:text-base lg:text-lg text-primary-foreground/80 mb-6 md:mb-8 max-w-sm md:max-w-md line-clamp-2 md:line-clamp-none"
+                    className="text-[10px] sm:text-xs md:text-[10px] lg:text-xs text-white/90 mb-3 sm:mb-3.5 md:mb-4 max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md md:mx-auto line-clamp-2 sm:line-clamp-3 md:line-clamp-none font-light"
                     style={{
                       opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
-                      transition: "opacity 600ms ease-out 300ms, transform 600ms ease-out 300ms",
+                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
+                      transition: "opacity 800ms ease-out 600ms, transform 800ms ease-out 600ms",
                       willChange: "opacity, transform",
+                      textShadow: "0 1px 2px rgba(0,0,0,0.3)"
                     }}
                   >
                     {slide.description}
                   </p>
                   <Link
                     to={slide.link}
-                    className="inline-block bg-primary text-primary-foreground px-8 md:px-10 py-3 md:py-4 uppercase tracking-luxury text-xs md:text-sm font-medium hover:bg-gold-light transition-colors duration-300"
+                    className="inline-block bg-white text-black px-3 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-1.5 md:py-2 uppercase tracking-[0.12em] sm:tracking-[0.15em] text-[10px] sm:text-[10px] md:text-[11px] font-medium hover:bg-primary hover:text-white transition-all duration-300 min-w-[90px] sm:min-w-[100px] md:min-w-[120px] text-center"
                     style={{
                       opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(16px)",
-                      transition: "opacity 600ms ease-out 400ms, transform 600ms ease-out 400ms, background-color 300ms ease",
+                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
+                      transition: "opacity 800ms ease-out 800ms, transform 800ms ease-out 800ms, background-color 300ms ease, color 300ms ease",
                       willChange: "opacity, transform",
                     }}
                   >

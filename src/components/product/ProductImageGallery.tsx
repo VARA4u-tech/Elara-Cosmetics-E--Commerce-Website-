@@ -58,7 +58,7 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
       <div className="flex-1 relative">
         <div
           className={cn(
-            "aspect-square overflow-hidden cursor-zoom-in relative group",
+            "h-[400px] md:h-[500px] w-full bg-secondary/10 rounded-lg overflow-hidden cursor-zoom-in relative group flex items-center justify-center",
             isZoomed && "cursor-zoom-out"
           )}
           onClick={() => setIsZoomed(!isZoomed)}
@@ -69,7 +69,7 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
             src={images[activeIndex]}
             alt={productName}
             className={cn(
-              "w-full h-full object-cover transition-transform duration-300",
+              "w-full h-full object-contain transition-transform duration-300",
               isZoomed && "scale-150"
             )}
             style={

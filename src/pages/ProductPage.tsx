@@ -135,8 +135,7 @@ const ProductPage = () => {
         </div>
       </div>
 
-      {/* Show customer reviews with before/after photos for face products */}
-      {product.category === "face" && <CustomerReviewsWithPhotos />}
+      {/* Customer Reviews section removed as per user request */}
 
       <RelatedProducts products={relatedProducts} />
       </PageTransition>

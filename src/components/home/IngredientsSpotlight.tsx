@@ -78,7 +78,7 @@ const ingredients = [
 
 const IngredientsSpotlight = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-secondary/30 to-background">
+    <section className="py-2 sm:py-3 md:py-4 lg:py-4 bg-gradient-to-b from-secondary/30 to-background">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -91,7 +91,7 @@ const IngredientsSpotlight = () => {
           <span className="text-xs tracking-[0.3em] text-primary/70 uppercase mb-3 block">
             Nature's Treasures
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground mb-4">
+          <h2 className="text-lg sm:text-lg md:text-xl lg:text-xl font-serif text-foreground mb-4">
             Sacred Ingredients
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
@@ -114,11 +114,12 @@ const IngredientsSpotlight = () => {
                 to={`/category/all?ingredient=${ingredient.id}`}
                 className="group block"
               >
-                <div className="relative aspect-square rounded-full overflow-hidden bg-secondary/50 mb-3 mx-auto w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 border-2 border-primary/10 group-hover:border-primary/30 transition-all duration-300 group-hover:shadow-lg">
+                <div className="relative aspect-square rounded-full overflow-hidden bg-secondary/50 mb-3 mx-auto w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 border-2 border-primary/10 group-hover:border-primary/30 transition-all duration-300 group-hover:shadow-lg">
                   <img
                     src={ingredient.image}
                     alt={ingredient.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>

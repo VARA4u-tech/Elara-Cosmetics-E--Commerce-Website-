@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import logoImage from "@/assets/logo-transparent.png";
 
 const Footer = () => {
@@ -13,23 +21,27 @@ const Footer = () => {
     ],
     help: [
       { name: "Contact Us", href: "/contact" },
-      { name: "FAQs", href: "/contact" },
-      { name: "Shipping Info", href: "/contact" },
-      { name: "Returns & Exchange", href: "/contact" },
+      { name: "FAQs", href: "/faqs" },
+      { name: "Shipping Info", href: "/shipping" },
+      { name: "Returns & Exchange", href: "/returns" },
       { name: "Track Order", href: "/account" },
     ],
     about: [
       { name: "Our Story", href: "/about" },
       { name: "Store Locator", href: "/stores" },
-      { name: "Ingredients", href: "/about" },
-      { name: "Sustainability", href: "/about" },
-      { name: "Careers", href: "/about" },
+      { name: "Ingredients", href: "/ingredients" },
+      { name: "Sustainability", href: "/sustainability" },
+      { name: "Careers", href: "/careers" },
     ],
   };
 
   const socialLinks = [
     { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "https://www.instagram.com/elaracosmetic?igsh=Y3ptcTN5OTNmdDUz", label: "Instagram" },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/elaracosmetic?igsh=Y3ptcTN5OTNmdDUz",
+      label: "Instagram",
+    },
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Youtube, href: "#", label: "YouTube" },
   ];
@@ -44,7 +56,8 @@ const Footer = () => {
               Join Our Royal Circle
             </h3>
             <p className="text-xs sm:text-sm text-background/80 mb-6">
-              Subscribe for exclusive offers, Ayurvedic wisdom, and first access to new collections.
+              Subscribe for exclusive offers, Ayurvedic wisdom, and first access
+              to new collections.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <div className="relative flex-1">
@@ -69,27 +82,37 @@ const Footer = () => {
           {/* Brand Column - Full width on mobile */}
           <div className="col-span-2 md:col-span-3 lg:col-span-1 mb-4 lg:mb-0">
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src={logoImage} 
-                alt="Elara Cosmetics" 
+              <img
+                src={logoImage}
+                alt="Elara Cosmetics"
                 className="h-28 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-sm text-background/80 mb-6 max-w-xs">
-              Luxurious Cosmetics. Experience the ancient wisdom of Indian beauty rituals crafted for modern royalty.
+              Luxurious Cosmetics. Experience the ancient wisdom of Indian
+              beauty rituals crafted for modern royalty.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-2 mb-6">
-              <a href="tel:+918019156646" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
+              <a
+                href="tel:+918019156646"
+                className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors"
+              >
                 <Phone className="w-4 h-4" />
                 <span>+91 8019156646</span>
               </a>
-              <a href="mailto:elaracosmetics2023@gmail.com" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
+              <a
+                href="mailto:elaracosmetics2023@gmail.com"
+                className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors"
+              >
                 <Mail className="w-4 h-4" />
                 <span>elaracosmetics2023@gmail.com</span>
               </a>
-              <Link to="/stores" className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors">
+              <Link
+                to="/stores"
+                className="flex items-center gap-2 text-sm text-background/80 hover:text-primary transition-colors"
+              >
                 <MapPin className="w-4 h-4" />
                 <span>Find a Store</span>
               </Link>
@@ -112,7 +135,9 @@ const Footer = () => {
 
           {/* Shop Links */}
           <div>
-            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">Shop</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">
+              Shop
+            </h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
@@ -129,7 +154,9 @@ const Footer = () => {
 
           {/* Help Links */}
           <div>
-            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">Help</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">
+              Help
+            </h4>
             <ul className="space-y-2">
               {footerLinks.help.map((link) => (
                 <li key={link.name}>
@@ -146,7 +173,9 @@ const Footer = () => {
 
           {/* About Links */}
           <div>
-            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">About Us</h4>
+            <h4 className="font-serif text-base sm:text-lg mb-3 sm:mb-4 text-background">
+              About Us
+            </h4>
             <ul className="space-y-2">
               {footerLinks.about.map((link) => (
                 <li key={link.name}>
@@ -169,8 +198,18 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70">
             <p>© 2024 Elara Cosmetics. All rights reserved.</p>
             <div className="flex items-center gap-4 text-xs">
-              <Link to="/contact" className="text-background/70 hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link to="/contact" className="text-background/70 hover:text-primary transition-colors">Terms of Service</Link>
+              <Link
+                to="/privacy-policy"
+                className="text-background/70 hover:text-primary transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/terms-of-service"
+                className="text-background/70 hover:text-primary transition-colors"
+              >
+                Terms of Service
+              </Link>
             </div>
           </div>
         </div>

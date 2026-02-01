@@ -7,7 +7,10 @@ interface ProductImageGalleryProps {
   productName: string;
 }
 
-const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) => {
+const ProductImageGallery = ({
+  images,
+  productName,
+}: ProductImageGalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -29,10 +32,10 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
   };
 
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-4">
+    <div className="flex flex-col-reverse gap-4">
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[500px]">
+        <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
           {images.map((image, index) => (
             <button
               key={index}
@@ -41,7 +44,7 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
                 "w-16 h-16 md:w-20 md:h-20 flex-shrink-0 border-2 transition-all duration-300 overflow-hidden",
                 index === activeIndex
                   ? "border-primary"
-                  : "border-transparent hover:border-primary/50"
+                  : "border-transparent hover:border-primary/50",
               )}
             >
               <img
@@ -59,7 +62,7 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
         <div
           className={cn(
             "h-[400px] md:h-[500px] w-full bg-secondary/10 rounded-lg overflow-hidden cursor-zoom-in relative group flex items-center justify-center",
-            isZoomed && "cursor-zoom-out"
+            isZoomed && "cursor-zoom-out",
           )}
           onClick={() => setIsZoomed(!isZoomed)}
           onMouseMove={handleMouseMove}
@@ -70,7 +73,7 @@ const ProductImageGallery = ({ images, productName }: ProductImageGalleryProps) 
             alt={productName}
             className={cn(
               "w-full h-full object-contain transition-transform duration-300",
-              isZoomed && "scale-150"
+              isZoomed && "scale-150",
             )}
             style={
               isZoomed

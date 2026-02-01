@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { Search, User, Heart, ShoppingBag, MapPin, ChevronDown } from "lucide-react";
+import {
+  Search,
+  User,
+  Heart,
+  ShoppingBag,
+  MapPin,
+  ChevronDown,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoImage from "@/assets/logo-transparent.png";
 import { useCart } from "@/context/CartContext";
@@ -15,15 +22,15 @@ const MainHeader = ({
   isScrolled,
   setIsSearchOpen,
   setIsCartOpen,
-  totalItems
+  totalItems,
 }: MainHeaderProps) => {
   return (
     <div className="hidden lg:block border-b border-border/10 bg-white">
       <div className="container mx-auto px-6">
         <div
           className={cn(
-            "grid grid-cols-[1fr_auto_1fr] items-center gap-8 transition-all duration-300",
-            isScrolled ? "py-2" : "py-4",
+            "grid grid-cols-[1fr_auto_1fr] items-center gap-6 transition-all duration-300",
+            isScrolled ? "py-1.5" : "py-2.5",
           )}
         >
           {/* Left - Functional Links */}
@@ -48,20 +55,18 @@ const MainHeader = ({
           </div>
 
           {/* Center - Logo */}
-          <Link to="/" className="flex flex-col items-center justify-center group">
+          <Link
+            to="/"
+            className="flex flex-col items-center justify-center group"
+          >
             <img
               src={logoImage}
               alt="Elara Cosmetics"
               className={cn(
                 "w-auto object-contain transition-all duration-500",
-                isScrolled ? "h-14" : "h-16",
+                isScrolled ? "h-10" : "h-12",
               )}
             />
-            {!isScrolled && (
-              <span className="mt-2 text-[10px] uppercase tracking-[0.3em] text-primary/80 font-serif">
-                Luxurious Ayurveda
-              </span>
-            )}
           </Link>
 
           {/* Right - Account & Cart */}
@@ -71,12 +76,6 @@ const MainHeader = ({
               className="text-[11px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Account
-            </Link>
-            <Link
-              to="/club"
-              className="text-[11px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
-            >
-              Soundarya Club
             </Link>
             <button
               onClick={() => setIsCartOpen(true)}

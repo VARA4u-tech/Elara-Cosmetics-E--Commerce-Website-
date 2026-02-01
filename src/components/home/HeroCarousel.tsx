@@ -2,57 +2,83 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import elaraBrandBanner from "@/assets/hero/elara-brand-banner.png";
-import heroBannerMain from "@/assets/hero/hero-banner-main.png";
-import heroBannerMainV2 from "@/assets/hero/hero-banner-main-v2.jpg";
+// Mobile images (1080x1440px)
+import mobileHero1 from "@/assets/hero/mobile-hero-1.jpg";
+import mobileHero2 from "@/assets/hero/mobile-hero-2.jpg";
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
 
 // Font styles for premium cosmetics aesthetic
 const fontStyles = {
   playfair: { fontFamily: "'Playfair Display', serif", fontWeight: 500 },
-  cinzel: { fontFamily: "'Cinzel', serif", fontWeight: 500, letterSpacing: "0.08em" },
+  cinzel: {
+    fontFamily: "'Cinzel', serif",
+    fontWeight: 500,
+    letterSpacing: "0.08em",
+  },
   marcellus: { fontFamily: "'Marcellus', serif", fontWeight: 400 },
   cormorant: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 },
 };
 
-const slides = [
+interface Slide {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  mobileImage: string;
+  desktopImage: string;
+  link: string;
+  objectPosition: string;
+  objectFit: string;
+  backgroundColor?: string;
+  titleFont: {
+    fontFamily: string;
+    fontWeight: number;
+  };
+  subtitleFont: {
+    fontFamily: string;
+    fontWeight: number;
+    letterSpacing?: string;
+    fontStyle?: string;
+  };
+}
+
+const slides: Slide[] = [
   {
     id: 1,
-    title: "The Complete Collection",
-    subtitle: "Pure Luxury",
-    description: "Experience our full range of premium Ayurvedic formulations",
-    image: heroBannerMainV2,
-    link: "/category/all",
-    objectPosition: "center",
-    objectFit: "cover",
-    backgroundColor: "#FDF4F0",
-    titleFont: fontStyles.playfair,
-    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
-  },
-  {
-    id: 2,
-    title: "Discover Our Collection",
-    subtitle: "Premium Skincare",
-    description: "Experience the power of science-backed formulations",
-    image: heroBannerMain,
+    title: "Discover Beauty",
+    subtitle: "Elara Collection",
+    description: "Premium cosmetics for radiant skin",
+    mobileImage: mobileHero1,
+    desktopImage:
+      "https://i.ibb.co/1YvzkCgY/c4e44fd7-807a-4e72-b847-b4057613301c.png",
     link: "/category/face",
     objectPosition: "center",
     objectFit: "cover",
     titleFont: fontStyles.playfair,
-    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
+    subtitleFont: {
+      fontFamily: "'Montserrat', sans-serif",
+      fontWeight: 450,
+      letterSpacing: "0.2em",
+    },
   },
   {
-    id: 3,
-    title: "Brand Philosophy",
-    subtitle: "Ancient Wisdom",
-    description: "Discover the timeless beauty secrets",
-    image: elaraBrandBanner,
-    link: "/about",
+    id: 2,
+    title: "Elara Essentials",
+    subtitle: "Beauty Redefined",
+    description: "Discover our premium collection",
+    mobileImage: mobileHero2,
+    desktopImage:
+      "https://i.ibb.co/4xvnC43/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
+    link: "/category/all",
     objectPosition: "center",
     objectFit: "cover",
-    titleFont: fontStyles.cinzel,
-    subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
+    titleFont: fontStyles.playfair,
+    subtitleFont: {
+      fontFamily: "'Montserrat', sans-serif",
+      fontWeight: 450,
+      letterSpacing: "0.2em",
+    },
   },
 ];
 
@@ -94,7 +120,10 @@ const HeroCarousel = () => {
     setCurrentSlide(nextIndex);
 
     if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
-    exitTimeoutRef.current = window.setTimeout(() => setExitingSlide(null), FADE_MS);
+    exitTimeoutRef.current = window.setTimeout(
+      () => setExitingSlide(null),
+      FADE_MS,
+    );
 
     // Force a style boundary so transitions reliably kick in (prevents Safari/mobile flicker).
     if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
@@ -124,12 +153,11 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[65vh] bg-background overflow-hidden">
+    <section className="relative w-full h-[75vh] md:h-auto md:aspect-[32/12] bg-background overflow-hidden">
       {/* Slides */}
-      {(
-        exitingSlide !== null && exitingSlide !== currentSlide
-          ? [exitingSlide, currentSlide]
-          : [currentSlide]
+      {(exitingSlide !== null && exitingSlide !== currentSlide
+        ? [exitingSlide, currentSlide]
+        : [currentSlide]
       ).map((slideIndex) => {
         const slide = slides[slideIndex];
         const isActive = slideIndex === currentSlide;
@@ -138,7 +166,7 @@ const HeroCarousel = () => {
             key={slide.id}
             className={cn(
               "absolute inset-0",
-              isActive ? "z-20" : "z-10 pointer-events-none"
+              isActive ? "z-20" : "z-10 pointer-events-none",
             )}
             style={{
               opacity: isActive ? (animate ? 1 : 0) : animate ? 0 : 1,
@@ -147,68 +175,38 @@ const HeroCarousel = () => {
               backgroundColor: slide.backgroundColor || "transparent",
             }}
           >
-            {/* Background - Image with Ken Burns effect */}
+            {/* Background - Responsive Image */}
             <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
-              <img
+              <picture
                 key={`img-${slide.id}-${isActive}`}
-                src={slide.image}
-                alt={slide.title}
-                className={cn(
-                  "w-full h-full object-center",
-                  isActive && animate && slide.objectFit !== 'contain' && "ken-burns"
-                )}
-                style={{
-                  objectPosition: slide.objectPosition || 'center',
-                  objectFit: (slide.objectFit as any) || 'cover'
-                }}
-                loading={isActive ? "eager" : "lazy"}
-                decoding="async"
-                fetchPriority={isActive ? "high" : "auto"}
-              />
-              {/* Subtle overall overlay for text legibility */}
-              <div className="absolute inset-0 bg-black/10" />
-              {/* Bottom gradient for visual weight */}
-              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
+                className="absolute inset-0 w-full h-full block"
+              >
+                {/* Desktop/Tablet: md and above (768px+) */}
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={slide.desktopImage}
+                />
+                {/* Mobile: below md (< 768px) */}
+                <img
+                  src={slide.mobileImage}
+                  alt={slide.title}
+                  className="w-full h-full object-center"
+                  style={{
+                    objectPosition: slide.objectPosition || "center",
+                    objectFit: "cover",
+                  }}
+                  loading={isActive ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={isActive ? "high" : "auto"}
+                />
+              </picture>
             </div>
 
             {/* Content - Removed as per request */}
           </div>
         );
       })}
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors backdrop-blur-sm"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 border border-primary-foreground/30 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors backdrop-blur-sm"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
-
-      {/* Slide Indicators */}
-      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goTo(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={cn(
-              "w-10 md:w-12 h-1 transition-all duration-300",
-              index === currentSlide
-                ? "bg-primary"
-                : "bg-primary-foreground/30 hover:bg-primary-foreground/50"
-            )}
-          />
-        ))}
-      </div>
-    </section >
+    </section>
   );
 };
 

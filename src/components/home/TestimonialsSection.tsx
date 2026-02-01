@@ -2,33 +2,96 @@ import { useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const testimonials = [
+export const testimonials = [
   {
     id: 1,
-    name: "Priya Sharma",
-    location: "Mumbai",
-    rating: 5,
-    text: "The Anti-Dandruff Serum has completely transformed my scalp health. After just two weeks, I noticed a visible reduction in flakes and itchiness. Truly worth every rupee!",
-    product: "Anti-Dandruff Serum",
-    initials: "PS",
+    name: "Sravya Rao",
+    location: "Vijayawada",
+    rating: 4.5,
+    text: "After using GlowCell NMN Serum, my skin became much brighter and smoother. It has become a part of my daily routine.",
+    product: "GlowCell™ NMN Serum",
+    initials: "SR",
   },
   {
     id: 2,
-    name: "Ananya Reddy",
-    location: "Bangalore",
-    rating: 5,
-    text: "I've been using the Advance Hair Growth Serum for three months now, and my hair fall has reduced dramatically. My hair feels thicker and healthier than ever. This is now a permanent part of my hair care routine.",
+    name: "Chaitra Reddy",
+    location: "Vijayawada",
+    rating: 4,
+    text: "Advance Hair Growth Serum helped control my hair fall a lot. My hair thickness has also improved.",
     product: "Advance Hair Growth Serum",
-    initials: "AR",
+    initials: "CR",
   },
   {
     id: 3,
-    name: "Meera Kapoor",
-    location: "Delhi",
+    name: "Harika Nandini",
+    location: "Vijayawada",
     rating: 5,
-    text: "The GlowCell NMN Serum is pure magic in a bottle! My skin has a luminous quality that I always dreamed of. Elara Cosmetics has earned a customer for life.",
-    product: "GlowCell™ NMN Serum",
-    initials: "MK",
+    text: "After using Vitamin C Brightening Serum, I got a natural glow. It is lightweight and very effective.",
+    product: "Vitamin C Brightening Serum",
+    initials: "HN",
+  },
+  {
+    id: 4,
+    name: "Anusha Kumari",
+    location: "Vijayawada",
+    rating: 4.5,
+    text: "Hyaluronic Acid Moisturizer keeps my skin hydrated all day long. It feels very soft on the skin.",
+    product: "Hyaluronic Acid Moisturizer",
+    initials: "AK",
+  },
+  {
+    id: 5,
+    name: "Keerthana Devi",
+    location: "Vijayawada",
+    rating: 4,
+    text: "Aloe Vera Face Gel is very soothing. It is perfect for sensitive skin.",
+    product: "Aloe Vera Face Gel",
+    initials: "KD",
+  },
+  {
+    id: 6,
+    name: "Bhavya Sri",
+    location: "Vijayawada",
+    rating: 5,
+    text: "After using Keratin Repair Shampoo, frizz reduced and my hair became smooth. It gives a salon-like finish.",
+    product: "Keratin Repair Shampoo",
+    initials: "BS",
+  },
+  {
+    id: 7,
+    name: "Divya Priya",
+    location: "Vijayawada",
+    rating: 4.5,
+    text: "Charcoal Detox Face Wash provides deep cleansing without drying the skin.",
+    product: "Charcoal Detox Face Wash",
+    initials: "DP",
+  },
+  {
+    id: 8,
+    name: "Sindhu Latha",
+    location: "Vijayawada",
+    rating: 4,
+    text: "Niacinamide Repair Serum helped reduce acne marks. My skin texture has improved.",
+    product: "Niacinamide Repair Serum",
+    initials: "SL",
+  },
+  {
+    id: 9,
+    name: "Madhuri Naidu",
+    location: "Vijayawada",
+    rating: 5,
+    text: "SPF 50 Sunscreen is best for daily use. It feels light on the skin and leaves no white cast.",
+    product: "SPF 50 Broad Spectrum Sunscreen",
+    initials: "MN",
+  },
+  {
+    id: 10,
+    name: "Lavanya Chowdary",
+    location: "Vijayawada",
+    rating: 4.5,
+    text: "Under Eye Repair Cream visibly reduced my dark circles. It is a very effective product.",
+    product: "Under Eye Repair Cream",
+    initials: "LC",
   },
 ];
 
@@ -51,7 +114,9 @@ const TestimonialsSection = () => {
 
   const prevSlide = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
+    );
   };
 
   return (
@@ -75,7 +140,10 @@ const TestimonialsSection = () => {
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-2 sm:px-4">
+                <div
+                  key={testimonial.id}
+                  className="w-full flex-shrink-0 px-2 sm:px-4"
+                >
                   <div className="bg-background p-6 sm:p-8 md:p-12 text-center relative">
                     {/* Quote Mark */}
                     <div className="text-5xl sm:text-6xl md:text-7xl font-serif text-primary/20 absolute top-2 sm:top-4 left-4 sm:left-8">
@@ -84,9 +152,17 @@ const TestimonialsSection = () => {
 
                     {/* Stars */}
                     <div className="flex items-center justify-center gap-1 mb-4 sm:mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-primary text-primary" />
-                      ))}
+                      {[...Array(Math.floor(testimonial.rating))].map(
+                        (_, i) => (
+                          <Star
+                            key={i}
+                            className="w-3 h-3 sm:w-4 sm:h-4 fill-primary text-primary"
+                          />
+                        ),
+                      )}
+                      {testimonial.rating % 1 !== 0 && (
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-primary/50 text-primary" />
+                      )}
                     </div>
 
                     {/* Testimonial Text */}
@@ -102,11 +178,17 @@ const TestimonialsSection = () => {
                     {/* Author with Initials Avatar */}
                     <div className="flex items-center justify-center gap-3 sm:gap-4">
                       <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center">
-                        <span className="font-serif text-base sm:text-lg text-primary">{testimonial.initials}</span>
+                        <span className="font-serif text-base sm:text-lg text-primary">
+                          {testimonial.initials}
+                        </span>
                       </div>
                       <div className="text-left">
-                        <p className="font-medium text-sm sm:text-base text-foreground">{testimonial.name}</p>
-                        <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.location}</p>
+                        <p className="font-medium text-sm sm:text-base text-foreground">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
+                          {testimonial.location}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -144,7 +226,7 @@ const TestimonialsSection = () => {
                   "w-2 h-2 rounded-full transition-all duration-300",
                   index === currentIndex
                     ? "bg-primary w-6 sm:w-8"
-                    : "bg-primary/30 hover:bg-primary/50"
+                    : "bg-primary/30 hover:bg-primary/50",
                 )}
                 aria-label={`Go to testimonial ${index + 1}`}
               />

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-
 const PromoBanner = () => {
   return (
     <section className="py-2 sm:py-3 md:py-4 lg:py-4 bg-accent/10">
@@ -41,7 +40,7 @@ const PromoBanner = () => {
             className="group relative overflow-hidden aspect-[16/9] md:aspect-[4/3]"
           >
             <img
-              src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=800&h=600&fit=crop"
+              src="https://i.ibb.co/MxGJFWqb/c258a020-b71b-4d99-9f81-78a2696b69ed.png"
               alt="Wellness Rituals"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -63,7 +62,6 @@ const PromoBanner = () => {
             </div>
           </Link>
         </div>
-
       </div>
     </section>
   );

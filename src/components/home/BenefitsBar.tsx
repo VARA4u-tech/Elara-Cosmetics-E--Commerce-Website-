@@ -32,11 +32,13 @@ const BenefitsBar = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {benefits.map((benefit) => (
             <div key={benefit.id} className="text-center">
-              <span className="text-2xl md:text-3xl mb-2 block">{benefit.icon}</span>
-              <h3 className="font-serif text-base md:text-lg text-accent-foreground mb-0.5">
+              <span className="text-2xl md:text-3xl mb-2 block">
+                {benefit.icon}
+              </span>
+              <h3 className="font-serif text-base md:text-lg text-accent-foreground mb-1 leading-tight">
                 {benefit.title}
               </h3>
-              <p className="text-[10px] md:text-xs text-accent-foreground/70 uppercase tracking-luxury">
+              <p className="text-xs md:text-sm text-accent-foreground/70 uppercase tracking-wide leading-relaxed">
                 {benefit.description}
               </p>
             </div>

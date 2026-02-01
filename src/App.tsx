@@ -20,6 +20,14 @@ import AccountProfile from "./pages/AccountProfile";
 import ContactPage from "./pages/ContactPage";
 import ComparePage from "./pages/ComparePage";
 import ScalpCareRoutinePage from "./pages/ScalpCareRoutinePage";
+import FAQsPage from "./pages/FAQsPage";
+import ShippingInfoPage from "./pages/ShippingInfoPage";
+import ReturnsExchangePage from "./pages/ReturnsExchangePage";
+import IngredientsPage from "./pages/IngredientsPage";
+import SustainabilityPage from "./pages/SustainabilityPage";
+import CareersPage from "./pages/CareersPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +51,14 @@ const AnimatedRoutes = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/scalp-care-routine" element={<ScalpCareRoutinePage />} />
+        <Route path="/faqs" element={<FAQsPage />} />
+        <Route path="/shipping" element={<ShippingInfoPage />} />
+        <Route path="/returns" element={<ReturnsExchangePage />} />
+        <Route path="/ingredients" element={<IngredientsPage />} />
+        <Route path="/sustainability" element={<SustainabilityPage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-of-service" element={<TermsOfServicePage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -62,7 +78,9 @@ const App = () => (
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+            <BrowserRouter
+              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+            >
               <ScrollToTop />
               <AnimatedRoutes />
             </BrowserRouter>

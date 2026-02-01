@@ -12,75 +12,23 @@ const stores = [
     phone: "+91 8019156646",
     hours: "10:00 AM - 9:00 PM",
     city: "Vijayawada",
-    type: "Flagship Store"
-  },
-  {
-    id: 2,
-    name: "Elara Cosmetics - Khan Market",
-    address: "13-A, Khan Market, New Delhi - 110003",
-    phone: "+91 11 2461 7788",
-    hours: "10:00 AM - 9:00 PM",
-    city: "Delhi",
-    type: "Boutique"
-  },
-  {
-    id: 2,
-    name: "Elara Cosmetics - Select Citywalk",
-    address: "A-3, Select Citywalk, Saket, New Delhi - 110017",
-    phone: "+91 11 4150 8877",
-    hours: "11:00 AM - 10:00 PM",
-    city: "Delhi",
-    type: "Boutique"
-  },
-  {
-    id: 3,
-    name: "Elara Cosmetics - Palladium Mumbai",
-    address: "G-42, Palladium Mall, Lower Parel, Mumbai - 400013",
-    phone: "+91 22 4340 5566",
-    hours: "11:00 AM - 9:30 PM",
-    city: "Mumbai",
-    type: "Flagship Store"
-  },
-  {
-    id: 4,
-    name: "Elara Cosmetics - Phoenix Marketcity",
-    address: "LG-201, Phoenix Marketcity, Kurla, Mumbai - 400070",
-    phone: "+91 22 4950 7788",
-    hours: "11:00 AM - 10:00 PM",
-    city: "Mumbai",
-    type: "Boutique"
-  },
-  {
-    id: 5,
-    name: "Elara Cosmetics - UB City",
-    address: "UB City Mall, Vittal Mallya Road, Bangalore - 560001",
-    phone: "+91 80 4152 3344",
-    hours: "10:30 AM - 9:00 PM",
-    city: "Bangalore",
-    type: "Flagship Store"
-  },
-  {
-    id: 6,
-    name: "Elara Cosmetics - Phoenix Palassio",
-    address: "S-106, Phoenix Palassio, Gomti Nagar, Lucknow - 226010",
-    phone: "+91 522 4152 6677",
-    hours: "11:00 AM - 9:30 PM",
-    city: "Lucknow",
-    type: "Boutique"
+    type: "Flagship Store",
   },
 ];
 
-const cities = ["All Cities", "Vijayawada", "Delhi", "Mumbai", "Bangalore", "Lucknow"];
+const cities = ["Vijayawada"];
 
 const StoreLocatorPage = () => {
-  const [selectedCity, setSelectedCity] = useState("All Cities");
+  const [selectedCity, setSelectedCity] = useState("Vijayawada");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
 
-  const filteredStores = stores.filter(store => {
-    const matchesCity = selectedCity === "All Cities" || store.city === selectedCity;
-    const matchesSearch = store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         store.address.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredStores = stores.filter((store) => {
+    const matchesCity =
+      selectedCity === "All Cities" || store.city === selectedCity;
+    const matchesSearch =
+      store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      store.address.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCity && matchesSearch;
   });
 
@@ -90,10 +38,13 @@ const StoreLocatorPage = () => {
       <section className="bg-secondary/30 py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[{ label: "Store Locator" }]} />
-          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl mt-4 mb-4">Find a Store</h1>
+          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl mt-4 mb-4">
+            Find a Store
+          </h1>
           <p className="text-muted-foreground max-w-xl">
-            Visit our luxurious boutiques to experience the world of Elara Cosmetics. 
-            Our beauty experts are ready to guide you on your Ayurvedic journey.
+            Visit our luxurious boutiques to experience the world of Elara
+            Cosmetics. Our beauty experts are ready to guide you on your
+            Ayurvedic journey.
           </p>
         </div>
       </section>
@@ -124,7 +75,7 @@ const StoreLocatorPage = () => {
                     "px-4 py-2 text-sm uppercase tracking-luxury border transition-colors",
                     selectedCity === city
                       ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-background text-foreground border-border hover:border-primary"
+                      : "bg-background text-foreground border-border hover:border-primary",
                   )}
                 >
                   {city}
@@ -142,7 +93,7 @@ const StoreLocatorPage = () => {
                     "p-4 border cursor-pointer transition-all",
                     selectedStore === store.id
                       ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/50"
+                      : "border-border hover:border-primary/50",
                   )}
                 >
                   <div className="flex items-start justify-between mb-2">
@@ -187,8 +138,8 @@ const StoreLocatorPage = () => {
                 <MapPin className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="font-serif text-xl mb-2">Interactive Map</h3>
                 <p className="text-muted-foreground text-sm max-w-sm">
-                  Map integration placeholder. In production, this would display an interactive map 
-                  with store locations marked.
+                  Map integration placeholder. In production, this would display
+                  an interactive map with store locations marked.
                 </p>
               </div>
             </div>

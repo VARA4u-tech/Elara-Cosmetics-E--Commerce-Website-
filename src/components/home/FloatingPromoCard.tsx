@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import antiHairfallShampoo from "@/assets/products/anti-hairfall-shampoo.jpg";
 import hairGrowthSerum from "@/assets/products/hair-growth-serum.jpg";
-import avocadoConditioner from "@/assets/products/avocado-argan-conditioner.jpg";
+import avocadoConditioner from "@/assets/products/avocado-argan-conditioner.png";
 
 const FloatingPromoCard = () => {
   const [isVisible, setIsVisible] = useState(false);

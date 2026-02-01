@@ -69,11 +69,11 @@ export const categories: Category[] = [
 
 // Import Elara product images
 import antiDandruffSerumImg from "@/assets/products/anti-dandruff-serum.jpg";
-import avocadoArganConditionerImg from "@/assets/products/avocado-argan-conditioner.jpg";
+import avocadoArganConditionerImg from "@/assets/products/avocado-argan-conditioner.png";
 import antiDandruffShampooImg from "@/assets/products/anti-dandruff-shampoo.jpg";
 import hairGrowthSerumImg from "@/assets/products/hair-growth-serum.jpg";
 import antiHairfallShampooImg from "@/assets/products/anti-hairfall-shampoo.jpg";
-import goldenGlowEyeSerumImg from "@/assets/products/golden-glow-eye-serum.jpg";
+import goldenGlowEyeSerumImg from "@/assets/products/golden-glow-eye-serum.png";
 import glowcellNmnSerumImg from "@/assets/products/glowcell-nmn-serum.jpg";
 import snailMucinSerumImg from "@/assets/products/snail-mucin-serum.jpg";
 import niacinGlowSerumImg from "@/assets/products/niacin-glow-serum.jpg";
@@ -81,7 +81,7 @@ import redAloeveraSplashImg from "@/assets/products/red-aloevera-splash.jpg";
 
 export const products: Product[] = [
   // ==================== ELARA COSMETICS PRODUCTS ====================
-  
+
   // Hair Care - Scalp Care
   {
     id: "elara-anti-dandruff-serum",
@@ -103,7 +103,7 @@ export const products: Product[] = [
     isBestseller: true,
     concern: ["Dandruff", "Itchy Scalp", "Scalp Health"],
   },
-  
+
   // Hair Care - Conditioners
   {
     id: "elara-avocado-argan-conditioner",
@@ -124,7 +124,7 @@ export const products: Product[] = [
     isNew: true,
     concern: ["Dryness", "Frizz", "Hair Health"],
   },
-  
+
   // Hair Care - Shampoos
   {
     id: "elara-anti-dandruff-shampoo",
@@ -144,7 +144,7 @@ export const products: Product[] = [
     tags: ["shampoo", "anti-dandruff", "cleansing"],
     concern: ["Dandruff", "Scalp Health", "Cleansing"],
   },
-  
+
   // Hair Care - Scalp Care (Serums)
   {
     id: "elara-hair-growth-serum",
@@ -166,7 +166,7 @@ export const products: Product[] = [
     isBestseller: true,
     concern: ["Hair Fall", "Hair Growth", "Hair Density"],
   },
-  
+
   // Hair Care - Shampoos
   {
     id: "elara-root-revive-shampoo",
@@ -186,7 +186,7 @@ export const products: Product[] = [
     tags: ["shampoo", "anti-hairfall", "natural"],
     concern: ["Hair Fall", "Scalp Health", "Strengthening"],
   },
-  
+
   // Face - Eye Care
   {
     id: "elara-golden-glow-eye-serum",
@@ -208,7 +208,7 @@ export const products: Product[] = [
     isBestseller: true,
     concern: ["Dark Circles", "Puffiness", "Fine Lines", "Anti-Aging"],
   },
-  
+
   // Face - Serums (GlowCell NMN)
   {
     id: "elara-glowcell-nmn-serum",
@@ -230,7 +230,7 @@ export const products: Product[] = [
     isBestseller: true,
     concern: ["Anti-Aging", "Firming", "Radiance", "Elasticity"],
   },
-  
+
   // Face - Serums (Snail Mucin)
   {
     id: "elara-snail-mucin-serum",
@@ -251,7 +251,7 @@ export const products: Product[] = [
     isNew: true,
     concern: ["Hydration", "Plumping", "Skin Barrier", "Texture"],
   },
-  
+
   // Face - Serums (Niacin Glow)
   {
     id: "elara-niacin-glow-serum",
@@ -273,7 +273,7 @@ export const products: Product[] = [
     isBestseller: true,
     concern: ["Acne", "Scarring", "Pores", "Skin Regeneration"],
   },
-  
+
   // Body/Hair - Multi-Purpose (Red Aloevera Splash)
   {
     id: "elara-red-aloevera-splash",

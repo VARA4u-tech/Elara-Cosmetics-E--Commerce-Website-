@@ -16,6 +16,7 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 import BenefitsBar from "@/components/home/BenefitsBar";
 import SideAdBanner from "@/components/home/SideAdBanner";
 import InlineProductAd from "@/components/home/InlineProductAd";
+import StoryHighlights from "@/components/home/StoryHighlights";
 
 import ShopByConcern from "@/components/home/ShopByConcern";
 
@@ -24,6 +25,8 @@ const Index = () => {
     <Layout>
       <PageTransition>
         <HeroCarousel />
+
+        <StoryHighlights />
 
         <CategoryIcons />
         <ShopByConcern />

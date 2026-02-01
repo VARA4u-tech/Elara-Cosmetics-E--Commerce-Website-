@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import goldenGlowSerumImg from "@/assets/products/golden-glow-eye-serum.jpg";
+import goldenGlowSerumImg from "@/assets/products/golden-glow-eye-serum.png";
 
 interface InlineProductAdProps {
   className?: string;
@@ -27,7 +27,7 @@ const InlineProductAd = ({ className }: InlineProductAdProps) => {
                 Bestseller
               </div>
             </div>
-            
+
             {/* Content Side */}
             <div className="flex flex-col justify-center p-8 md:p-12 lg:p-16">
               <div className="flex items-center gap-1 mb-3">
@@ -36,20 +36,20 @@ const InlineProductAd = ({ className }: InlineProductAdProps) => {
                 ))}
                 <span className="text-sm text-muted-foreground ml-2">(267 reviews)</span>
               </div>
-              
+
               <p className="text-xs uppercase tracking-wide-luxury text-primary mb-2">
                 Premium Eye Care
               </p>
-              
+
               <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl mb-4">
                 Golden Glow Under Eye Serum
               </h3>
-              
+
               <p className="text-muted-foreground mb-6 max-w-md">
-                Target dark circles, crow's feet, puffiness, and expression wrinkles with our 
+                Target dark circles, crow's feet, puffiness, and expression wrinkles with our
                 luxurious peptide-powered formulation featuring bakuchiol and sodium hyaluronate.
               </p>
-              
+
               <div className="flex items-center gap-4 mb-6">
                 <span className="font-serif text-2xl text-primary">₹1,199</span>
                 <span className="text-sm text-muted-foreground line-through">₹1,399</span>
@@ -57,7 +57,7 @@ const InlineProductAd = ({ className }: InlineProductAdProps) => {
                   Save 14%
                 </span>
               </div>
-              
+
               <span className="btn-luxury inline-flex items-center gap-2 self-start">
                 Shop Now
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

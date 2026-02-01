@@ -2,12 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import elaraBrandBanner from "@/assets/hero/elara-brand-banner.jpg";
-import productCollection2 from "@/assets/hero/product-collection-2.png";
-import productCollection3 from "@/assets/hero/product-collection-3.png";
-
-import heroBannerMain from "@/assets/hero/hero-banner-main-v2.jpg";
-
+import elaraBrandBanner from "@/assets/hero/elara-brand-banner.png";
+import heroBannerMain from "@/assets/hero/hero-banner-main.png";
+import heroBannerMainV2 from "@/assets/hero/hero-banner-main-v2.jpg";
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
 
@@ -21,59 +18,41 @@ const fontStyles = {
 
 const slides = [
   {
-    id: 4,
+    id: 1,
     title: "The Complete Collection",
     subtitle: "Pure Luxury",
-    description: "Experience our full range of premium Ayurvedic formulations for hair and skin",
-    image: heroBannerMain,
-    cta: "Shop All Products",
+    description: "Experience our full range of premium Ayurvedic formulations",
+    image: heroBannerMainV2,
     link: "/category/all",
     objectPosition: "center",
-    objectFit: "contain",
-    backgroundColor: "#FDF4F0", // Soft cream background to match image
+    objectFit: "cover",
+    backgroundColor: "#FDF4F0",
     titleFont: fontStyles.playfair,
     subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
-    overlayPosition: "center" as const,
   },
   {
-    id: 1,
+    id: 2,
     title: "Discover Our Collection",
-    subtitle: "Premium Skincare & Haircare",
-    description: "Experience the power of science-backed formulations with our luxurious range of serums, shampoos, and treatments",
-    image: elaraBrandBanner,
-    cta: "Shop Now",
+    subtitle: "Premium Skincare",
+    description: "Experience the power of science-backed formulations",
+    image: heroBannerMain,
     link: "/category/face",
     objectPosition: "center",
     objectFit: "cover",
     titleFont: fontStyles.playfair,
     subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 400, letterSpacing: "0.2em" },
-    overlayPosition: "left" as const,
-  },
-  {
-    id: 2,
-    title: "Luxurious Ayurveda",
-    subtitle: "Ancient Wisdom · Modern Elegance",
-    description: "Discover the timeless beauty secrets of Indian royalty crafted into our signature collection",
-    image: productCollection2,
-    cta: "Explore Collection",
-    link: "/category/face",
-    objectPosition: "center",
-    titleFont: fontStyles.cinzel,
-    subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
-    overlayPosition: "left" as const,
   },
   {
     id: 3,
-    title: "Natural Beauty Essentials",
-    subtitle: "Transform Your Routine",
-    description: "Premium formulations crafted with the finest natural ingredients for radiant, healthy skin and hair",
-    image: productCollection3,
-    cta: "View Products",
-    link: "/category/hair",
+    title: "Brand Philosophy",
+    subtitle: "Ancient Wisdom",
+    description: "Discover the timeless beauty secrets",
+    image: elaraBrandBanner,
+    link: "/about",
     objectPosition: "center",
-    titleFont: fontStyles.marcellus,
-    subtitleFont: { fontFamily: "'Montserrat', sans-serif", fontWeight: 300, letterSpacing: "0.15em" },
-    overlayPosition: "left" as const,
+    objectFit: "cover",
+    titleFont: fontStyles.cinzel,
+    subtitleFont: { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, fontStyle: "italic", letterSpacing: "0.15em" },
   },
 ];
 
@@ -145,7 +124,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/9] bg-background overflow-hidden">
+    <section className="relative w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[65vh] bg-background overflow-hidden">
       {/* Slides */}
       {(
         exitingSlide !== null && exitingSlide !== currentSlide
@@ -178,7 +157,7 @@ const HeroCarousel = () => {
                   "w-full h-full object-center",
                   isActive && animate && slide.objectFit !== 'contain' && "ken-burns"
                 )}
-                style={{ 
+                style={{
                   objectPosition: slide.objectPosition || 'center',
                   objectFit: (slide.objectFit as any) || 'cover'
                 }}
@@ -192,63 +171,7 @@ const HeroCarousel = () => {
               <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
 
-            {/* Content - Responsive: Bottom-left on mobile, Centered on desktop */}
-            <div className="relative z-10 w-full h-full flex items-end md:items-center justify-start md:justify-center pb-12 sm:pb-20 md:pb-0">
-              <div className="w-full px-4 sm:px-6 md:container md:mx-auto flex flex-col items-start md:items-center text-left md:text-center">
-                <div className="max-w-md md:max-w-lg lg:max-w-xl text-white">
-                  <p
-                    className="text-[10px] sm:text-xs md:text-sm lg:text-base uppercase tracking-[0.15em] sm:tracking-[0.2em] mb-1 sm:mb-1.5 md:mb-2 text-white/90"
-                    style={{
-                      ...slide.subtitleFont,
-                      opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 800ms ease-out 200ms, transform 800ms ease-out 200ms",
-                      willChange: "opacity, transform",
-                      textShadow: "0 2px 4px rgba(0,0,0,0.3)"
-                    }}
-                  >
-                    {slide.subtitle}
-                  </p>
-                  <h2
-                    className="text-xl sm:text-2xl md:text-2xl lg:text-3xl mb-2 sm:mb-2.5 md:mb-3 leading-tight font-medium"
-                    style={{
-                      ...slide.titleFont,
-                      opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 800ms ease-out 400ms, transform 800ms ease-out 400ms",
-                      willChange: "opacity, transform",
-                      textShadow: "0 2px 4px rgba(0,0,0,0.3)"
-                    }}
-                  >
-                    {slide.title}
-                  </h2>
-                  <p
-                    className="text-[10px] sm:text-xs md:text-[10px] lg:text-xs text-white/90 mb-3 sm:mb-3.5 md:mb-4 max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md md:mx-auto line-clamp-2 sm:line-clamp-3 md:line-clamp-none font-light"
-                    style={{
-                      opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 800ms ease-out 600ms, transform 800ms ease-out 600ms",
-                      willChange: "opacity, transform",
-                      textShadow: "0 1px 2px rgba(0,0,0,0.3)"
-                    }}
-                  >
-                    {slide.description}
-                  </p>
-                  <Link
-                    to={slide.link}
-                    className="inline-block bg-white text-black px-3 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-1.5 md:py-2 uppercase tracking-[0.12em] sm:tracking-[0.15em] text-[10px] sm:text-[10px] md:text-[11px] font-medium hover:bg-primary hover:text-white transition-all duration-300 min-w-[90px] sm:min-w-[100px] md:min-w-[120px] text-center"
-                    style={{
-                      opacity: isActive && animate ? 1 : 0,
-                      transform: isActive && animate ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 800ms ease-out 800ms, transform 800ms ease-out 800ms, background-color 300ms ease, color 300ms ease",
-                      willChange: "opacity, transform",
-                    }}
-                  >
-                    {slide.cta}
-                  </Link>
-                </div>
-              </div>
-            </div>
+            {/* Content - Removed as per request */}
           </div>
         );
       })}
@@ -285,7 +208,7 @@ const HeroCarousel = () => {
           />
         ))}
       </div>
-    </section>
+    </section >
   );
 };
 

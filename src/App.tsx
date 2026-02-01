@@ -16,6 +16,7 @@ import AboutPage from "./pages/AboutPage";
 import WishlistPage from "./pages/WishlistPage";
 import StoreLocatorPage from "./pages/StoreLocatorPage";
 import AccountPage from "./pages/AccountPage";
+import AccountProfile from "./pages/AccountProfile";
 import ContactPage from "./pages/ContactPage";
 import ComparePage from "./pages/ComparePage";
 import ScalpCareRoutinePage from "./pages/ScalpCareRoutinePage";
@@ -25,7 +26,7 @@ const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
@@ -38,6 +39,7 @@ const AnimatedRoutes = () => {
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/stores" element={<StoreLocatorPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/profile" element={<AccountProfile />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/scalp-care-routine" element={<ScalpCareRoutinePage />} />
@@ -48,6 +50,10 @@ const AnimatedRoutes = () => {
   );
 };
 
+import ScrollToTop from "@/components/layout/ScrollToTop";
+
+// ... existing imports
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <CartProvider>
@@ -57,6 +63,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+              <ScrollToTop />
               <AnimatedRoutes />
             </BrowserRouter>
           </TooltipProvider>

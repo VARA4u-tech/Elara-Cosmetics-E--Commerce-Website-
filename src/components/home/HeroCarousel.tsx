@@ -141,7 +141,7 @@ const HeroCarousel = () => {
   }, []);
 
   return (
-    <section className="relative w-full h-[75vh] md:h-auto md:aspect-[32/12] bg-background overflow-hidden">
+    <section className="relative w-full h-[60vh] md:h-auto md:aspect-[32/12] bg-background overflow-hidden">
       {(exitingSlide !== null && exitingSlide !== currentSlide
         ? [exitingSlide, currentSlide]
         : [currentSlide]

@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Mobile images (1080x1440px)
-import mobileHero1 from "@/assets/hero/mobile-hero-1.jpg";
-import mobileHero2 from "@/assets/hero/mobile-hero-2.jpg";
-
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
 
@@ -51,7 +47,8 @@ const slides: Slide[] = [
     title: "Discover Beauty",
     subtitle: "Elara Collection",
     description: "Premium cosmetics for radiant skin",
-    mobileImage: mobileHero1,
+    mobileImage:
+      "https://i.ibb.co/1YvzkCgY/c4e44fd7-807a-4e72-b847-b4057613301c.png",
     desktopImage:
       "https://i.ibb.co/1YvzkCgY/c4e44fd7-807a-4e72-b847-b4057613301c.png",
     link: "/category/face",
@@ -69,7 +66,8 @@ const slides: Slide[] = [
     title: "Elara Essentials",
     subtitle: "Beauty Redefined",
     description: "Discover our premium collection",
-    mobileImage: mobileHero2,
+    mobileImage:
+      "https://i.ibb.co/pBY6Gb4F/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
     desktopImage:
       "https://i.ibb.co/pBY6Gb4F/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
     link: "/category/all",

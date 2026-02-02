@@ -5,7 +5,7 @@ const categories = [
     id: "hair",
     name: "Hair Care",
     description: "Nourishing treatments for lustrous, healthy hair",
-    image: "https://i.ibb.co/4xvnC43/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
+    image: "https://i.ibb.co/0yrcHyzg/d00da780-98ed-4634-b8d0-dee06d5c146d.png",
     link: "/category/hair",
   },
   {
@@ -38,7 +38,7 @@ const FeaturedCategories = () => {
         </motion.div>
 
         {/* Categories Grid */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {categories.map((category, index) => (
             <motion.div
               key={category.id}

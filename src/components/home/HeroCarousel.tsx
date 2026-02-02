@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 // Mobile images (1080x1440px)
 import mobileHero1 from "@/assets/hero/mobile-hero-1.jpg";
 import mobileHero2 from "@/assets/hero/mobile-hero-2.jpg";
+
 const SLIDE_INTERVAL_MS = 6000;
 const FADE_MS = 800;
 
@@ -69,7 +71,7 @@ const slides: Slide[] = [
     description: "Discover our premium collection",
     mobileImage: mobileHero2,
     desktopImage:
-      "https://i.ibb.co/4xvnC43/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
+      "https://i.ibb.co/pBY6Gb4F/c8393c86-e1a5-40c5-9756-f28112c7f9ea.png",
     link: "/category/all",
     objectPosition: "center",
     objectFit: "cover",
@@ -115,7 +117,6 @@ const HeroCarousel = () => {
     const prev = currentRef.current;
     currentRef.current = nextIndex;
 
-    // Render only the active + exiting slides and do a compositor-friendly crossfade.
     setExitingSlide(prev);
     setCurrentSlide(nextIndex);
 
@@ -125,7 +126,6 @@ const HeroCarousel = () => {
       FADE_MS,
     );
 
-    // Force a style boundary so transitions reliably kick in (prevents Safari/mobile flicker).
     if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     setAnimate(false);
     rafRef.current = window.requestAnimationFrame(() => setAnimate(true));
@@ -142,25 +142,22 @@ const HeroCarousel = () => {
     return () => clearTimers();
   }, []);
 
-  const nextSlide = () => {
-    const next = (currentRef.current + 1) % slides.length;
-    goTo(next);
-  };
-
-  const prevSlide = () => {
-    const prev = (currentRef.current - 1 + slides.length) % slides.length;
-    goTo(prev);
-  };
-
   return (
     <section className="relative w-full h-[75vh] md:h-auto md:aspect-[32/12] bg-background overflow-hidden">
-      {/* Slides */}
       {(exitingSlide !== null && exitingSlide !== currentSlide
         ? [exitingSlide, currentSlide]
         : [currentSlide]
       ).map((slideIndex) => {
         const slide = slides[slideIndex];
         const isActive = slideIndex === currentSlide;
+
+        // ✅ SAFE fetchpriority handling (React + TS compatible)
+        const fetchPriorityProps = isActive
+          ? ({
+              fetchpriority: "high",
+            } as React.ImgHTMLAttributes<HTMLImageElement>)
+          : undefined;
+
         return (
           <div
             key={slide.id}
@@ -175,19 +172,14 @@ const HeroCarousel = () => {
               backgroundColor: slide.backgroundColor || "transparent",
             }}
           >
-            {/* Background - Responsive Image */}
             <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
-              <picture
-                key={`img-${slide.id}-${isActive}`}
-                className="absolute inset-0 w-full h-full block"
-              >
-                {/* Desktop/Tablet: md and above (768px+) */}
+              <picture className="absolute inset-0 w-full h-full block">
                 <source
                   media="(min-width: 768px)"
                   srcSet={slide.desktopImage}
                 />
-                {/* Mobile: below md (< 768px) */}
                 <img
+                  {...fetchPriorityProps}
                   src={slide.mobileImage}
                   alt={slide.title}
                   className="w-full h-full object-center"
@@ -197,12 +189,9 @@ const HeroCarousel = () => {
                   }}
                   loading={isActive ? "eager" : "lazy"}
                   decoding="async"
-                  fetchPriority={isActive ? "high" : "auto"}
                 />
               </picture>
             </div>
-
-            {/* Content - Removed as per request */}
           </div>
         );
       })}

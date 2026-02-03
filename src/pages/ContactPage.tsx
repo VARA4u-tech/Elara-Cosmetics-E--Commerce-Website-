@@ -8,45 +8,49 @@ const contactInfo = [
     icon: Phone,
     title: "Call Us",
     details: ["+91 1800 102 6666", "Mon-Sat: 9AM - 9PM IST"],
-    action: "tel:+911800102666"
+    action: "tel:+911800102666",
   },
   {
     icon: Mail,
     title: "Email Us",
     details: ["customercare@elaracosmetics.com", "Response within 24 hours"],
-    action: "mailto:customercare@elaracosmetics.com"
+    action: "mailto:customercare@elaracosmetics.com",
   },
   {
     icon: MapPin,
     title: "Head Office",
     details: ["A-21, Sector 68, Noida", "Uttar Pradesh, India 201301"],
-    action: "#"
+    action: "#",
   },
   {
     icon: Clock,
     title: "Working Hours",
     details: ["Monday - Saturday", "9:00 AM - 9:00 PM IST"],
-    action: "#"
-  }
+    action: "#",
+  },
 ];
 
 const faqs = [
   {
     question: "How can I track my order?",
-    answer: "You can track your order by logging into your account and visiting the 'My Orders' section. You'll also receive tracking updates via email and SMS."
+    answer:
+      "You can track your order by logging into your account and visiting the 'My Orders' section. You'll also receive tracking updates via email and SMS.",
   },
   {
     question: "What is your return policy?",
-    answer: "We offer a 30-day return policy on unopened products. For any quality concerns, please contact our customer care within 7 days of delivery."
+    answer:
+      "We offer a 30-day return policy on unopened products. For any quality concerns, please contact our customer care within 7 days of delivery.",
   },
   {
     question: "Do you offer international shipping?",
-    answer: "Yes, we ship to over 30 countries worldwide. International orders typically arrive within 7-14 business days."
+    answer:
+      "Yes, we ship to over 30 countries worldwide. International orders typically arrive within 7-14 business days.",
   },
   {
     question: "Are your products cruelty-free?",
-    answer: "Absolutely. All Elara Cosmetics products are 100% cruelty-free and never tested on animals. We are proud to be PETA certified."
-  }
+    answer:
+      "Absolutely. All Elara Cosmetics products are 100% cruelty-free and never tested on animals. We are proud to be PETA certified.",
+  },
 ];
 
 const ContactPage = () => {
@@ -55,12 +59,35 @@ const ContactPage = () => {
     email: "",
     phone: "",
     subject: "",
-    message: ""
+    message: "",
   });
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+
+    // Name Validation: Allow only alphabets and spaces
+    if (name === "name") {
+      if (/^[a-zA-Z\s]*$/.test(value)) {
+        setFormData((prev) => ({ ...prev, [name]: value }));
+      }
+      return;
+    }
+
+    // Phone Validation: Allow only numbers, max 10 digits
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, ""); // Remove non-digits
+      if (numericValue.length <= 10) {
+        setFormData((prev) => ({ ...prev, [name]: numericValue }));
+      }
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -74,9 +101,12 @@ const ContactPage = () => {
       <section className="bg-secondary/30 py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[{ label: "Contact Us" }]} />
-          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl mt-4 mb-4">Get in Touch</h1>
+          <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl mt-4 mb-4">
+            Get in Touch
+          </h1>
           <p className="text-muted-foreground max-w-xl">
-            We're here to help with any questions about our products, orders, or Ayurvedic wisdom.
+            We're here to help with any questions about our products, orders, or
+            Ayurvedic wisdom.
           </p>
         </div>
       </section>
@@ -96,7 +126,9 @@ const ContactPage = () => {
                 </div>
                 <h3 className="font-serif text-lg mb-2">{info.title}</h3>
                 {info.details.map((detail, i) => (
-                  <p key={i} className="text-sm text-muted-foreground">{detail}</p>
+                  <p key={i} className="text-sm text-muted-foreground">
+                    {detail}
+                  </p>
                 ))}
               </a>
             ))}
@@ -110,12 +142,20 @@ const ContactPage = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Form */}
             <div>
-              <h2 className="font-serif text-2xl md:text-3xl mb-6">Send us a Message</h2>
+              <h2 className="font-serif text-2xl md:text-3xl mb-6">
+                Send us a Message
+              </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Your Name *</label>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium mb-2"
+                    >
+                      Your Name *
+                    </label>
                     <input
+                      id="name"
                       type="text"
                       name="name"
                       value={formData.name}
@@ -125,8 +165,14 @@ const ContactPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email Address *</label>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium mb-2"
+                    >
+                      Email Address *
+                    </label>
                     <input
+                      id="email"
                       type="email"
                       name="email"
                       value={formData.email}
@@ -138,18 +184,36 @@ const ContactPage = () => {
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border bg-background text-sm focus:outline-none focus:border-primary"
-                    />
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium mb-2"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="flex">
+                      <span className="inline-flex items-center px-3 border border-r-0 border-border bg-secondary/30 text-sm">
+                        +91
+                      </span>
+                      <input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        maxLength={10}
+                        className="w-full px-4 py-3 border border-border bg-background text-sm focus:outline-none focus:border-primary"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Subject *</label>
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium mb-2"
+                    >
+                      Subject *
+                    </label>
                     <select
+                      id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
@@ -166,8 +230,14 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Message *</label>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-2"
+                  >
+                    Message *
+                  </label>
                   <textarea
+                    id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
@@ -176,7 +246,10 @@ const ContactPage = () => {
                     className="w-full px-4 py-3 border border-border bg-background text-sm focus:outline-none focus:border-primary resize-none"
                   />
                 </div>
-                <button type="submit" className="btn-luxury flex items-center gap-2">
+                <button
+                  type="submit"
+                  className="btn-luxury flex items-center gap-2"
+                >
                   <Send className="w-4 h-4" />
                   Send Message
                 </button>
@@ -185,12 +258,19 @@ const ContactPage = () => {
 
             {/* FAQs */}
             <div>
-              <h2 className="font-serif text-2xl md:text-3xl mb-6">Frequently Asked Questions</h2>
+              <h2 className="font-serif text-2xl md:text-3xl mb-6">
+                Frequently Asked Questions
+              </h2>
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="border border-border bg-background">
+                  <div
+                    key={index}
+                    className="border border-border bg-background"
+                  >
                     <button
-                      onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                      onClick={() =>
+                        setExpandedFaq(expandedFaq === index ? null : index)
+                      }
                       className="w-full px-6 py-4 flex items-center justify-between text-left"
                     >
                       <span className="font-medium">{faq.question}</span>

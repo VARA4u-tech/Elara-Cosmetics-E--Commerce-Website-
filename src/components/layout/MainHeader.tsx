@@ -40,18 +40,14 @@ const MainHeader = ({
               className="text-foreground hover:text-primary transition-colors"
               aria-label="Search"
             >
-              <Search className="w-5 h-5" strokeWidth={1.5} />
+              <Search className="w-5 h-8" strokeWidth={1.5} />
             </button>
             <Link
               to="/stores"
-              className="text-[11px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="text-[15px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Stores
             </Link>
-            <button className="flex items-center gap-1 text-[11px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors">
-              <span>₹ INR</span>
-              <ChevronDown className="w-3 h-3" />
-            </button>
           </div>
 
           {/* Center - Logo */}
@@ -64,7 +60,7 @@ const MainHeader = ({
               alt="Elara Cosmetics"
               className={cn(
                 "w-auto object-contain transition-all duration-500",
-                isScrolled ? "h-10" : "h-12",
+                isScrolled ? "h-12" : "h-20",
               )}
             />
           </Link>
@@ -73,7 +69,7 @@ const MainHeader = ({
           <div className="flex items-center justify-end gap-6">
             <Link
               to="/account"
-              className="text-[11px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="text-[15px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Account
             </Link>
@@ -82,7 +78,7 @@ const MainHeader = ({
               className="relative text-foreground hover:text-primary transition-colors group"
               aria-label="Shopping Cart"
             >
-              <ShoppingBag className="w-5 h-5" strokeWidth={1.5} />
+              <ShoppingBag className="w-5 h-8" strokeWidth={1.5} />
               {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1.5 bg-black text-white text-[9px] min-w-[16px] h-[16px] rounded-full flex items-center justify-center font-medium">
                   {totalItems > 99 ? "99+" : totalItems}

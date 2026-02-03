@@ -1,73 +1,105 @@
-# Welcome to your Lovable project
+# 🌿 Elara Cosmetics - Premium Ayurvedic Skincare
 
-## Project info
+Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![Elara Banner](https://images.unsplash.com/photo-1556228578-8d89e5c4644a?q=80&w=1200&auto=format&fit=crop)
 
-## How can I edit this code?
+## 🚀 Project Overview
 
-There are several ways of editing your application.
+Elara Cosmetics is a fully functional front-end e-commerce website designed to provide a luxurious shopping experience. It features a complete user journey from product discovery to checkout via WhatsApp.
 
-**Use Lovable**
+### ✨ Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Premium UI/UX**: Elegant design using **Tailwind CSS** and **Shadcn UI** with glassmorphism effects and smooth animations.
+- **E-Commerce Core**:
+  - Product Browsing & Filtering
+  - **Shopping Cart** & **Wishlist** management
+  - Dynamic Search & Navigation
+- **WhatsApp Checkout**: Unique direct-to-WhatsApp order completion flow for personalized service.
+- **Robust Forms**:
+  - Strict validation for Contact and Checkout forms.
+  - **Input Restrictions**: Name/City/State fields accept only alphabets; Phone fields accept only numbers (max 10 digits) with automatic `+91` prefix visualization.
+- **Accessibility**: Optimized form fields with proper labels (`aria-label`, `htmlFor`) for better accessibility.
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Technology Stack
 
-**Use your preferred IDE**
+This project is built with a modern frontend stack:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Routing**: [React Router DOM](https://reactrouter.com/)
+- **Testing**: [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🏃‍♂️ Getting Started
 
-Follow these steps:
+Follow these steps to set up the project locally:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Prerequisites
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Installation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1.  **Clone the repository**
+
+    ```bash
+    git clone <repository-url>
+    cd Elara-Cosmetics-E--Commerce-Website-
+    ```
+
+2.  **Install dependencies**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
+
+## 🧪 Testing
+
+The application is covered by a comprehensive test suite ensuring reliability across critical pages.
+
+**Run All Tests:**
+
+```bash
+npm test
 ```
 
-**Edit a file directly in GitHub**
+**Test Coverage Highlights:**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Core Pages**: Index, Product, Cart, Checkout, Wishlist.
+- **Information Pages**: Contact, About, FAQs.
+- **Features**: Form validation, Cart logic, Navigation.
 
-**Use GitHub Codespaces**
+## 📂 Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/     # Reusable UI components (Layout, UI kit, Features)
+├── context/        # React Context (Cart, Wishlist, Audio)
+├── data/           # Static product and content data
+├── pages/          # Main route pages (Home, Shop, Contact, etc.)
+├── test/           # Test files (*.test.tsx) and setup
+├── App.tsx         # Main application entry
+└── main.tsx        # DOM entry point
+```
 
-## What technologies are used for this project?
+## 🔐 Form Validation Details
 
-This project is built with:
+To ensure high data quality, the following restrictions are implemented:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Name Fields**: Allow only alphabets and spaces.
+- **City/State**: Allow only alphabets and spaces.
+- **Phone Number**: Allows only digits, limited to 10 characters, displayed with `+91` prefix.
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ for Elara Cosmetics.

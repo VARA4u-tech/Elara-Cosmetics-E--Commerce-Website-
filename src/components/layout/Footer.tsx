@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import {
-  Facebook,
   Instagram,
   Twitter,
-  Youtube,
+  MessageCircle,
   Mail,
   MapPin,
   Phone,
@@ -36,14 +35,16 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
     {
       icon: Instagram,
       href: "https://www.instagram.com/elaracosmetic?igsh=Y3ptcTN5OTNmdDUz",
       label: "Instagram",
     },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    {
+      icon: MessageCircle,
+      href: "https://wa.me/918019156646",
+      label: "Whatsapp",
+    },
   ];
 
   return (
@@ -196,19 +197,20 @@ const Footer = () => {
       <div className="border-t border-background/20">
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70">
-            <p>© 2024 Elara Cosmetics. All rights reserved.</p>
+            <p>© 2026 Elara Cosmetics. All rights reserved.</p>
+            <p>Engineered & Designed With 🦋 By Team Varanasi</p>
             <div className="flex items-center gap-4 text-xs">
               <Link
                 to="/privacy-policy"
                 className="text-background/70 hover:text-primary transition-colors"
               >
-                Privacy Policy
+                ▫️Privacy Policy
               </Link>
               <Link
                 to="/terms-of-service"
                 className="text-background/70 hover:text-primary transition-colors"
               >
-                Terms of Service
+                ▫️Terms of Service
               </Link>
             </div>
           </div>

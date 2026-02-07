@@ -2,7 +2,8 @@
 
 Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.
 
-![Elara Banner](https://images.unsplash.com/photo-1556228578-8d89e5c4644a?q=80&w=1200&auto=format&fit=crop)
+![WhatsApp Image 2026-02-07 at 8 12 19 PM](https://github.com/user-attachments/assets/48935aa5-b57a-48c0-8a7e-fc01a8b0fde6)
+
 
 ## 🚀 Project Overview
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -91,45 +91,55 @@ const HeroCarousel = () => {
   const intervalRef = useRef<number | null>(null);
   const exitTimeoutRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
+  const goToRef = useRef<
+    ((nextIndex: number, resetTimer?: boolean) => void) | null
+  >(null);
 
-  const clearTimers = () => {
+  const clearTimers = useCallback(() => {
     if (intervalRef.current) window.clearInterval(intervalRef.current);
     if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
     if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     intervalRef.current = null;
     exitTimeoutRef.current = null;
     rafRef.current = null;
-  };
+  }, []);
 
-  const kickAutoAdvance = () => {
+  const kickAutoAdvance = useCallback(() => {
     if (intervalRef.current) window.clearInterval(intervalRef.current);
     intervalRef.current = window.setInterval(() => {
       const next = (currentRef.current + 1) % slides.length;
-      goTo(next, false);
+      if (goToRef.current) goToRef.current(next, false);
     }, SLIDE_INTERVAL_MS);
-  };
+  }, []);
 
-  const goTo = (nextIndex: number, resetTimer = true) => {
-    if (nextIndex === currentRef.current) return;
+  const goTo = useCallback(
+    (nextIndex: number, resetTimer = true) => {
+      if (nextIndex === currentRef.current) return;
 
-    const prev = currentRef.current;
-    currentRef.current = nextIndex;
+      const prev = currentRef.current;
+      currentRef.current = nextIndex;
 
-    setExitingSlide(prev);
-    setCurrentSlide(nextIndex);
+      setExitingSlide(prev);
+      setCurrentSlide(nextIndex);
 
-    if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
-    exitTimeoutRef.current = window.setTimeout(
-      () => setExitingSlide(null),
-      FADE_MS,
-    );
+      if (exitTimeoutRef.current) window.clearTimeout(exitTimeoutRef.current);
+      exitTimeoutRef.current = window.setTimeout(
+        () => setExitingSlide(null),
+        FADE_MS,
+      );
 
-    if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
-    setAnimate(false);
-    rafRef.current = window.requestAnimationFrame(() => setAnimate(true));
+      if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
+      setAnimate(false);
+      rafRef.current = window.requestAnimationFrame(() => setAnimate(true));
 
-    if (resetTimer) kickAutoAdvance();
-  };
+      if (resetTimer) kickAutoAdvance();
+    },
+    [kickAutoAdvance],
+  );
+
+  useEffect(() => {
+    goToRef.current = goTo;
+  }, [goTo]);
 
   useEffect(() => {
     currentRef.current = currentSlide;
@@ -138,14 +148,14 @@ const HeroCarousel = () => {
   useEffect(() => {
     kickAutoAdvance();
     return () => clearTimers();
-  }, []);
+  }, [kickAutoAdvance, clearTimers]);
 
   return (
     <section className="relative w-full h-[60vh] md:h-auto md:aspect-[32/12] bg-background overflow-hidden">
       {(exitingSlide !== null && exitingSlide !== currentSlide
         ? [exitingSlide, currentSlide]
         : [currentSlide]
-      ).map((slideIndex) => {
+      ).map((slideIndex: number) => {
         const slide = slides[slideIndex];
         const isActive = slideIndex === currentSlide;
 
@@ -153,7 +163,9 @@ const HeroCarousel = () => {
         const fetchPriorityProps = isActive
           ? ({
               fetchpriority: "high",
-            } as React.ImgHTMLAttributes<HTMLImageElement>)
+            } as React.ImgHTMLAttributes<HTMLImageElement> & {
+              fetchpriority?: string;
+            })
           : undefined;
 
         return (

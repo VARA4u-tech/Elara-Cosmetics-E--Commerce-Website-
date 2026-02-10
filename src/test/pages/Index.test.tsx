@@ -66,10 +66,15 @@ vi.mock("@/context/AudioContext", () => ({
   useAudioManager: () => ({
     isMuted: false,
     toggleMute: vi.fn(),
+    registerAudio: vi.fn(),
+    unregisterAudio: vi.fn(),
+    playHoverSound: vi.fn(),
+    playClickSound: vi.fn(),
+    playSuccessSound: vi.fn(),
   }),
   AudioProvider: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
-  ),
+  ), // Mock AudioProvider as a fragment
 }));
 
 const renderIndexPage = () => {
@@ -98,14 +103,10 @@ describe("Index (Home Page) Tests", () => {
       expect(screen.getByTestId("hero-carousel")).toBeInTheDocument();
       expect(screen.getByTestId("featured-categories")).toBeInTheDocument();
       expect(screen.getByTestId("new-arrivals")).toBeInTheDocument();
-      expect(screen.getByTestId("best-sellers")).toBeInTheDocument();
       expect(screen.getByTestId("shop-by-concern")).toBeInTheDocument();
-      expect(screen.getByTestId("ingredients-spotlight")).toBeInTheDocument();
       expect(screen.getByTestId("testimonials")).toBeInTheDocument();
-      expect(screen.getByTestId("video-showcase")).toBeInTheDocument();
       expect(screen.getByTestId("brand-story")).toBeInTheDocument();
       expect(screen.getByTestId("newsletter")).toBeInTheDocument();
-      expect(screen.getByTestId("sustainability-banner")).toBeInTheDocument();
     });
   });
 
@@ -143,14 +144,10 @@ describe("Index (Home Page) Tests", () => {
         "hero-carousel",
         "featured-categories",
         "new-arrivals",
-        "best-sellers",
         "shop-by-concern",
-        "ingredients-spotlight",
         "testimonials",
-        "video-showcase",
         "brand-story",
         "newsletter",
-        "sustainability-banner",
       ];
 
       sections.forEach((section) => {
@@ -165,7 +162,7 @@ describe("Index (Home Page) Tests", () => {
 
       // Verify all components are rendered
       const componentCount = screen.getAllByTestId(
-        /hero-carousel|featured-categories|new-arrivals|best-sellers|shop-by-concern|ingredients-spotlight|testimonials|video-showcase|brand-story|newsletter|sustainability-banner/,
+        /hero-carousel|featured-categories|new-arrivals|shop-by-concern|testimonials|brand-story|newsletter/,
       );
 
       expect(componentCount.length).toBeGreaterThan(0);

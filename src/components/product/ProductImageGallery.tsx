@@ -8,7 +8,7 @@ interface ProductImageGalleryProps {
 }
 
 const ProductImageGallery = ({
-  images,
+  images = [],
   productName,
 }: ProductImageGalleryProps) => {
   const [activeIndex, setActiveIndex] = useState(0);

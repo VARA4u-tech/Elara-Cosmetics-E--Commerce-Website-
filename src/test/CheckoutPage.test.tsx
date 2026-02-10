@@ -187,6 +187,7 @@ describe("CheckoutPage Form Tests", () => {
 
       await waitFor(() => {
         expect(window.open).toHaveBeenCalled();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const callArgs = (window.open as any).mock.calls[0];
         expect(callArgs[0]).toContain("https://wa.me/918019156646");
       });

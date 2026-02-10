@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import NewsletterSection from "@/components/home/NewsletterSection";
 
 describe("NewsletterSection Form Tests", () => {
@@ -193,19 +199,17 @@ describe("NewsletterSection Form Tests", () => {
       fireEvent.change(emailInput, { target: { value: "test@example.com" } });
       fireEvent.click(submitButton);
 
-      // Wait for success state
-      await waitFor(() => {
-        expect(screen.getByText("Subscribed!")).toBeInTheDocument();
-      });
+      // Wait for success state immediately (no delay expected for setting state)
+      expect(screen.getByText("Subscribed!")).toBeInTheDocument();
 
       // Fast-forward 3 seconds
-      vi.advanceTimersByTime(3000);
+      act(() => {
+        vi.advanceTimersByTime(3000);
+      });
 
       // Form should reset
-      await waitFor(() => {
-        expect(emailInput.value).toBe("");
-        expect(screen.getByText("Subscribe")).toBeInTheDocument();
-      });
+      expect(emailInput.value).toBe("");
+      expect(screen.getByText("Subscribe")).toBeInTheDocument();
 
       vi.useRealTimers();
     });
@@ -355,24 +359,20 @@ describe("NewsletterSection Form Tests", () => {
       fireEvent.change(emailInput, { target: { value: "test1@example.com" } });
       fireEvent.click(submitButton);
 
-      await waitFor(() => {
-        expect(screen.getByText("Subscribed!")).toBeInTheDocument();
-      });
+      expect(screen.getByText("Subscribed!")).toBeInTheDocument();
 
       // Wait for reset
-      vi.advanceTimersByTime(3000);
-
-      await waitFor(() => {
-        expect(emailInput.value).toBe("");
+      act(() => {
+        vi.advanceTimersByTime(3000);
       });
+
+      expect(emailInput.value).toBe("");
 
       // Second submission
       fireEvent.change(emailInput, { target: { value: "test2@example.com" } });
       fireEvent.click(submitButton);
 
-      await waitFor(() => {
-        expect(screen.getByText("Subscribed!")).toBeInTheDocument();
-      });
+      expect(screen.getByText("Subscribed!")).toBeInTheDocument();
 
       vi.useRealTimers();
     });
@@ -386,8 +386,7 @@ describe("NewsletterSection Form Tests", () => {
         /Enter your email address/i,
       );
 
-      fireEvent.focus(emailInput);
-
+      emailInput.focus();
       expect(emailInput).toHaveFocus();
     });
   });

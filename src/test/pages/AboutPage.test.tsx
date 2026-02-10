@@ -30,9 +30,8 @@ describe("AboutPage Tests", () => {
   describe("Page Rendering", () => {
     it("should render about page without crashing", () => {
       renderAboutPage();
-      expect(
-        screen.getByText(/About|Our Story|Who We Are/i),
-      ).toBeInTheDocument();
+      const mainHeading = screen.getByRole("heading", { level: 1 });
+      expect(mainHeading).toBeInTheDocument();
     });
 
     it("should display breadcrumbs", () => {
@@ -42,29 +41,33 @@ describe("AboutPage Tests", () => {
 
     it("should display page title", () => {
       renderAboutPage();
-      expect(screen.getByText(/About|Our Story/i)).toBeInTheDocument();
+      const heroHeading = screen.getByRole("heading", { level: 1 });
+      expect(heroHeading).toBeInTheDocument();
+      expect(heroHeading).toHaveTextContent(/Ayurveda|Elara/i);
     });
   });
 
   describe("Content Sections", () => {
     it("should display company story", () => {
       renderAboutPage();
-      const content = screen.getByText(/story|heritage|journey|founded|began/i);
-      expect(content).toBeInTheDocument();
+      const content = screen.getAllByText(
+        /story|heritage|journey|founded|began/i,
+      );
+      expect(content.length).toBeGreaterThan(0);
     });
 
     it("should display mission or vision", () => {
       renderAboutPage();
-      const missionVision = screen.queryByText(
+      const missionVision = screen.queryAllByText(
         /mission|vision|values|believe/i,
       );
-      expect(missionVision || screen.getByText(/About/i)).toBeInTheDocument();
+      expect(missionVision.length).toBeGreaterThan(0);
     });
 
     it("should display company values", () => {
       renderAboutPage();
-      const values = screen.queryByText(/values|principles|commitment/i);
-      expect(values || screen.getByText(/About/i)).toBeInTheDocument();
+      const values = screen.queryAllByText(/values|principles|commitment/i);
+      expect(values.length).toBeGreaterThan(0);
     });
   });
 
@@ -87,7 +90,8 @@ describe("AboutPage Tests", () => {
   describe("Brand Information", () => {
     it("should mention Elara Cosmetics", () => {
       renderAboutPage();
-      expect(screen.getByText(/Elara|ELARA/i)).toBeInTheDocument();
+      const elaraMentions = screen.getAllByText(/Elara|ELARA/i);
+      expect(elaraMentions.length).toBeGreaterThan(0);
     });
 
     it("should display brand description", () => {

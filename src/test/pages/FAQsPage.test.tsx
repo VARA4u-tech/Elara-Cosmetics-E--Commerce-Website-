@@ -58,55 +58,37 @@ describe("FAQsPage Tests", () => {
     it("should have clickable FAQ items", () => {
       renderFAQsPage();
       const buttons = screen.getAllByRole("button");
-      expect(buttons.length).toBeGreaterThan(0);
+      // Filter out navigation or other buttons if necessary
+      const faqButtons = buttons.filter(
+        (btn) =>
+          btn.textContent &&
+          (btn.textContent.includes("?") || btn.textContent.includes("How")),
+      );
+      expect(faqButtons.length).toBeGreaterThan(0);
     });
 
     it("should have multiple FAQ categories", () => {
-      const { container } = renderFAQsPage();
-      const sections = container.querySelectorAll(
-        "section, div[class*='category']",
-      );
-      expect(sections.length).toBeGreaterThan(0);
+      renderFAQsPage();
+      const categories = screen.getAllByRole("heading", { level: 2 });
+      expect(categories.length).toBeGreaterThan(0);
     });
   });
 
-  describe("FAQ Interaction", () => {
-    it("should expand FAQ when clicked", () => {
-      renderFAQsPage();
-      const buttons = screen.getAllByRole("button");
+  it("should toggle FAQ icon when clicked", () => {
+    renderFAQsPage();
+    // Initially, chevron-down should be visible
+    const chevronDowns = document.querySelectorAll(".lucide-chevron-down");
+    expect(chevronDowns.length).toBeGreaterThan(0);
 
-      if (buttons.length > 0) {
-        const initialContent = document.body.textContent;
-        fireEvent.click(buttons[0]);
-        const expandedContent = document.body.textContent;
-
-        // Content should change or remain (already expanded)
-        expect(expandedContent).toBeDefined();
-      }
-    });
-
-    it("should collapse FAQ when clicked again", () => {
-      renderFAQsPage();
-      const buttons = screen.getAllByRole("button");
-
-      if (buttons.length > 0) {
-        fireEvent.click(buttons[0]);
-        fireEvent.click(buttons[0]);
-        expect(buttons[0]).toBeInTheDocument();
-      }
-    });
-
-    it("should toggle between different FAQs", () => {
-      renderFAQsPage();
-      const buttons = screen.getAllByRole("button");
-
-      if (buttons.length > 1) {
-        fireEvent.click(buttons[0]);
-        fireEvent.click(buttons[1]);
-        expect(buttons[0]).toBeInTheDocument();
-        expect(buttons[1]).toBeInTheDocument();
-      }
-    });
+    const buttons = screen.getAllByRole("button");
+    if (buttons.length > 0) {
+      fireEvent.click(buttons[0]);
+      // After click, chevron-up should be visible for that item
+      // We can check if the button now contains a chevron-up
+      expect(
+        buttons[0].querySelector(".lucide-chevron-up"),
+      ).toBeInTheDocument();
+    }
   });
 
   describe("FAQ Categories", () => {

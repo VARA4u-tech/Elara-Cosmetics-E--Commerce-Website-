@@ -65,6 +65,21 @@ const faqData = [
       },
     ],
   },
+  {
+    category: "Returns & Refunds",
+    items: [
+      {
+        question: "What is your return policy?",
+        answer:
+          "We offer a 30-day return policy for unused and unopened products. If you are not satisfied, please contact us for a return authorization.",
+      },
+      {
+        question: "How do I process a refund?",
+        answer:
+          "Once your return is received and inspected, we will notify you of the approval or rejection of your refund. Approved refunds are processed within 5-7 business days.",
+      },
+    ],
+  },
 ];
 
 const FAQsPage = () => {

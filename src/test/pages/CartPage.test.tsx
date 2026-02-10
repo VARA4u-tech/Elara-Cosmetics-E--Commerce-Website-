@@ -50,6 +50,7 @@ const cartWithItems = {
   removeFromCart: mockRemoveFromCart,
   updateQuantity: mockUpdateQuantity,
   clearCart: mockClearCart,
+  removeItem: mockRemoveFromCart,
 };
 
 const emptyCart = {
@@ -58,6 +59,7 @@ const emptyCart = {
   removeFromCart: mockRemoveFromCart,
   updateQuantity: mockUpdateQuantity,
   clearCart: mockClearCart,
+  removeItem: mockRemoveFromCart,
 };
 
 // Mock useCart hook
@@ -89,7 +91,7 @@ describe("CartPage Tests", () => {
   describe("Page Rendering with Items", () => {
     it("should render cart page without crashing", () => {
       renderCartPage();
-      expect(screen.getByText(/Cart|Shopping Cart/i)).toBeInTheDocument();
+      expect(screen.getByText(/Shopping Bag|Cart/i)).toBeInTheDocument();
     });
 
     it("should display cart items", () => {
@@ -112,14 +114,20 @@ describe("CartPage Tests", () => {
   });
 
   describe("Cart Actions", () => {
-    it("should call removeFromCart when remove button clicked", () => {
+    it("should call removeItem when remove button clicked", () => {
       renderCartPage();
-      const removeButtons = screen.getAllByRole("button", {
-        name: /Remove|Delete|×/i,
-      });
+      // The button likely has an aria-label or just an icon.
+      // If we update component to have aria-label="Remove item", we can use that.
+      // Or we can query by icon class or just get all buttons and find the one that isn't +/-
+      const buttons = screen.getAllByRole("button");
+      const removeButton = buttons.find(
+        (btn) =>
+          btn.querySelector(".lucide-trash-2") ||
+          btn.innerHTML.includes("trash"),
+      );
 
-      if (removeButtons.length > 0) {
-        fireEvent.click(removeButtons[0]);
+      if (removeButton) {
+        fireEvent.click(removeButton);
         expect(mockRemoveFromCart).toHaveBeenCalled();
       }
     });
@@ -154,9 +162,9 @@ describe("CartPage Tests", () => {
   describe("Navigation", () => {
     it("should have link to checkout", () => {
       renderCartPage();
-      const checkoutLink =
-        screen.getByRole("button", { name: /Checkout/i }) ||
-        screen.getByRole("link", { name: /Checkout/i });
+      const checkoutLink = screen.getByRole("link", {
+        name: /Proceed to Checkout|Checkout/i,
+      });
       expect(checkoutLink).toBeInTheDocument();
     });
   });

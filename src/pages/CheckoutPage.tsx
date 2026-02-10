@@ -99,7 +99,7 @@ Please confirm this order. Thank you! 🙏`;
       return;
     }
 
-    const phoneNumber = "+918019156646"; // Brand WhatsApp number
+    const phoneNumber = "918019156646"; // Brand WhatsApp number
     const message = generateWhatsAppMessage();
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 

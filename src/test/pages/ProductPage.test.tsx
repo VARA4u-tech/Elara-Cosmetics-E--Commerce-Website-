@@ -37,7 +37,7 @@ vi.mock("@/data/products", () => ({
       benefits: ["Benefit 1", "Benefit 2"],
       howToUse: "Apply daily",
       isNew: true,
-      isBestSeller: true,
+      isBestseller: true,
     },
   ],
   formatPrice: (price: number) => `₹${price.toLocaleString()}`,
@@ -56,7 +56,7 @@ vi.mock("@/data/products", () => ({
     benefits: ["Benefit 1", "Benefit 2"],
     howToUse: "Apply daily",
     isNew: true,
-    isBestSeller: true,
+    isBestseller: true,
   }),
   getProductsByCategory: (category: string) => [],
 }));
@@ -64,7 +64,7 @@ vi.mock("@/data/products", () => ({
 // Mock contexts
 vi.mock("@/context/CartContext", () => ({
   useCart: () => ({
-    addToCart: vi.fn(),
+    addItem: vi.fn(),
     items: [],
   }),
 }));
@@ -101,12 +101,14 @@ describe("ProductPage Tests", () => {
   describe("Page Rendering", () => {
     it("should render product page without crashing", () => {
       renderProductPage();
-      expect(screen.getByText("Test Product")).toBeInTheDocument();
+      const productNames = screen.getAllByText("Test Product");
+      expect(productNames.length).toBeGreaterThan(0);
     });
 
     it("should display product name", () => {
       renderProductPage();
-      expect(screen.getByText("Test Product")).toBeInTheDocument();
+      const productNames = screen.getAllByText("Test Product");
+      expect(productNames.length).toBeGreaterThan(0);
     });
 
     it("should display product price", () => {
@@ -122,7 +124,8 @@ describe("ProductPage Tests", () => {
 
     it("should display product description", () => {
       renderProductPage();
-      expect(screen.getByText("Test description")).toBeInTheDocument();
+      const descriptions = screen.getAllByText("Test description");
+      expect(descriptions.length).toBeGreaterThan(0);
     });
   });
 
@@ -152,15 +155,15 @@ describe("ProductPage Tests", () => {
 
     it("should display bestseller badge", () => {
       renderProductPage();
-      expect(screen.getByText(/Best Seller/i)).toBeInTheDocument();
+      expect(screen.getByText(/Bestseller/i)).toBeInTheDocument();
     });
   });
 
   describe("Product Actions", () => {
-    it("should have Add to Cart button", () => {
+    it("should have Add to Bag button", () => {
       renderProductPage();
       expect(
-        screen.getByRole("button", { name: /Add to Cart/i }),
+        screen.getByRole("button", { name: /Add to Bag/i }),
       ).toBeInTheDocument();
     });
 
@@ -186,7 +189,8 @@ describe("ProductPage Tests", () => {
   describe("Product Details Tabs", () => {
     it("should display product details section", () => {
       renderProductPage();
-      expect(screen.getByText("Test description")).toBeInTheDocument();
+      const descriptions = screen.getAllByText("Test description");
+      expect(descriptions.length).toBeGreaterThan(0);
     });
 
     it("should display ingredients if available", () => {
@@ -236,12 +240,14 @@ describe("ProductPage Tests", () => {
   describe("SEO and Metadata", () => {
     it("should display product name for SEO", () => {
       renderProductPage();
-      expect(screen.getByText("Test Product")).toBeInTheDocument();
+      const productNames = screen.getAllByText("Test Product");
+      expect(productNames.length).toBeGreaterThan(0);
     });
 
     it("should have product information visible", () => {
       renderProductPage();
-      expect(screen.getByText("Test description")).toBeInTheDocument();
+      const descriptions = screen.getAllByText("Test description");
+      expect(descriptions.length).toBeGreaterThan(0);
     });
   });
 
@@ -255,16 +261,16 @@ describe("ProductPage Tests", () => {
       }
     });
 
-    it("should handle add to cart click", async () => {
+    it("should handle add to bag click", async () => {
       renderProductPage();
-      const addToCartButton = screen.getByRole("button", {
-        name: /Add to Cart/i,
+      const addToBagButton = screen.getByRole("button", {
+        name: /Add to Bag/i,
       });
 
-      fireEvent.click(addToCartButton);
+      fireEvent.click(addToBagButton);
 
       await waitFor(() => {
-        expect(addToCartButton).toBeInTheDocument();
+        expect(addToBagButton).toBeInTheDocument();
       });
     });
   });

@@ -14,6 +14,7 @@ export interface Product {
   description: string;
   ingredients: string;
   howToUse: string;
+  benefits?: string | string[];
   size: string;
   tags: string[];
   isNew?: boolean;
@@ -154,6 +155,12 @@ export const products: Product[] = [
     isNew: true,
     isBestseller: true,
     concern: ["Dandruff", "Itchy Scalp", "Scalp Health"],
+    benefits: [
+      "Reduces flakes after first use",
+      "Soothes itchy scalp instantly",
+      "Restores scalp microbiome balance",
+      "Lightweight and non-greasy formula",
+    ],
   },
 
   // Hair Care - Conditioners
@@ -274,6 +281,12 @@ export const products: Product[] = [
     isNew: true,
     isBestseller: true,
     concern: ["Dark Circles", "Puffiness", "Fine Lines", "Anti-Aging"],
+    benefits: [
+      "Visibly reduces dark circles in 4 weeks",
+      "Depuffs and refreshes tired eyes",
+      "Smooths fine lines and crow's feet",
+      "Deeply hydrates the delicate eye area",
+    ],
   },
 
   // Face - Serums (GlowCell NMN)
@@ -372,6 +385,151 @@ export const products: Product[] = [
     tags: ["aloe vera", "multi-purpose", "hydrating"],
     isNew: true,
     concern: ["Hydration", "Soothing", "Skin Health", "Hair Health"],
+  },
+
+  // ==================== WELLNESS ====================
+  {
+    id: "elara-calming-massage-oil",
+    name: "Calming Body & Massage Oil",
+    category: "wellness",
+    subcategory: "Massage Oils",
+    price: 1299,
+    originalPrice: 1599,
+    image: glowcellNmnSerumImg,
+    images: [glowcellNmnSerumImg, glowcellNmnSerumAnglesImg],
+    rating: 4.8,
+    reviews: 85,
+    description:
+      "A luxurious blend of essential oils including Lavender and Chamomile to soothe the senses and relax the body. Perfect for a calming massage before bedtime.",
+    ingredients:
+      "Sweet Almond Oil, Jojoba Oil, Lavender Essential Oil, Chamomile Extract, Vitamin E, Sunflower Seed Oil",
+    howToUse:
+      "Warm a small amount in hands and massage onto body in circular motions. Focus on tension points.",
+    size: "100ml",
+    tags: ["wellness", "massage", "relaxation"],
+    isNew: true,
+    concern: ["Stress", "Muscle Tension", "Dry Skin"],
+    benefits: [
+      "Promotes relaxation",
+      "Deeply hydrates skin",
+      "Relieves muscle tension",
+    ],
+  },
+  {
+    id: "elara-aromatherapy-mist",
+    name: "Sleep Well Aromatherapy Mist",
+    category: "wellness",
+    subcategory: "Aromatherapy",
+    price: 899,
+    originalPrice: 1099,
+    image: redAloeveraSplashImg,
+    images: [redAloeveraSplashImg, redAloeveraAnglesImg],
+    rating: 4.6,
+    reviews: 120,
+    description:
+      "A calming pillow and room mist infused with Vetiver and Sandalwood to promote deep, restful sleep.",
+    ingredients:
+      "Aqua, Vetiver Essential Oil, Sandalwood Oil, Alcohol Denat., Glycerin",
+    howToUse: "Spray lightly on pillow or in the room 5 minutes before sleep.",
+    size: "100ml",
+    tags: ["wellness", "sleep", "aromatherapy"],
+    concern: ["Insomnia", "Stress", "Anxiety"],
+    benefits: ["Induces deep sleep", "Calms the mind", "Freshens the room"],
+  },
+
+  // ==================== GIFTING ====================
+  {
+    id: "elara-luxury-gift-set",
+    name: "The Golden Glow Gift Box",
+    category: "gifting",
+    subcategory: "Gift Sets",
+    price: 3499,
+    originalPrice: 4299,
+    image: goldenGlowEyeSerumImg,
+    images: [goldenGlowEyeSerumImg, goldenGlowAnglesImg],
+    rating: 4.9,
+    reviews: 45,
+    description:
+      "The ultimate gift of radiance. Contains our bestselling Golden Glow Eye Serum and Niacin Glow Serum in a beautiful keepsake box.",
+    ingredients: "See individual products for full ingredient lists.",
+    howToUse: "See individual products for usage instructions.",
+    size: "Gift Set",
+    tags: ["gifting", "luxury", "skincare set"],
+    isBestseller: true,
+    concern: ["Gifting", "Anti-Aging", "Radiance"],
+    benefits: [
+      "Complete radiance regimen",
+      "Beautifully packaged",
+      "Great value",
+    ],
+  },
+  {
+    id: "elara-hair-care-kit",
+    name: "Ultimate Hair Care Kit",
+    category: "gifting",
+    subcategory: "Travel Kits",
+    price: 2499,
+    originalPrice: 2999,
+    image: antiDandruffSerumImg,
+    images: [antiDandruffSerumAnglesImg],
+    rating: 4.7,
+    reviews: 62,
+    description:
+      "Your travel-friendly hair care regimen. Includes Anti-Dandruff Shampoo, Conditioner, and Serum in convenient travel sizes.",
+    ingredients: "See individual products for full ingredient lists.",
+    howToUse: "See individual products for usage instructions.",
+    size: "Travel Kit",
+    tags: ["gifting", "travel", "hair care"],
+    concern: ["Travel", "Hair Health", "Dandruff"],
+    benefits: [
+      "Travel-friendly sizes",
+      "Complete hair routine",
+      "Leaking-proof packaging",
+    ],
+  },
+
+  // ==================== MAKEUP ====================
+  {
+    id: "elara-velvet-matte-lipstick",
+    name: "Velvet Matte Liquid Lipstick",
+    category: "makeup",
+    subcategory: "Lips",
+    price: 799,
+    originalPrice: 999,
+    image: goldenGlowEyeSerumImg,
+    images: [goldenGlowEyeSerumImg],
+    rating: 4.5,
+    reviews: 210,
+    description:
+      "A weightless, long-wearing liquid lipstick with a soft-matte finish. Enriched with Vitamin E to keep lips hydrated.",
+    ingredients: "Isododecane, Dimethicone, Vitamin E, Pigments, Jojoba Oil",
+    howToUse:
+      "Apply directly to lips with the applicator. Let dry for 30 seconds.",
+    size: "5ml",
+    tags: ["makeup", "lips", "matte"],
+    isNew: true,
+    concern: ["Pigmentation", "Long-wear"],
+    benefits: ["Long-lasting color", "Non-drying formula", "Highly pigmented"],
+  },
+  {
+    id: "elara-radiant-bb-cream",
+    name: "Radiant BB Cream SPF 30",
+    category: "makeup",
+    subcategory: "Face",
+    price: 999,
+    originalPrice: 1299,
+    image: niacinGlowSerumImg,
+    images: [niacinGlowSerumImg, niacinGlowAnglesImg],
+    rating: 4.4,
+    reviews: 156,
+    description:
+      "A lightweight BB cream that evens out skin tone, covers imperfections, and protects with SPF 30. Infused with Niacinamide for skincare benefits.",
+    ingredients: "Aqua, Titanium Dioxide, Niacinamide, Glycerin, Iron Oxides",
+    howToUse: "Dot all over face and blend with fingers or a sponge.",
+    size: "30ml",
+    tags: ["makeup", "face", "spf"],
+    concern: ["Uneven Skin Tone", "Sun Protection"],
+    benefits: ["Natural coverage", "Sun protection", "Skincare benefits"],
   },
 ];
 

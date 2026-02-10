@@ -383,7 +383,7 @@ export const products: Product[] = [
       "Apply anytime on hair and skin. Suitable for all skin types and ages. Infants can also use.",
     size: "100gm",
     tags: ["aloe vera", "multi-purpose", "hydrating"],
-    isNew: true,
+
     concern: ["Hydration", "Soothing", "Skin Health", "Hair Health"],
   },
 

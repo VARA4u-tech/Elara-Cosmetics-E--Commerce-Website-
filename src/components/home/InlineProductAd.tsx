@@ -34,7 +34,9 @@ const InlineProductAd = ({ className }: InlineProductAdProps) => {
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                 ))}
-                <span className="text-sm text-muted-foreground ml-2">(267 reviews)</span>
+                <span className="text-sm text-muted-foreground ml-2">
+                  (267 reviews)
+                </span>
               </div>
 
               <p className="text-xs uppercase tracking-wide-luxury text-primary mb-2">
@@ -46,15 +48,18 @@ const InlineProductAd = ({ className }: InlineProductAdProps) => {
               </h3>
 
               <p className="text-muted-foreground mb-6 max-w-md">
-                Target dark circles, crow's feet, puffiness, and expression wrinkles with our
-                luxurious peptide-powered formulation featuring bakuchiol and sodium hyaluronate.
+                Target dark circles, crow's feet, puffiness, and expression
+                wrinkles with our luxurious peptide-powered formulation
+                featuring bakuchiol and sodium hyaluronate.
               </p>
 
               <div className="flex items-center gap-4 mb-6">
-                <span className="font-serif text-2xl text-primary">₹1,199</span>
-                <span className="text-sm text-muted-foreground line-through">₹1,399</span>
+                <span className="font-serif text-2xl text-primary">₹750</span>
+                <span className="text-sm text-muted-foreground line-through">
+                  ₹1,399
+                </span>
                 <span className="bg-primary/10 text-primary text-xs uppercase tracking-luxury px-2 py-1">
-                  Save 14%
+                  Save 46.39%
                 </span>
               </div>
 

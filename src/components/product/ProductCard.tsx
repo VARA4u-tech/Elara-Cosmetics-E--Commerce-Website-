@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Heart, Star, Scale } from "lucide-react";
 import { Product, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/hooks/use-wishlist";
 import { useCompare } from "@/context/CompareContext";
 import { cn } from "@/lib/utils";
 
@@ -12,9 +13,16 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, className }: ProductCardProps) => {
   const { addItem } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const { addToCompare, isInCompare, removeFromCompare } = useCompare();
 
-  const handleCompareClick = () => {
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    toggleWishlist(product);
+  };
+
+  const handleCompareClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (isInCompare(product.id)) {
       removeFromCompare(product.id);
     } else {
@@ -58,21 +66,38 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
 
         {/* Action Buttons */}
         <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button 
-            className="w-9 h-9 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-            aria-label="Add to wishlist"
+          <button
+            onClick={handleWishlistClick}
+            className={cn(
+              "w-9 h-9 backdrop-blur-sm flex items-center justify-center transition-colors",
+              isInWishlist(product.id)
+                ? "bg-primary text-primary-foreground"
+                : "bg-background/80 hover:bg-primary hover:text-primary-foreground",
+            )}
+            aria-label={
+              isInWishlist(product.id)
+                ? "Remove from wishlist"
+                : "Add to wishlist"
+            }
           >
-            <Heart className="w-4 h-4" />
+            <Heart
+              className={cn(
+                "w-4 h-4",
+                isInWishlist(product.id) && "fill-current",
+              )}
+            />
           </button>
-          <button 
+          <button
             onClick={handleCompareClick}
             className={cn(
               "w-9 h-9 backdrop-blur-sm flex items-center justify-center transition-colors",
               isInCompare(product.id)
                 ? "bg-primary text-primary-foreground"
-                : "bg-background/80 hover:bg-primary hover:text-primary-foreground"
+                : "bg-background/80 hover:bg-primary hover:text-primary-foreground",
             )}
-            aria-label={isInCompare(product.id) ? "Remove from compare" : "Add to compare"}
+            aria-label={
+              isInCompare(product.id) ? "Remove from compare" : "Add to compare"
+            }
           >
             <Scale className="w-4 h-4" />
           </button>
@@ -98,7 +123,7 @@ const ProductCard = ({ product, className }: ProductCardProps) => {
                 "w-3 h-3",
                 i < Math.floor(product.rating)
                   ? "fill-primary text-primary"
-                  : "fill-muted text-muted"
+                  : "fill-muted text-muted",
               )}
             />
           ))}

@@ -22,6 +22,7 @@ import {
   formatPrice,
 } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/hooks/use-wishlist";
 import { useCompare } from "@/context/CompareContext";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const { addItem } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const { addToCompare, isInCompare, removeFromCompare } = useCompare();
 
   const product = getProductById(productId || "");
@@ -161,8 +163,25 @@ const ProductPage = () => {
                 >
                   Add to Bag
                 </button>
-                <button className="icon-btn">
-                  <Heart className="w-5 h-5" />
+                <button
+                  onClick={() => toggleWishlist(product)}
+                  className={cn(
+                    "icon-btn",
+                    isInWishlist(product.id) &&
+                      "bg-primary text-primary-foreground border-primary",
+                  )}
+                  title={
+                    isInWishlist(product.id)
+                      ? "Remove from wishlist"
+                      : "Add to wishlist"
+                  }
+                >
+                  <Heart
+                    className={cn(
+                      "w-5 h-5",
+                      isInWishlist(product.id) && "fill-current",
+                    )}
+                  />
                 </button>
                 <button
                   onClick={handleCompareClick}

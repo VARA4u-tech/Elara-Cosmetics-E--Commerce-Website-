@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, User, Heart, X, Gift, Sparkles, ChevronDown, ChevronRight, Phone } from "lucide-react";
+import {
+  Search,
+  User,
+  Heart,
+  X,
+  Gift,
+  Sparkles,
+  ChevronDown,
+  ChevronRight,
+  Phone,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { categories } from "@/data/products";
+import { categories, Category } from "@/data/products";
+import { useWishlist } from "@/hooks/use-wishlist";
 import logoImage from "@/assets/logo-transparent.png";
 
 interface MobileMenuProps {
@@ -13,7 +24,10 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ isOpen, onClose, setIsSearchOpen }: MobileMenuProps) => {
-  const [expandedMobileCategory, setExpandedMobileCategory] = useState<string | null>(null);
+  const { wishlist } = useWishlist();
+  const [expandedMobileCategory, setExpandedMobileCategory] = useState<
+    string | null
+  >(null);
 
   const toggleMobileCategory = (categoryId: string) => {
     setExpandedMobileCategory(
@@ -22,7 +36,7 @@ const MobileMenu = ({ isOpen, onClose, setIsSearchOpen }: MobileMenuProps) => {
   };
 
   // Check if item has subcategories (is a category object)
-  const hasSubcategories = (item: any) => {
+  const hasSubcategories = (item: Category) => {
     return item.subcategories && item.subcategories.length > 0;
   };
 
@@ -248,11 +262,18 @@ const MobileMenu = ({ isOpen, onClose, setIsSearchOpen }: MobileMenuProps) => {
                 </Link>
                 <Link
                   to="/wishlist"
-                  className="flex items-center gap-3 text-foreground hover:text-primary transition-colors py-2.5"
+                  className="flex items-center justify-between text-foreground hover:text-primary transition-colors py-2.5"
                   onClick={onClose}
                 >
-                  <Heart className="w-5 h-5" />
-                  <span className="font-medium">Wishlist</span>
+                  <div className="flex items-center gap-3">
+                    <Heart className="w-5 h-5" />
+                    <span className="font-medium">Wishlist</span>
+                  </div>
+                  {wishlist.length > 0 && (
+                    <span className="bg-primary text-primary-foreground text-[10px] min-w-[20px] h-5 rounded-full flex items-center justify-center font-medium px-1.5 mr-1">
+                      {wishlist.length}
+                    </span>
+                  )}
                 </Link>
               </div>
 

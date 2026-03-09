@@ -3,6 +3,7 @@ import { Search, User, Heart, ShoppingBag, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logoImage from "@/assets/logo-transparent.png";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/hooks/use-wishlist";
 
 interface MobileHeaderProps {
   isScrolled: boolean;
@@ -19,6 +20,7 @@ const MobileHeader = ({
   setIsCartOpen,
   totalItems,
 }: MobileHeaderProps) => {
+  const { wishlist } = useWishlist();
   return (
     <div className="lg:hidden border-b border-border/30">
       <div className="container mx-auto px-4">
@@ -60,17 +62,22 @@ const MobileHeader = ({
             </button>
             <Link
               to="/account"
-              className="hidden sm:flex p-2 hover:bg-muted/50 rounded-md transition-colors"
+              className="flex p-2 hover:bg-muted/50 rounded-md transition-colors"
               aria-label="Account"
             >
               <User className="w-5 h-5" />
             </Link>
             <Link
               to="/wishlist"
-              className="hidden sm:flex p-2 hover:bg-muted/50 rounded-md transition-colors"
+              className="flex p-2 hover:bg-muted/50 rounded-md transition-colors relative"
               aria-label="Wishlist"
             >
               <Heart className="w-5 h-5" />
+              {wishlist.length > 0 && (
+                <span className="absolute top-0.5 right-0.5 bg-primary text-primary-foreground text-[10px] min-w-[16px] h-4 rounded-full flex items-center justify-center font-medium px-1">
+                  {wishlist.length > 99 ? "99+" : wishlist.length}
+                </span>
+              )}
             </Link>
             <button
               onClick={() => setIsCartOpen(true)}

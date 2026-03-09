@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 import { CompareProvider } from "@/context/CompareContext";
 import { AudioProvider } from "@/context/AudioContext";
 import Index from "./pages/Index";
@@ -73,20 +74,25 @@ import ScrollToTop from "@/components/layout/ScrollToTop";
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <CartProvider>
-      <CompareProvider>
-        <AudioProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter
-              future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-            >
-              <ScrollToTop />
-              <AnimatedRoutes />
-            </BrowserRouter>
-          </TooltipProvider>
-        </AudioProvider>
-      </CompareProvider>
+      <WishlistProvider>
+        <CompareProvider>
+          <AudioProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter
+                future={{
+                  v7_startTransition: true,
+                  v7_relativeSplatPath: true,
+                }}
+              >
+                <ScrollToTop />
+                <AnimatedRoutes />
+              </BrowserRouter>
+            </TooltipProvider>
+          </AudioProvider>
+        </CompareProvider>
+      </WishlistProvider>
     </CartProvider>
   </QueryClientProvider>
 );

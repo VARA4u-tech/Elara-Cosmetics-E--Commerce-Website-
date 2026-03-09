@@ -69,11 +69,12 @@ vi.mock("@/context/CartContext", () => ({
   }),
 }));
 
-vi.mock("@/context/WishlistContext", () => ({
+vi.mock("@/hooks/use-wishlist", () => ({
   useWishlist: () => ({
     addToWishlist: vi.fn(),
     removeFromWishlist: vi.fn(),
     isInWishlist: vi.fn(() => false),
+    toggleWishlist: vi.fn(),
   }),
 }));
 

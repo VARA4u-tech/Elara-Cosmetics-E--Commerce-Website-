@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import logoImage from "@/assets/logo-transparent.png";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/hooks/use-wishlist";
 
 interface MainHeaderProps {
   isScrolled: boolean;
@@ -24,6 +25,7 @@ const MainHeader = ({
   setIsCartOpen,
   totalItems,
 }: MainHeaderProps) => {
+  const { wishlist } = useWishlist();
   return (
     <div className="hidden lg:block border-b border-border/10 bg-white">
       <div className="container mx-auto px-6">
@@ -72,6 +74,18 @@ const MainHeader = ({
               className="text-[15px] uppercase tracking-[0.15em] font-medium text-foreground/80 hover:text-primary transition-colors"
             >
               Account
+            </Link>
+            <Link
+              to="/wishlist"
+              className="relative text-foreground hover:text-primary transition-colors group"
+              aria-label="Wishlist"
+            >
+              <Heart className="w-5 h-8" strokeWidth={1.5} />
+              {wishlist.length > 0 && (
+                <span className="absolute -top-1 -right-1.5 bg-black text-white text-[9px] min-w-[16px] h-[16px] rounded-full flex items-center justify-center font-medium">
+                  {wishlist.length > 99 ? "99+" : wishlist.length}
+                </span>
+              )}
             </Link>
             <button
               onClick={() => setIsCartOpen(true)}

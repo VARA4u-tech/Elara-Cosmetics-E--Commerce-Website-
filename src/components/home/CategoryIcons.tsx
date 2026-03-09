@@ -12,7 +12,7 @@ import hairGrowthImg from "@/assets/category_updates/hair-growth.png";
 import glowcellImg from "@/assets/category_updates/glowcell.png";
 import niacinImg from "@/assets/category_updates/niacin.png";
 import goldenGlowImg from "@/assets/category_updates/golden-glow.png";
-import aloeImg from "@/assets/products/red-aloevera-splash.jpg";
+import aloeImg from "@/assets/products/red-aloevera-splash.png";
 
 // Category data with all product images mapped to Product Types
 const categoryData = [

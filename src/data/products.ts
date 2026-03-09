@@ -104,7 +104,7 @@ import goldenGlowEyeSerumImg from "@/assets/products/golden-glow-eye-serum.png";
 import glowcellNmnSerumImg from "@/assets/products/glowcell-nmn-serum.jpg";
 import snailMucinSerumImg from "@/assets/products/snail-mucin-serum.jpg";
 import niacinGlowSerumImg from "@/assets/products/niacin-glow-serum.jpg";
-import redAloeveraSplashImg from "@/assets/products/red-aloevera-splash.jpg";
+import redAloeveraSplashImg from "@/assets/products/red-aloevera-splash.png";
 
 // Import ingredient images for product gallery
 import aloeVeraImg from "@/assets/ingredients/aloe-vera.png";

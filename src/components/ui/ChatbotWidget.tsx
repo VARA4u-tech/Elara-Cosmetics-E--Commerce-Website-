@@ -133,7 +133,7 @@ const ChatbotWidget = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed bottom-6 right-6 z-50 w-16 h-16 flex items-center justify-center transition-all duration-500 group",
+          "fixed bottom-8 right-6 z-50 w-16 h-16 flex items-center justify-center transition-all duration-500 group",
           isOpen && "rotate-180",
         )}
         aria-label={isOpen ? "Close chat" : "Open chat"}
@@ -180,7 +180,7 @@ const ChatbotWidget = () => {
       {/* Chat Window */}
       <div
         className={cn(
-          "fixed bottom-24 right-6 z-50 w-[320px] sm:w-[360px] bg-background border border-border shadow-luxury-lg transition-all duration-300 origin-bottom-right overflow-hidden",
+          "fixed bottom-28 right-6 z-50 w-[320px] sm:w-[360px] bg-background border border-border shadow-luxury-lg transition-all duration-300 origin-bottom-right overflow-hidden",
           isOpen
             ? "opacity-100 scale-100 visible"
             : "opacity-0 scale-95 invisible",

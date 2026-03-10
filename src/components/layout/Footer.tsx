@@ -195,10 +195,12 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-background/20">
-        <div className="container mx-auto px-4 py-4 sm:py-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70">
+        <div className="container mx-auto px-4 pt-6 pb-28 sm:py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70 text-center sm:text-left">
             <p>© 2026 Elara Cosmetics. All rights reserved.</p>
-            <p>Engineered & Designed With 🦋 By Team Varanasi</p>
+            <p className="max-w-[200px] sm:max-w-none">
+              Engineered & Designed With 🦋 By Team Varanasi
+            </p>
             <div className="flex items-center gap-4 text-xs">
               <Link
                 to="/privacy-policy"

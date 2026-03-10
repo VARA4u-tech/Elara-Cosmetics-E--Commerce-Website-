@@ -195,24 +195,33 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-background/20">
-        <div className="container mx-auto px-4 pt-6 pb-28 sm:py-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-background/70 text-center sm:text-left">
-            <p>© 2026 Elara Cosmetics. All rights reserved.</p>
-            <p className="max-w-[200px] sm:max-w-none">
-              Engineered & Designed With 🦋 By Team Varanasi
-            </p>
-            <div className="flex items-center gap-4 text-xs">
+        <div className="container mx-auto px-4 pt-8 pb-32 lg:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 text-xs sm:text-sm text-background/70 text-center">
+            {/* Copyright */}
+            <div className="md:text-left order-2 md:order-1">
+              <p>© 2026 Elara Cosmetics. All rights reserved.</p>
+            </div>
+
+            {/* Credits */}
+            <div className="order-1 md:order-2">
+              <p className="font-medium">
+                Engineered & Designed With 🌷By Team Varanasi
+              </p>
+            </div>
+
+            {/* Legal Links */}
+            <div className="flex items-center justify-center md:justify-end gap-6 order-3">
               <Link
                 to="/privacy-policy"
-                className="text-background/70 hover:text-primary transition-colors"
+                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
               >
-                ▫️Privacy Policy
+                Privacy Policy
               </Link>
               <Link
                 to="/terms-of-service"
-                className="text-background/70 hover:text-primary transition-colors"
+                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
               >
-                ▫️Terms of Service
+                Terms of Service
               </Link>
             </div>
           </div>

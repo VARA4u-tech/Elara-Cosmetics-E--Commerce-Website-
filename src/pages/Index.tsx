@@ -32,7 +32,10 @@ const Index = () => {
         <ShopByConcern />
         <PerfectFormula />
         <Bestsellers />
-        <SideAdBanner variant="horizontal" className="container mx-auto px-4 py-8" />
+        <SideAdBanner
+          variant="horizontal"
+          className="container mx-auto px-4 py-8"
+        />
         <FeaturedCategories />
         <PromoBanner />
         <NewArrivals />

@@ -29,34 +29,75 @@ const ComparePage = () => {
   }
 
   const comparisonAttributes = [
-    { key: "price", label: "Price", render: (p: typeof compareItems[0]) => formatPrice(p.price) },
-    { key: "rating", label: "Rating", render: (p: typeof compareItems[0]) => (
-      <div className="flex items-center gap-1">
-        <Star className="w-4 h-4 fill-primary text-primary" />
-        <span>{p.rating}</span>
-        <span className="text-muted-foreground">({p.reviews})</span>
-      </div>
-    )},
-    { key: "size", label: "Size", render: (p: typeof compareItems[0]) => p.size },
-    { key: "category", label: "Category", render: (p: typeof compareItems[0]) => (
-      <span className="capitalize">{p.category}</span>
-    )},
-    { key: "subcategory", label: "Type", render: (p: typeof compareItems[0]) => p.subcategory },
-    { key: "concerns", label: "Skin Concerns", render: (p: typeof compareItems[0]) => (
-      <div className="flex flex-wrap gap-1">
-        {p.concern?.map((c) => (
-          <span key={c} className="text-xs px-2 py-0.5 bg-secondary text-secondary-foreground">
-            {c}
-          </span>
-        ))}
-      </div>
-    )},
-    { key: "isNew", label: "New Arrival", render: (p: typeof compareItems[0]) => (
-      p.isNew ? <Check className="w-4 h-4 text-primary" /> : <X className="w-4 h-4 text-muted-foreground" />
-    )},
-    { key: "isBestseller", label: "Bestseller", render: (p: typeof compareItems[0]) => (
-      p.isBestseller ? <Check className="w-4 h-4 text-primary" /> : <X className="w-4 h-4 text-muted-foreground" />
-    )},
+    {
+      key: "price",
+      label: "Price",
+      render: (p: (typeof compareItems)[0]) => formatPrice(p.price),
+    },
+    {
+      key: "rating",
+      label: "Rating",
+      render: (p: (typeof compareItems)[0]) => (
+        <div className="flex items-center gap-1">
+          <Star className="w-4 h-4 fill-primary text-primary" />
+          <span>{p.rating}</span>
+          <span className="text-muted-foreground">({p.reviews})</span>
+        </div>
+      ),
+    },
+    {
+      key: "size",
+      label: "Size",
+      render: (p: (typeof compareItems)[0]) => p.size,
+    },
+    {
+      key: "category",
+      label: "Category",
+      render: (p: (typeof compareItems)[0]) => (
+        <span className="capitalize">{p.category}</span>
+      ),
+    },
+    {
+      key: "subcategory",
+      label: "Type",
+      render: (p: (typeof compareItems)[0]) => p.subcategory,
+    },
+    {
+      key: "concerns",
+      label: "Skin Concerns",
+      render: (p: (typeof compareItems)[0]) => (
+        <div className="flex flex-wrap gap-1">
+          {p.concern?.map((c) => (
+            <span
+              key={c}
+              className="text-xs px-2 py-0.5 bg-secondary text-secondary-foreground"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "isNew",
+      label: "New Arrival",
+      render: (p: (typeof compareItems)[0]) =>
+        p.isNew ? (
+          <Check className="w-4 h-4 text-primary" />
+        ) : (
+          <X className="w-4 h-4 text-muted-foreground" />
+        ),
+    },
+    {
+      key: "isBestseller",
+      label: "Bestseller",
+      render: (p: (typeof compareItems)[0]) =>
+        p.isBestseller ? (
+          <Check className="w-4 h-4 text-primary" />
+        ) : (
+          <X className="w-4 h-4 text-muted-foreground" />
+        ),
+    },
   ];
 
   return (
@@ -88,7 +129,10 @@ const ComparePage = () => {
                     Product
                   </th>
                   {compareItems.map((product) => (
-                    <th key={product.id} className="p-4 text-center min-w-[200px]">
+                    <th
+                      key={product.id}
+                      className="p-4 text-center min-w-[200px]"
+                    >
                       <div className="relative">
                         <button
                           onClick={() => removeFromCompare(product.id)}

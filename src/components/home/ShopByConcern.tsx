@@ -15,43 +15,43 @@ const concerns = [
     id: "acne",
     title: "ACNE-PRONE SKIN",
     image: acneImg,
-    link: "/category/face?concern=acne"
+    link: "/category/face?concern=acne",
   },
   {
     id: "anti-aging",
     title: "ANTI-AGEING",
     image: antiAgingImg,
-    link: "/category/face?concern=anti-ageing"
+    link: "/category/face?concern=anti-ageing",
   },
   {
     id: "dandruff",
     title: "DANDRUFF",
     image: dandruffImg,
-    link: "/category/hair?concern=dandruff"
+    link: "/category/hair?concern=dandruff",
   },
   {
     id: "dark-circles",
     title: "DARK CIRCLES",
     image: darkCirclesImg,
-    link: "/category/face?concern=dark-circles"
+    link: "/category/face?concern=dark-circles",
   },
   {
     id: "hair-thinning",
     title: "HAIR THINNING",
     image: hairThinningImg,
-    link: "/category/hair?concern=thinning"
+    link: "/category/hair?concern=thinning",
   },
   {
     id: "stretch-marks",
     title: "STRETCH MARKS",
     image: stretchMarksImg,
-    link: "/category/body?concern=stretch-marks"
+    link: "/category/body?concern=stretch-marks",
   },
   {
     id: "sun-protection",
     title: "SUN PROTECTION",
     image: sunProtectionImg,
-    link: "/category/body?concern=sun"
+    link: "/category/body?concern=sun",
   },
 ];
 

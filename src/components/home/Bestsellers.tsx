@@ -15,7 +15,7 @@ const Bestsellers = () => {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
       // Scroll by one full view (4 items on desktop)
       const newScroll = scrollLeft + clientWidth;
-      
+
       // Check if we reached the end (with small buffer)
       if (newScroll >= scrollWidth - 10) {
         scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
@@ -47,12 +47,15 @@ const Bestsellers = () => {
           </Link>
         </div>
 
-        <div 
+        <div
           ref={scrollRef}
           className="flex overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-none -mx-2 px-2 sm:mx-0 sm:px-0"
         >
           {bestsellers.map((product) => (
-            <div key={product.id} className="w-1/2 sm:w-1/3 md:w-1/4 flex-shrink-0 p-2 snap-start">
+            <div
+              key={product.id}
+              className="w-1/2 sm:w-1/3 md:w-1/4 flex-shrink-0 p-2 snap-start"
+            >
               <ProductCard product={product} />
             </div>
           ))}

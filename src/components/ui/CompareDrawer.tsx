@@ -11,7 +11,13 @@ import {
 } from "@/components/ui/sheet";
 
 const CompareDrawer = () => {
-  const { compareItems, removeFromCompare, clearCompare, isCompareOpen, setIsCompareOpen } = useCompare();
+  const {
+    compareItems,
+    removeFromCompare,
+    clearCompare,
+    isCompareOpen,
+    setIsCompareOpen,
+  } = useCompare();
 
   if (compareItems.length === 0) {
     return null;
@@ -26,7 +32,9 @@ const CompareDrawer = () => {
           className="fixed bottom-24 left-6 z-40 flex items-center gap-2 px-4 py-3 bg-primary text-primary-foreground shadow-luxury-lg hover:bg-accent transition-colors"
         >
           <Scale className="w-4 h-4" />
-          <span className="text-sm font-medium">Compare ({compareItems.length})</span>
+          <span className="text-sm font-medium">
+            Compare ({compareItems.length})
+          </span>
         </button>
       )}
 

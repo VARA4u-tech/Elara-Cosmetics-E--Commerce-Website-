@@ -30,10 +30,13 @@ const reviews: Review[] = [
     productUsed: "Golden Glow Under Eye Serum",
     duration: "4 weeks",
     text: "I was skeptical at first, but the results speak for themselves. My dark circles have significantly reduced, and my under-eye area looks so much brighter and more awake. The serum absorbs quickly and doesn't feel heavy at all.",
-    avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop",
+    avatar:
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop",
     photos: {
-      before: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop",
-      after: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=400&fit=crop",
+      before:
+        "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=400&fit=crop",
+      after:
+        "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=400&fit=crop",
     },
   },
   {
@@ -44,10 +47,13 @@ const reviews: Review[] = [
     productUsed: "Tejasvi Kumkumadi Face Serum",
     duration: "6 weeks",
     text: "The Kumkumadi serum has completely transformed my skin texture. My dark spots have faded, and I've received so many compliments about my natural glow. This is now a permanent part of my skincare routine.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
     photos: {
-      before: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=400&fit=crop",
-      after: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop",
+      before:
+        "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=400&fit=crop",
+      after:
+        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop",
     },
   },
   {
@@ -58,10 +64,13 @@ const reviews: Review[] = [
     productUsed: "Soundarya Radiance Cream",
     duration: "8 weeks",
     text: "After using the Soundarya Radiance Cream, my fine lines have visibly reduced. My skin feels firmer, more hydrated, and has this beautiful luminous quality. Worth every rupee!",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
     photos: {
-      before: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop",
-      after: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
+      before:
+        "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=400&fit=crop",
+      after:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
     },
   },
   {
@@ -72,10 +81,13 @@ const reviews: Review[] = [
     productUsed: "Nayantara Eye Contour Cream",
     duration: "5 weeks",
     text: "The puffiness around my eyes has reduced dramatically. I look more rested and refreshed even on days when I haven't slept well. The cream is very gentle and perfect for my sensitive skin.",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
     photos: {
-      before: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=400&fit=crop",
-      after: "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=400&h=400&fit=crop",
+      before:
+        "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=400&fit=crop",
+      after:
+        "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=400&h=400&fit=crop",
     },
   },
 ];
@@ -84,10 +96,14 @@ interface CustomerReviewsWithPhotosProps {
   className?: string;
 }
 
-const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps) => {
+const CustomerReviewsWithPhotos = ({
+  className,
+}: CustomerReviewsWithPhotosProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showLightbox, setShowLightbox] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<"before" | "after">("before");
+  const [lightboxImage, setLightboxImage] = useState<"before" | "after">(
+    "before",
+  );
 
   const currentReview = reviews[currentIndex];
 
@@ -116,7 +132,8 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
             Before & After Results
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            See the incredible transformations our customers have experienced with our premium face care products
+            See the incredible transformations our customers have experienced
+            with our premium face care products
           </p>
         </div>
 
@@ -166,11 +183,14 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
                 {/* Review Content */}
                 <div className="p-6 lg:p-8 flex flex-col justify-center bg-secondary/20">
                   <Quote className="w-10 h-10 text-primary/30 mb-4" />
-                  
+
                   {/* Rating */}
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(currentReview.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-primary text-primary"
+                      />
                     ))}
                   </div>
 
@@ -192,8 +212,12 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
                       className="w-14 h-14 rounded-full object-cover border-2 border-primary/30"
                     />
                     <div>
-                      <p className="font-medium text-foreground">{currentReview.name}</p>
-                      <p className="text-sm text-muted-foreground">{currentReview.location}</p>
+                      <p className="font-medium text-foreground">
+                        {currentReview.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {currentReview.location}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -222,7 +246,7 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
                     "w-2 h-2 rounded-full transition-all duration-300",
                     index === currentIndex
                       ? "bg-primary w-6"
-                      : "bg-primary/30 hover:bg-primary/50"
+                      : "bg-primary/30 hover:bg-primary/50",
                   )}
                   aria-label={`Go to review ${index + 1}`}
                 />
@@ -256,7 +280,9 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
               viewport={{ once: true }}
               className="text-center"
             >
-              <p className="font-serif text-3xl md:text-4xl text-primary mb-1">{stat.value}</p>
+              <p className="font-serif text-3xl md:text-4xl text-primary mb-1">
+                {stat.value}
+              </p>
               <p className="text-sm text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
@@ -293,7 +319,11 @@ const CustomerReviewsWithPhotos = ({ className }: CustomerReviewsWithPhotosProps
                     {lightboxImage === "before" ? "Before" : "After"}
                   </div>
                   <img
-                    src={lightboxImage === "before" ? currentReview.photos.before : currentReview.photos.after}
+                    src={
+                      lightboxImage === "before"
+                        ? currentReview.photos.before
+                        : currentReview.photos.after
+                    }
                     alt={`${currentReview.name} ${lightboxImage}`}
                     className="w-full aspect-[3/4] object-cover"
                   />

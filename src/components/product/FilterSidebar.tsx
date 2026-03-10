@@ -42,7 +42,7 @@ const FilterSidebar = ({
     setExpandedSections((prev) =>
       prev.includes(section)
         ? prev.filter((s) => s !== section)
-        : [...prev, section]
+        : [...prev, section],
     );
   };
 
@@ -64,7 +64,9 @@ const FilterSidebar = ({
     <aside className="w-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
-        <h3 className="text-sm uppercase tracking-luxury font-medium">Filters</h3>
+        <h3 className="text-sm uppercase tracking-luxury font-medium">
+          Filters
+        </h3>
         {hasActiveFilters && (
           <button
             onClick={onClearAll}
@@ -85,7 +87,7 @@ const FilterSidebar = ({
           <ChevronDown
             className={cn(
               "w-4 h-4 transition-transform",
-              expandedSections.includes("subcategory") && "rotate-180"
+              expandedSections.includes("subcategory") && "rotate-180",
             )}
           />
         </button>
@@ -94,7 +96,7 @@ const FilterSidebar = ({
             "overflow-hidden transition-all duration-300",
             expandedSections.includes("subcategory")
               ? "max-h-96 opacity-100 mt-3"
-              : "max-h-0 opacity-0"
+              : "max-h-0 opacity-0",
           )}
         >
           <div className="space-y-2">
@@ -104,7 +106,7 @@ const FilterSidebar = ({
                 "block text-sm transition-colors",
                 !selectedSubcategory
                   ? "text-primary font-medium"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               All
@@ -117,7 +119,7 @@ const FilterSidebar = ({
                   "block text-sm transition-colors",
                   selectedSubcategory === sub
                     ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {sub}
@@ -137,7 +139,7 @@ const FilterSidebar = ({
           <ChevronDown
             className={cn(
               "w-4 h-4 transition-transform",
-              expandedSections.includes("concern") && "rotate-180"
+              expandedSections.includes("concern") && "rotate-180",
             )}
           />
         </button>
@@ -146,7 +148,7 @@ const FilterSidebar = ({
             "overflow-hidden transition-all duration-300",
             expandedSections.includes("concern")
               ? "max-h-96 opacity-100 mt-3"
-              : "max-h-0 opacity-0"
+              : "max-h-0 opacity-0",
           )}
         >
           <div className="space-y-2">
@@ -160,7 +162,7 @@ const FilterSidebar = ({
                     "w-4 h-4 border flex items-center justify-center transition-colors",
                     selectedConcerns.includes(concern)
                       ? "bg-primary border-primary"
-                      : "border-border group-hover:border-primary"
+                      : "border-border group-hover:border-primary",
                   )}
                 >
                   {selectedConcerns.includes(concern) && (
@@ -184,7 +186,7 @@ const FilterSidebar = ({
                     "text-sm transition-colors",
                     selectedConcerns.includes(concern)
                       ? "text-foreground"
-                      : "text-muted-foreground group-hover:text-foreground"
+                      : "text-muted-foreground group-hover:text-foreground",
                   )}
                   onClick={() => handleConcernChange(concern)}
                 >
@@ -206,7 +208,7 @@ const FilterSidebar = ({
           <ChevronDown
             className={cn(
               "w-4 h-4 transition-transform",
-              expandedSections.includes("price") && "rotate-180"
+              expandedSections.includes("price") && "rotate-180",
             )}
           />
         </button>
@@ -215,7 +217,7 @@ const FilterSidebar = ({
             "overflow-hidden transition-all duration-300",
             expandedSections.includes("price")
               ? "max-h-96 opacity-100 mt-3"
-              : "max-h-0 opacity-0"
+              : "max-h-0 opacity-0",
           )}
         >
           <div className="space-y-2">
@@ -227,7 +229,7 @@ const FilterSidebar = ({
                   "block text-sm transition-colors",
                   priceRange[0] === range.min && priceRange[1] === range.max
                     ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {range.label}
@@ -265,9 +267,11 @@ const FilterSidebar = ({
             ))}
             {(priceRange[0] !== 0 || priceRange[1] !== Infinity) && (
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-secondary text-xs">
-                {priceRanges.find(
-                  (r) => r.min === priceRange[0] && r.max === priceRange[1]
-                )?.label}
+                {
+                  priceRanges.find(
+                    (r) => r.min === priceRange[0] && r.max === priceRange[1],
+                  )?.label
+                }
                 <button onClick={() => onPriceRangeChange([0, Infinity])}>
                   <X className="w-3 h-3" />
                 </button>

@@ -45,19 +45,19 @@ const Header = () => {
         )}
       >
         {/* Main Desktop Header */}
-        <MainHeader 
-          isScrolled={isScrolled} 
-          setIsSearchOpen={setIsSearchOpen} 
+        <MainHeader
+          isScrolled={isScrolled}
+          setIsSearchOpen={setIsSearchOpen}
           setIsCartOpen={setIsCartOpen}
-          totalItems={totalItems} 
+          totalItems={totalItems}
         />
 
         {/* Desktop Category Navigation */}
         <CategoryNav />
 
         {/* Mobile Header Top Strip */}
-        <MobileHeader 
-          isScrolled={isScrolled} 
+        <MobileHeader
+          isScrolled={isScrolled}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
           setIsSearchOpen={setIsSearchOpen}
           setIsCartOpen={setIsCartOpen}
@@ -66,8 +66,8 @@ const Header = () => {
       </header>
 
       {/* Mobile Menu Drawer */}
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         setIsSearchOpen={setIsSearchOpen}
       />

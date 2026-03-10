@@ -1,7 +1,16 @@
-import { createContext, useContext, useRef, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useRef,
+  useCallback,
+  ReactNode,
+} from "react";
 
 interface AudioContextValue {
-  registerAudio: (id: string, element: HTMLVideoElement | HTMLAudioElement) => void;
+  registerAudio: (
+    id: string,
+    element: HTMLVideoElement | HTMLAudioElement,
+  ) => void;
   unregisterAudio: (id: string) => void;
   requestAudioPlay: (id: string) => void;
   muteAll: () => void;
@@ -22,14 +31,19 @@ interface AudioProviderProps {
 }
 
 export const AudioProvider = ({ children }: AudioProviderProps) => {
-  const audioElementsRef = useRef<Map<string, HTMLVideoElement | HTMLAudioElement>>(new Map());
+  const audioElementsRef = useRef<
+    Map<string, HTMLVideoElement | HTMLAudioElement>
+  >(new Map());
   const activeAudioIdRef = useRef<string | null>(null);
 
-  const registerAudio = useCallback((id: string, element: HTMLVideoElement | HTMLAudioElement) => {
-    audioElementsRef.current.set(id, element);
-    // Ensure new registrations start muted
-    element.muted = true;
-  }, []);
+  const registerAudio = useCallback(
+    (id: string, element: HTMLVideoElement | HTMLAudioElement) => {
+      audioElementsRef.current.set(id, element);
+      // Ensure new registrations start muted
+      element.muted = true;
+    },
+    [],
+  );
 
   const unregisterAudio = useCallback((id: string) => {
     audioElementsRef.current.delete(id);
@@ -62,7 +76,9 @@ export const AudioProvider = ({ children }: AudioProviderProps) => {
   }, []);
 
   return (
-    <AudioContext.Provider value={{ registerAudio, unregisterAudio, requestAudioPlay, muteAll }}>
+    <AudioContext.Provider
+      value={{ registerAudio, unregisterAudio, requestAudioPlay, muteAll }}
+    >
       {children}
     </AudioContext.Provider>
   );

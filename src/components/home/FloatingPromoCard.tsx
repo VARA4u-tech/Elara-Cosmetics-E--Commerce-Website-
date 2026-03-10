@@ -37,7 +37,9 @@ const FloatingPromoCard = () => {
         "border border-border/50",
         "overflow-hidden",
         "transition-all duration-300 ease-out",
-        isClosing ? "opacity-0 translate-x-full" : "opacity-100 translate-x-0 animate-fade-in"
+        isClosing
+          ? "opacity-0 translate-x-full"
+          : "opacity-100 translate-x-0 animate-fade-in",
       )}
     >
       {/* Close Button */}

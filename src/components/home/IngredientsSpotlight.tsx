@@ -95,7 +95,7 @@ const IngredientsSpotlight = () => {
             Sacred Ingredients
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
-            Each formulation is crafted with time-honored Ayurvedic ingredients, 
+            Each formulation is crafted with time-honored Ayurvedic ingredients,
             sourced from the purest origins to deliver transformative results.
           </p>
         </motion.div>
@@ -149,7 +149,9 @@ const IngredientsSpotlight = () => {
             className="inline-flex items-center gap-2 text-sm tracking-wide text-primary hover:text-primary/80 transition-colors group"
           >
             Discover Our Ingredient Philosophy
-            <span className="group-hover:translate-x-1 transition-transform">→</span>
+            <span className="group-hover:translate-x-1 transition-transform">
+              →
+            </span>
           </Link>
         </motion.div>
       </div>

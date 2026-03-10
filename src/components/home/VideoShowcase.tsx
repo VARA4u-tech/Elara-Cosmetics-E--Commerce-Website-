@@ -5,14 +5,19 @@ import { useAudioManager } from "@/context/AudioContext";
 
 const AUDIO_ID = "video-showcase";
 
-const videoAd = { id: 1, src: "/videos/hero-cosmetics.mp4", title: "Luxury Collection" };
+const videoAd = {
+  id: 1,
+  src: "/videos/hero-cosmetics.mp4",
+  title: "Luxury Collection",
+};
 
 const VideoShowcase = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  
-  const { registerAudio, unregisterAudio, requestAudioPlay } = useAudioManager();
+
+  const { registerAudio, unregisterAudio, requestAudioPlay } =
+    useAudioManager();
 
   // Register video with audio manager
   useEffect(() => {
@@ -68,21 +73,25 @@ const VideoShowcase = () => {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-4 sm:mb-5 md:mb-6">
-          <p 
+          <p
             className="text-xs md:text-sm uppercase tracking-[0.2em] text-primary/70 mb-2 sm:mb-3"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
             Experience the Collection
           </p>
-          <h2 
+          <h2
             className="text-lg sm:text-lg md:text-xl lg:text-xl mb-2 sm:mb-2"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 }}
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 500,
+            }}
           >
             Luxury Redefined
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-sm md:text-base">
-            Discover the artistry behind our signature formulations. Each product is crafted with precision, 
-            blending ancient wisdom with modern science.
+            Discover the artistry behind our signature formulations. Each
+            product is crafted with precision, blending ancient wisdom with
+            modern science.
           </p>
         </div>
 
@@ -91,7 +100,7 @@ const VideoShowcase = () => {
           {/* Decorative Frame */}
           <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 border border-primary/20 pointer-events-none" />
           <div className="absolute -inset-1 sm:-inset-1.5 md:-inset-2 border border-primary/10 pointer-events-none" />
-          
+
           {/* Video Wrapper */}
           <div className="relative aspect-video bg-foreground/5 overflow-hidden group">
             <video
@@ -103,10 +112,10 @@ const VideoShowcase = () => {
               playsInline
               loop
             />
-            
+
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
+
             {/* Video Controls */}
             <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               {/* Left Controls */}
@@ -160,7 +169,7 @@ const VideoShowcase = () => {
 
           {/* Bottom Caption */}
           <div className="mt-4 sm:mt-6 md:mt-8 text-center">
-            <p 
+            <p
               className="text-base sm:text-lg md:text-lg text-foreground/80 italic mb-3 sm:mb-4"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
@@ -184,9 +193,12 @@ const VideoShowcase = () => {
             { label: "Award Winning", value: "15+" },
           ].map((stat, index) => (
             <div key={index} className="text-center">
-              <p 
+              <p
                 className="text-xl sm:text-2xl md:text-3xl text-primary mb-1"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 600,
+                }}
               >
                 {stat.value}
               </p>

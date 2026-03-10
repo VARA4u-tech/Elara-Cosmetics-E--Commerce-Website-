@@ -10,7 +10,6 @@ const navItems = [
   { id: "bath-body", name: "Bath & Body", href: "/category/body" },
   { id: "hair", name: "Hair", href: "/category/hair" },
   { id: "wellness", name: "Wellness", href: "/category/wellness" },
-  { id: "makeup", name: "Makeup", href: "/category/makeup" },
   { id: "gifting", name: "Gifting", href: "/category/gifting", badge: "NEW" },
   { id: "about", name: "About Us", href: "/about" },
 ];

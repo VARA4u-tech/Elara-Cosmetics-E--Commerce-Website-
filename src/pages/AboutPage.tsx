@@ -32,28 +32,23 @@ const values = [
 
 const milestones = [
   {
-    year: "2000",
     title: "The Beginning",
     description:
       "Founded with a vision to revive ancient Ayurvedic beauty rituals",
   },
   {
-    year: "2005",
     title: "First Boutique",
     description: "Opened our first luxury boutique in the heart of Delhi",
   },
   {
-    year: "2010",
     title: "National Recognition",
     description: "Became India's leading luxury Ayurvedic brand",
   },
   {
-    year: "2015",
     title: "International Expansion",
     description: "Expanded to premium retail partners worldwide",
   },
   {
-    year: "2020",
     title: "Sustainability Pledge",
     description: "Committed to 100% sustainable packaging by 2025",
   },
@@ -179,15 +174,10 @@ const AboutPage = () => {
           <div className="max-w-3xl mx-auto">
             {milestones.map((milestone, index) => (
               <div
-                key={milestone.year}
+                key={milestone.title}
                 className="flex gap-6 md:gap-12 mb-12 last:mb-0 fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex-shrink-0 w-20 md:w-24">
-                  <span className="font-serif text-2xl md:text-3xl text-primary">
-                    {milestone.year}
-                  </span>
-                </div>
                 <div className="relative pl-6 md:pl-8 border-l-2 border-primary/30 pb-8">
                   <div className="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-primary" />
                   <h3 className="font-serif text-xl mb-2">{milestone.title}</h3>

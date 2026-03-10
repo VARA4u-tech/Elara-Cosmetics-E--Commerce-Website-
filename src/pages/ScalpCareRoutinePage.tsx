@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, Star, Sparkles, Droplets, Shield, Clock, ArrowRight, ShoppingBag } from "lucide-react";
+import {
+  Check,
+  Star,
+  Sparkles,
+  Droplets,
+  Shield,
+  Clock,
+  ArrowRight,
+  ShoppingBag,
+} from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import PageTransition from "@/components/ui/PageTransition";
 import { Button } from "@/components/ui/button";
@@ -17,7 +26,9 @@ const ScalpCareRoutinePage = () => {
   const shampoo = getProductById("elara-anti-dandruff-shampoo");
 
   const bundlePrice = (serum?.price || 0) + (shampoo?.price || 0);
-  const bundleOriginalPrice = (serum?.originalPrice || serum?.price || 0) + (shampoo?.originalPrice || shampoo?.price || 0);
+  const bundleOriginalPrice =
+    (serum?.originalPrice || serum?.price || 0) +
+    (shampoo?.originalPrice || shampoo?.price || 0);
   const bundleSavings = bundleOriginalPrice - bundlePrice;
 
   const handleAddToCart = (productId: string) => {
@@ -41,21 +52,24 @@ const ScalpCareRoutinePage = () => {
       step: 1,
       title: "Cleanse",
       product: "Anti-Dandruff Shampoo",
-      description: "Start by wetting your hair thoroughly. Apply the Anti-Dandruff Shampoo and massage gently into your scalp for 2-3 minutes. The piroctone olamine and botanical extracts work to remove flakes and balance scalp microbiome.",
+      description:
+        "Start by wetting your hair thoroughly. Apply the Anti-Dandruff Shampoo and massage gently into your scalp for 2-3 minutes. The piroctone olamine and botanical extracts work to remove flakes and balance scalp microbiome.",
       icon: Droplets,
     },
     {
       step: 2,
       title: "Treat",
       product: "Anti-Dandruff Serum",
-      description: "After washing and towel-drying your hair, apply the Anti-Dandruff Serum directly to your scalp. Massage gently to ensure absorption. For best results, leave overnight and style as usual in the morning.",
+      description:
+        "After washing and towel-drying your hair, apply the Anti-Dandruff Serum directly to your scalp. Massage gently to ensure absorption. For best results, leave overnight and style as usual in the morning.",
       icon: Sparkles,
     },
     {
       step: 3,
       title: "Protect",
       product: "Daily Maintenance",
-      description: "Use this routine 2-3 times per week for optimal results. The powerful combination of biotin, niacin, and tea tree oil will restore your scalp's natural health and prevent dandruff from returning.",
+      description:
+        "Use this routine 2-3 times per week for optimal results. The powerful combination of biotin, niacin, and tea tree oil will restore your scalp's natural health and prevent dandruff from returning.",
       icon: Shield,
     },
   ];
@@ -72,23 +86,31 @@ const ScalpCareRoutinePage = () => {
   const keyIngredients = [
     {
       name: "Piroctone Olamine",
-      benefit: "Powerful anti-dandruff agent that eliminates flakes without harsh chemicals",
-      image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=200&h=200&fit=crop",
+      benefit:
+        "Powerful anti-dandruff agent that eliminates flakes without harsh chemicals",
+      image:
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=200&h=200&fit=crop",
     },
     {
       name: "Tea Tree Oil",
-      benefit: "Natural antibacterial and antifungal properties to maintain scalp health",
-      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop",
+      benefit:
+        "Natural antibacterial and antifungal properties to maintain scalp health",
+      image:
+        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop",
     },
     {
       name: "Biotin & Niacin",
-      benefit: "Essential vitamins that nourish hair follicles and promote healthy growth",
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop",
+      benefit:
+        "Essential vitamins that nourish hair follicles and promote healthy growth",
+      image:
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop",
     },
     {
       name: "Botanical Extract Blend",
-      benefit: "Spinach, kale, rosemary, and neem work together to soothe and protect",
-      image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=200&h=200&fit=crop",
+      benefit:
+        "Spinach, kale, rosemary, and neem work together to soothe and protect",
+      image:
+        "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=200&h=200&fit=crop",
     },
   ];
 
@@ -98,21 +120,24 @@ const ScalpCareRoutinePage = () => {
       location: "Mumbai",
       rating: 5,
       text: "I've struggled with dandruff for years. After just 2 weeks of using this combo, my scalp is completely clear. Life-changing!",
-      image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop",
     },
     {
       name: "Arjun Patel",
       location: "Delhi",
       rating: 5,
       text: "Finally found something that actually works. No more embarrassing white flakes on my shoulders. Highly recommend!",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
     },
     {
       name: "Sneha Reddy",
       location: "Bangalore",
       rating: 5,
       text: "The serum feels so soothing on my itchy scalp. Love that it's overnight - wake up with a fresh, healthy scalp!",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
     },
   ];
 
@@ -125,7 +150,7 @@ const ScalpCareRoutinePage = () => {
             <div className="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full blur-3xl" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/30 rounded-full blur-3xl" />
           </div>
-          
+
           <div className="container mx-auto px-4 py-20 relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -137,16 +162,25 @@ const ScalpCareRoutinePage = () => {
                   Complete Scalp Care Solution
                 </span>
                 <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 leading-tight">
-                  Your Journey to a <span className="text-primary">Dandruff-Free</span> Scalp
+                  Your Journey to a{" "}
+                  <span className="text-primary">Dandruff-Free</span> Scalp
                 </h1>
                 <p className="text-lg text-muted-foreground mb-8 max-w-lg">
-                  Experience the power of our clinically-proven Anti-Dandruff duo. Combining ancient Ayurvedic wisdom with modern science for lasting results.
+                  Experience the power of our clinically-proven Anti-Dandruff
+                  duo. Combining ancient Ayurvedic wisdom with modern science
+                  for lasting results.
                 </p>
-                
+
                 <div className="flex flex-wrap gap-4 mb-8">
-                  <Button onClick={handleAddBundleToCart} size="lg" className="gap-2">
+                  <Button
+                    onClick={handleAddBundleToCart}
+                    size="lg"
+                    className="gap-2"
+                  >
                     <ShoppingBag className="w-5 h-5" />
-                    {addedToCart === "bundle" ? "Added!" : `Get the Bundle - ${formatPrice(bundlePrice)}`}
+                    {addedToCart === "bundle"
+                      ? "Added!"
+                      : `Get the Bundle - ${formatPrice(bundlePrice)}`}
                   </Button>
                   <Button variant="outline" size="lg" asChild>
                     <a href="#routine">See the Routine</a>
@@ -180,7 +214,9 @@ const ScalpCareRoutinePage = () => {
                         className="w-full aspect-square object-cover rounded-xl mb-4"
                       />
                       <h3 className="font-serif text-lg mb-1">{serum.name}</h3>
-                      <p className="text-primary font-medium">{formatPrice(serum.price)}</p>
+                      <p className="text-primary font-medium">
+                        {formatPrice(serum.price)}
+                      </p>
                     </div>
                   )}
                   {shampoo && (
@@ -190,8 +226,12 @@ const ScalpCareRoutinePage = () => {
                         alt={shampoo.name}
                         className="w-full aspect-square object-cover rounded-xl mb-4"
                       />
-                      <h3 className="font-serif text-lg mb-1">{shampoo.name}</h3>
-                      <p className="text-primary font-medium">{formatPrice(shampoo.price)}</p>
+                      <h3 className="font-serif text-lg mb-1">
+                        {shampoo.name}
+                      </h3>
+                      <p className="text-primary font-medium">
+                        {formatPrice(shampoo.price)}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -218,12 +258,15 @@ const ScalpCareRoutinePage = () => {
         <section id="routine" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">Step-by-Step Guide</p>
+              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">
+                Step-by-Step Guide
+              </p>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
                 Your Scalp Care Routine
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Follow this simple 3-step routine to achieve a healthy, dandruff-free scalp
+                Follow this simple 3-step routine to achieve a healthy,
+                dandruff-free scalp
               </p>
             </div>
 
@@ -240,15 +283,21 @@ const ScalpCareRoutinePage = () => {
                   {index < routineSteps.length - 1 && (
                     <div className="hidden md:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent -translate-x-1/2" />
                   )}
-                  
+
                   <div className="bg-secondary/30 p-8 rounded-2xl text-center h-full">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
                       <step.icon className="w-8 h-8 text-primary" />
                     </div>
-                    <span className="text-xs uppercase tracking-luxury text-primary mb-2 block">Step {step.step}</span>
+                    <span className="text-xs uppercase tracking-luxury text-primary mb-2 block">
+                      Step {step.step}
+                    </span>
                     <h3 className="font-serif text-2xl mb-2">{step.title}</h3>
-                    <p className="text-sm text-primary font-medium mb-4">{step.product}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                    <p className="text-sm text-primary font-medium mb-4">
+                      {step.product}
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -260,7 +309,9 @@ const ScalpCareRoutinePage = () => {
         <section className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">Powerful Ingredients</p>
+              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">
+                Powerful Ingredients
+              </p>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground">
                 The Science Behind the Solution
               </h2>
@@ -282,7 +333,9 @@ const ScalpCareRoutinePage = () => {
                     className="w-20 h-20 rounded-full object-cover mx-auto mb-4"
                   />
                   <h3 className="font-serif text-lg mb-2">{ingredient.name}</h3>
-                  <p className="text-sm text-muted-foreground">{ingredient.benefit}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {ingredient.benefit}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -293,7 +346,9 @@ const ScalpCareRoutinePage = () => {
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">Shop the Routine</p>
+              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">
+                Shop the Routine
+              </p>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground">
                 Complete Your Collection
               </h2>
@@ -303,58 +358,76 @@ const ScalpCareRoutinePage = () => {
               {[
                 { product: shampoo, key: "shampoo", label: "Step 1: Cleanse" },
                 { product: serum, key: "serum", label: "Step 2: Treat" },
-              ].map(({ product, key, label }) => product && (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="bg-secondary/30 rounded-2xl overflow-hidden"
-                >
-                  <div className="grid sm:grid-cols-2">
-                    <Link to={`/product/${product.id}`}>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-64 sm:h-full object-cover"
-                      />
-                    </Link>
-                    <div className="p-6 flex flex-col justify-center">
-                      <span className="text-xs uppercase tracking-luxury text-primary mb-2">{label}</span>
-                      <h3 className="font-serif text-xl mb-2">{product.name}</h3>
-                      
-                      <div className="flex items-center gap-1 mb-3">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={cn(
-                              "w-4 h-4",
-                              i < Math.floor(product.rating) ? "fill-primary text-primary" : "text-muted"
-                            )}
+              ].map(
+                ({ product, key, label }) =>
+                  product && (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      viewport={{ once: true }}
+                      className="bg-secondary/30 rounded-2xl overflow-hidden"
+                    >
+                      <div className="grid sm:grid-cols-2">
+                        <Link to={`/product/${product.id}`}>
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-full h-64 sm:h-full object-cover"
                           />
-                        ))}
-                        <span className="text-sm text-muted-foreground ml-1">({product.reviews})</span>
-                      </div>
-
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.description}</p>
-                      
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="font-serif text-xl">{formatPrice(product.price)}</span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-muted-foreground line-through">
-                            {formatPrice(product.originalPrice)}
+                        </Link>
+                        <div className="p-6 flex flex-col justify-center">
+                          <span className="text-xs uppercase tracking-luxury text-primary mb-2">
+                            {label}
                           </span>
-                        )}
-                      </div>
+                          <h3 className="font-serif text-xl mb-2">
+                            {product.name}
+                          </h3>
 
-                      <Button onClick={() => handleAddToCart(key)} className="w-full">
-                        {addedToCart === key ? "Added!" : "Add to Bag"}
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                          <div className="flex items-center gap-1 mb-3">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={cn(
+                                  "w-4 h-4",
+                                  i < Math.floor(product.rating)
+                                    ? "fill-primary text-primary"
+                                    : "text-muted",
+                                )}
+                              />
+                            ))}
+                            <span className="text-sm text-muted-foreground ml-1">
+                              ({product.reviews})
+                            </span>
+                          </div>
+
+                          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                            {product.description}
+                          </p>
+
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className="font-serif text-xl">
+                              {formatPrice(product.price)}
+                            </span>
+                            {product.originalPrice && (
+                              <span className="text-sm text-muted-foreground line-through">
+                                {formatPrice(product.originalPrice)}
+                              </span>
+                            )}
+                          </div>
+
+                          <Button
+                            onClick={() => handleAddToCart(key)}
+                            className="w-full"
+                          >
+                            {addedToCart === key ? "Added!" : "Add to Bag"}
+                          </Button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ),
+              )}
             </div>
 
             {/* Bundle CTA */}
@@ -367,15 +440,26 @@ const ScalpCareRoutinePage = () => {
             >
               <h3 className="font-serif text-2xl mb-3">Get Both & Save</h3>
               <p className="text-muted-foreground mb-4">
-                Purchase the complete scalp care routine and save {formatPrice(bundleSavings)}
+                Purchase the complete scalp care routine and save{" "}
+                {formatPrice(bundleSavings)}
               </p>
               <div className="flex items-center justify-center gap-4 mb-6">
-                <span className="text-2xl font-serif text-primary">{formatPrice(bundlePrice)}</span>
-                <span className="text-lg text-muted-foreground line-through">{formatPrice(bundleOriginalPrice)}</span>
+                <span className="text-2xl font-serif text-primary">
+                  {formatPrice(bundlePrice)}
+                </span>
+                <span className="text-lg text-muted-foreground line-through">
+                  {formatPrice(bundleOriginalPrice)}
+                </span>
               </div>
-              <Button onClick={handleAddBundleToCart} size="lg" className="gap-2">
+              <Button
+                onClick={handleAddBundleToCart}
+                size="lg"
+                className="gap-2"
+              >
                 <ShoppingBag className="w-5 h-5" />
-                {addedToCart === "bundle" ? "Added to Bag!" : "Add Bundle to Bag"}
+                {addedToCart === "bundle"
+                  ? "Added to Bag!"
+                  : "Add Bundle to Bag"}
               </Button>
             </motion.div>
           </div>
@@ -385,7 +469,9 @@ const ScalpCareRoutinePage = () => {
         <section className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">Customer Stories</p>
+              <p className="text-sm uppercase tracking-wide-luxury text-primary mb-3">
+                Customer Stories
+              </p>
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground">
                 Real Results, Real People
               </h2>
@@ -403,10 +489,15 @@ const ScalpCareRoutinePage = () => {
                 >
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-primary text-primary"
+                      />
                     ))}
                   </div>
-                  <p className="text-muted-foreground mb-6 italic">"{testimonial.text}"</p>
+                  <p className="text-muted-foreground mb-6 italic">
+                    "{testimonial.text}"
+                  </p>
                   <div className="flex items-center gap-3">
                     <img
                       src={testimonial.image}
@@ -415,7 +506,9 @@ const ScalpCareRoutinePage = () => {
                     />
                     <div>
                       <p className="font-medium">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.location}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {testimonial.location}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -427,9 +520,12 @@ const ScalpCareRoutinePage = () => {
         {/* Final CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="font-serif text-3xl md:text-4xl mb-4">Ready for a Healthier Scalp?</h2>
+            <h2 className="font-serif text-3xl md:text-4xl mb-4">
+              Ready for a Healthier Scalp?
+            </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-xl mx-auto">
-              Join thousands of happy customers who have transformed their scalp health with our Anti-Dandruff routine.
+              Join thousands of happy customers who have transformed their scalp
+              health with our Anti-Dandruff routine.
             </p>
             <Button
               onClick={handleAddBundleToCart}

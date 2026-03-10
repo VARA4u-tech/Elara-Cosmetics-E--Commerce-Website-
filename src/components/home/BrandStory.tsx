@@ -14,13 +14,15 @@ const BrandStory = () => {
           </h2>
           <div className="space-y-3 sm:space-y-4 text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
             <p>
-              For centuries, Indian royalty have guarded the secrets of their legendary beauty rituals. 
-              Our formulations draw from these time-honored traditions, combining rare herbs, precious 
+              For centuries, Indian royalty have guarded the secrets of their
+              legendary beauty rituals. Our formulations draw from these
+              time-honored traditions, combining rare herbs, precious
               botanicals, and ancient Ayurvedic wisdom.
             </p>
             <p>
-              Each product is meticulously crafted in small batches, using traditional cold-pressed 
-              methods and hand-ground ingredients to preserve the potency of nature's finest offerings.
+              Each product is meticulously crafted in small batches, using
+              traditional cold-pressed methods and hand-ground ingredients to
+              preserve the potency of nature's finest offerings.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">

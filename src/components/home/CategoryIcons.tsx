@@ -41,12 +41,6 @@ const categoryData = [
     route: "/category/hair?sub=scalp%20care",
   },
   {
-    id: "mens-care",
-    name: "MEN'S CARE",
-    image: menImg,
-    route: "/category/makeup",
-  },
-  {
     id: "scalp-serum",
     name: "SCALP SERUM",
     image: wellnessImg,

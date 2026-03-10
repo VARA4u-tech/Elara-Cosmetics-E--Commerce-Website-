@@ -5,7 +5,14 @@ import { formatPrice } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 const CartDrawer = () => {
-  const { items, isCartOpen, setIsCartOpen, updateQuantity, removeItem, totalPrice } = useCart();
+  const {
+    items,
+    isCartOpen,
+    setIsCartOpen,
+    updateQuantity,
+    removeItem,
+    totalPrice,
+  } = useCart();
 
   return (
     <>
@@ -13,7 +20,7 @@ const CartDrawer = () => {
       <div
         className={cn(
           "fixed inset-0 bg-foreground/50 z-50 transition-opacity duration-300",
-          isCartOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          isCartOpen ? "opacity-100 visible" : "opacity-0 invisible",
         )}
         onClick={() => setIsCartOpen(false)}
       />
@@ -22,7 +29,7 @@ const CartDrawer = () => {
       <div
         className={cn(
           "fixed top-0 right-0 h-full w-full max-w-md bg-background z-50 shadow-luxury-lg transition-transform duration-300 flex flex-col",
-          isCartOpen ? "translate-x-0" : "translate-x-full"
+          isCartOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
         {/* Header */}
@@ -92,14 +99,18 @@ const CartDrawer = () => {
                     </button>
                     <div className="flex items-center border border-border">
                       <button
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item.product.id, item.quantity - 1)
+                        }
                         className="p-1.5 hover:bg-secondary transition-colors"
                       >
                         <Minus className="w-3 h-3" />
                       </button>
                       <span className="px-3 text-sm">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item.product.id, item.quantity + 1)
+                        }
                         className="p-1.5 hover:bg-secondary transition-colors"
                       >
                         <Plus className="w-3 h-3" />
@@ -117,7 +128,9 @@ const CartDrawer = () => {
           <div className="border-t border-border p-6 space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-sm text-muted-foreground">Subtotal</span>
-              <span className="font-serif text-lg font-medium">{formatPrice(totalPrice)}</span>
+              <span className="font-serif text-lg font-medium">
+                {formatPrice(totalPrice)}
+              </span>
             </div>
             <p className="text-xs text-muted-foreground">
               Shipping and taxes calculated at checkout

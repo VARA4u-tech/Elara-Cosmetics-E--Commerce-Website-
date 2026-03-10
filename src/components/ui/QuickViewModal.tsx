@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 import { Product, formatPrice } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -31,7 +27,9 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl p-0 gap-0 overflow-hidden">
-        <DialogTitle className="sr-only">Quick View: {product.name}</DialogTitle>
+        <DialogTitle className="sr-only">
+          Quick View: {product.name}
+        </DialogTitle>
         <div className="grid md:grid-cols-2">
           {/* Image */}
           <div className="relative aspect-square bg-secondary/20">
@@ -43,8 +41,12 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
             {/* Badges */}
             <div className="absolute top-4 left-4 flex flex-col gap-2">
               {product.isNew && <span className="badge-new">New</span>}
-              {product.isBestseller && <span className="badge-bestseller">Bestseller</span>}
-              {product.originalPrice && <span className="badge-sale">Sale</span>}
+              {product.isBestseller && (
+                <span className="badge-bestseller">Bestseller</span>
+              )}
+              {product.originalPrice && (
+                <span className="badge-sale">Sale</span>
+              )}
             </div>
           </div>
 
@@ -70,7 +72,7 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
                       "w-4 h-4",
                       i < Math.floor(product.rating)
                         ? "fill-primary text-primary"
-                        : "fill-muted text-muted"
+                        : "fill-muted text-muted",
                     )}
                   />
                 ))}
@@ -99,7 +101,8 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
 
             {/* Size */}
             <p className="text-sm text-muted-foreground mb-6">
-              <span className="font-medium text-foreground">Size:</span> {product.size}
+              <span className="font-medium text-foreground">Size:</span>{" "}
+              {product.size}
             </p>
 
             {/* Quantity & Add to Cart */}

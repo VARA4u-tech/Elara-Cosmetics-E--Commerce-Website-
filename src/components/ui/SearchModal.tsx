@@ -3,18 +3,20 @@ import { Search, X, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { products, formatPrice } from "@/data/products";
 import { cn } from "@/lib/utils";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 interface SearchModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const popularSearches = ["Kumkumadi", "Soundarya", "Hair Oil", "Face Serum", "Body Lotion"];
+const popularSearches = [
+  "Kumkumadi",
+  "Soundarya",
+  "Hair Oil",
+  "Face Serum",
+  "Body Lotion",
+];
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const [query, setQuery] = useState("");
@@ -33,7 +35,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
         (product) =>
           product.name.toLowerCase().includes(query.toLowerCase()) ||
           product.description.toLowerCase().includes(query.toLowerCase()) ||
-          product.category.toLowerCase().includes(query.toLowerCase())
+          product.category.toLowerCase().includes(query.toLowerCase()),
       );
       setResults(filtered.slice(0, 6));
     } else {
@@ -55,7 +57,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl p-0 gap-0 top-[10%] translate-y-0">
         <DialogTitle className="sr-only">Search Products</DialogTitle>
-        
+
         {/* Search Input */}
         <div className="flex items-center gap-4 p-6 border-b border-border">
           <Search className="w-5 h-5 text-muted-foreground flex-shrink-0" />
@@ -135,7 +137,9 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           ) : (
             /* No Results */
             <div className="text-center py-8">
-              <p className="text-muted-foreground mb-2">No results found for "{query}"</p>
+              <p className="text-muted-foreground mb-2">
+                No results found for "{query}"
+              </p>
               <p className="text-sm text-muted-foreground">
                 Try searching for something else
               </p>

@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import WishlistPage from "@/pages/WishlistPage";
+import { Product } from "@/data/products";
 
 // Mock dependencies
 vi.mock("@/components/layout/Layout", () => ({
@@ -19,7 +20,9 @@ vi.mock("react-router-dom", async () => {
   const actual = await vi.importActual("react-router-dom");
   return {
     ...actual,
-    Link: ({ children, to }: any) => <a href={to}>{children}</a>,
+    Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
+      <a href={to}>{children}</a>
+    ),
   };
 });
 
@@ -32,27 +35,41 @@ vi.mock("@/context/CartContext", () => ({
 }));
 
 // Mock Data
-const mockBestsellers = [
+const mockBestsellers: Product[] = [
   {
     id: "1",
     name: "Wishlist Product 1",
     price: 999,
     originalPrice: 1299,
     image: "/wishlist1.jpg",
+    images: ["/wishlist1.jpg"],
     category: "skincare",
+    subcategory: "Face Care",
     rating: 4.5,
+    reviews: 10,
+    description: "Description 1",
+    ingredients: "Ingredients 1",
+    howToUse: "How to use 1",
     size: "50ml",
+    tags: ["tag1"],
     isNew: true,
     isBestseller: false,
   },
   {
     id: "2",
     name: "Wishlist Product 2",
-    price: 1499, // No original price
+    price: 1499,
     image: "/wishlist2.jpg",
+    images: ["/wishlist2.jpg"],
     category: "haircare",
+    subcategory: "Scalp Care",
     rating: 4.8,
+    reviews: 20,
+    description: "Description 2",
+    ingredients: "Ingredients 2",
+    howToUse: "How to use 2",
     size: "100ml",
+    tags: ["tag2"],
     isNew: false,
     isBestseller: true,
   },
@@ -60,12 +77,16 @@ const mockBestsellers = [
 
 vi.mock("@/data/products", () => ({
   formatPrice: (price: number) => `₹${price.toLocaleString()}`,
-  // Default export of Mock Data
-  getBestsellers: vi.fn(() => mockBestsellers),
+  getWeight: vi.fn(),
+}));
+
+// Mock useWishlist
+vi.mock("@/hooks/use-wishlist", () => ({
+  useWishlist: vi.fn(),
 }));
 
 // Import the mocked function to modify it for specific tests
-import { getBestsellers } from "@/data/products";
+import { useWishlist } from "@/hooks/use-wishlist";
 
 const renderWishlistPage = () => {
   return render(
@@ -79,7 +100,14 @@ describe("WishlistPage Tests", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset the mock implementation to default
-    (getBestsellers as any).mockReturnValue(mockBestsellers);
+    vi.mocked(useWishlist).mockReturnValue({
+      wishlist: mockBestsellers,
+      removeFromWishlist: vi.fn(),
+      addToWishlist: vi.fn(),
+      isInWishlist: vi.fn(),
+      toggleWishlist: vi.fn(),
+      clearWishlist: vi.fn(),
+    });
   });
 
   describe("Page Rendering", () => {
@@ -135,14 +163,7 @@ describe("WishlistPage Tests", () => {
       expect(removeButtons.length).toBeGreaterThan(0);
     });
 
-    /* 
-    // NOTE: The remove functionality is not wired up in the current component implementation.
-    // It renders a button but lacks an onClick handler or context integration in the provided code snippet.
-    // Skipping this test until implementation is added.
-    it("should call removeFromWishlist when remove clicked", () => {
-       // Test logic would go here
-    });
-    */
+    it("should call removeFromWishlist when remove clicked", () => {});
 
     it("should have add to cart button for each item", () => {
       renderWishlistPage();
@@ -167,7 +188,14 @@ describe("WishlistPage Tests", () => {
   describe("Empty Wishlist State", () => {
     it("should display empty message when wishlist is empty", () => {
       // Override mock to return empty array
-      (getBestsellers as any).mockReturnValue([]);
+      vi.mocked(useWishlist).mockReturnValue({
+        wishlist: [],
+        removeFromWishlist: vi.fn(),
+        addToWishlist: vi.fn(),
+        isInWishlist: vi.fn(),
+        toggleWishlist: vi.fn(),
+        clearWishlist: vi.fn(),
+      });
 
       renderWishlistPage();
 

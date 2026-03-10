@@ -1,6 +1,8 @@
-<h1 align="center">🌿 Elara Cosmetics - Premium Ayurvedic Skincare<h1/>
+<h1 align="center" style="font-size:48px;">
+🌿 Elara Cosmetics - Premium Ayurvedic Skincare
+</h1>
 
-Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.
+<h4>Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.<h4>
 
 <p align="center">
   <img 

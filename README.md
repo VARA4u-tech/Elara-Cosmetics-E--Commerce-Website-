@@ -1,8 +1,16 @@
-# 🌿 Elara Cosmetics - Premium Ayurvedic Skincare
+<h1 align="center" style="font-size:48px;">
+🌿 Elara Cosmetics - Premium Ayurvedic Skincare
+</h1>
 
-Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.
+<h4>Welcome to the **Elara Cosmetics** e-commerce platform. This project is a modern, responsive web application built for a premium skincare brand, blending ancient Ayurvedic wisdom with contemporary beauty solutions.<h4>
 
-![WhatsApp Image 2026-02-07 at 8 12 19 PM](https://github.com/user-attachments/assets/48935aa5-b57a-48c0-8a7e-fc01a8b0fde6)
+<p align="center">
+  <img 
+    src="https://github.com/user-attachments/assets/48935aa5-b57a-48c0-8a7e-fc01a8b0fde6" 
+    width="600"
+    style="border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.15);"
+  />
+</p>
 
 ## 🚀 Project Overview
 
